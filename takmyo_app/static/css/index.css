@@ -6,6 +6,7 @@ body, html{
     background-color: beige;
     /* background-color: #FAED7D; */
     /* background-color: #FAF4C0; */
+    overflow: hidden;
 }
 
 a{
