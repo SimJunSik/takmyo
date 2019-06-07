@@ -26,7 +26,7 @@ $(document).ready(function() {
 
         start_position = event.touches[0].screenY;
 
-        e.preventDefault();
+        // e.preventDefault();
     });
 
     $(document).bind('touchmove', function(e) {
@@ -100,7 +100,7 @@ $(document).ready(function() {
             }
         }
 
-        event.preventDefault();
+        // event.preventDefault();
 
     });
 
@@ -108,7 +108,7 @@ $(document).ready(function() {
 
         // console.log("터치이벤트가 종료되었어"); 
 
-        e.preventDefault();
+        // e.preventDefault();
 
     });
 
