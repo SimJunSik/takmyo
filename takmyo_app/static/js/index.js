@@ -10,24 +10,6 @@ const close_menu = () =>{
     });
 }
 
-
-$(document).ready(function(){
-    $(document)
-    .on("mousedown", function(event){
-        console.log(event.pageX);
-    })
-    .mousemove(function(event){
-        console.log(event.pageX);
-    })
-    .on("mouseup", function(){
-        console.log(event.pageX);
-    });
-    // $('html, body')
-    //     .animate({
-    //         scrollTop: $(".content2").offset().top
-    //     }, 500);
-});
-
 var is_animating = false;
 
 $(document).ready(function() {
