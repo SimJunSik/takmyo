@@ -43,11 +43,17 @@ $(document).ready(function() {
             if(is_animating == false){
                 is_animating = true;
                 // console.log('down');
-                $('html, body')
+                // $('html, body')
+                // .stop()
+                // .animate({
+                //     scrollTop: 0
+                // }, 500);
+
+                $(".content")
                 .stop()
                 .animate({
-                    scrollTop: 0
-                }, 500);
+                    'top' : "-100%"
+                },500);
 
                 $("#div-index-circle1").css({
                     'background-color' : 'gray',
@@ -67,11 +73,18 @@ $(document).ready(function() {
             if(is_animating == false){
                 is_animating = true;
                 // console.log('up');
-                $('html, body')
+                // $('html, body')
+                // .stop()
+                // .animate({
+                //     scrollTop: $(".content2").offset().top
+                // }, 500);
+
+                $(".content")
                 .stop()
                 .animate({
-                    scrollTop: $(".content2").offset().top
-                }, 500);
+                    'top' : "0%"
+                },500);
+
                 $("#div-index-circle2").css({
                     'background-color' : 'gray',
                     'opacity' : '0.5'
