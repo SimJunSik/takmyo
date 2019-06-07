@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- import css -->
+    <link rel="stylesheet" href="/static/css/join.css">
+
+    <!-- import jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- import js -->
+    <script src="/static/js/join.js" async></script>
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+</head>
+<body>
+    <!-- top start -->
+    <div class="top">
+        <div class="top-menuWrapper">
+            <img class="top-menu_icon" 
+                src="/static/image/menu_icon.png"
+                onclick="open_menu();"
+                >
+        </div>
+    </div>
+    <!-- top end -->
+
+    <!-- menu start -->
+    <div class="menu">
+        <div class="menu-listWrapper">
+            <div class="menu-list-itemWrapper">
+                <div class="menu-list-item-myWrapper">
+                    <div class="menu-list-titleWrapper">
+                        <div class="menu-list-title_text">
+                            MY
+                        </div>
+                    </div>
+
+                    <hr class="menu-list-title-underbar">
+
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            Login
+                        </div>
+                    </div>
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            Join
+                        </div>
+                    </div>
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            Mypage
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-list-item-categoryWrapper">
+                    <div class="menu-list-titleWrapper">
+                        <div class="menu-list-title_text">
+                            CATEGORY
+                        </div>
+                    </div>
+
+                    <hr class="menu-list-title-underbar">
+
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            About us
+                        </div>
+                    </div>
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            Catsitter search
+                        </div>
+                    </div>
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            Catsitter mode
+                        </div>
+                    </div>
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            Catee mode
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-list-item-contactWrapper">
+                    <div class="menu-list-titleWrapper">
+                        <div class="menu-list-title_text">
+                            CONTACT
+                        </div>
+                    </div>
+
+                    <hr class="menu-list-title-underbar">
+
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            wnstlr24@gmail.com
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="menu-aboutWrapper">
+
+        </div>
+
+        <div class="menu-closeWrapper">
+            <img class="menu-close_icon" 
+                src="/static/image/close_icon.png"
+                onclick="close_menu();"
+                >
+        </div>
+    </div>
+    <!-- menu end -->
+
+    <div class="content">
+        <form class="content-form" name="frm" method="POST" action='./'>
+            <div class="content-form-idWrapper">
+                <div class="content-form-domainWrapper">
+                    <div class="content-form-domain_text">
+                        ID
+                    </div>
+                </div>
+                <div class="content-form-inputWrapper">
+                    <div class="content-form-idInputWrapper">
+                        <input type="text" 
+                                class="content-form-idInput" 
+                                id="idInput" 
+                                name="user_id"
+                                required>
+                        <button type="button" class="content-form-idButton">중복확인</button>
+                    </div>
+                    <div class="content-form-idResultWrapper">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-form-pwWrapper">
+                <div class="content-form-domainWrapper">
+                    <div class="content-form-domain_text">
+                        pw
+                    </div>
+                </div>
+                <div class="content-form-inputWrapper">
+                    <input type="password" 
+                            class="content-form-pwInput" 
+                            id="pwInput" 
+                            name="user_pw"
+                            placeholder="영문,숫자 조합 8자 이상"
+                            required>
+                </div>
+            </div>
+
+            <div class="content-form-repwWrapper">
+                <div class="content-form-domainWrapper">
+                    <div class="content-form-domain_text">
+                        re-pw
+                    </div>
+                </div>
+                <div class="content-form-inputWrapper">
+                    <div class="content-form-repwInputWrapper">
+                        <input type="password" 
+                            class="content-form-repwInput" 
+                            id="repwInput" 
+                            name="user_repw"
+                            required>
+                    </div>
+                    <div class="content-form-pwResultWrapper">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-form-genderWrapper">
+                <div class="content-form-domainWrapper">
+                    <div class="content-form-domain_text">
+                        m/w
+                    </div>
+                </div>
+                <div class="content-form-inputWrapper">
+                    <div class="content-form-genderInputWrapper">
+                        <input type="radio" class="content-form-genderInput" name="gender" checked>남
+                        &nbsp;
+                        <input type="radio" class="content-form-genderInput" name="gender">여
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-form-addressWrapper">
+                <div class="content-form-domainWrapper">
+                    <div class="content-form-domain_text">
+                        addr
+                    </div>
+                </div>
+                <div class="content-form-inputWrapper">
+                    <input type="text" id="sample3_postcode" placeholder="우편번호">
+                    <input type="button" onclick="sample3_execDaumPostcode()" value="우편번호 찾기"><br>
+                    <input type="text" id="sample3_address" placeholder="주소"><br>
+                    <input type="text" id="sample3_detailAddress" placeholder="상세주소">
+                    <input type="text" id="sample3_extraAddress" placeholder="참고항목">
+                </div>
+            </div>
+            <div id="wrap">
+                <img src="//t1.daumcdn.net/postcode/resource/images/close.png" 
+                    id="btnFoldWrap" 
+                    style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" 
+                    onclick="foldDaumPostcode()" 
+                    alt="접기 버튼">
+            </div>
+
+            <div class="content-form-phoneWrapper">
+                <div class="content-form-domainWrapper">
+                    <div class="content-form-domain_text">
+                        phone
+                    </div>
+                </div>
+                <div class="content-form-inputWrapper">
+                    <input type="text" 
+                        class="content-form-pwInput" 
+                        id="phoneInput" 
+                        name="user_phone"
+                        placeholder=" - 없이 입력"
+                        required>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

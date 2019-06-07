@@ -4,15 +4,157 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 
     <!-- import css -->
     <link rel="stylesheet" href="/static/css/index.css">
 
-    <title>Document</title>
+    <!-- import jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- import js -->
+    <script src="/static/js/index.js" async></script>
+
 </head>
 <body>
-    <div class="test">
-        This is index
+    <!-- top start -->
+    <div class="top">
+        <div class="top-menuWrapper">
+            <img class="top-menu_icon" 
+                src="/static/image/menu_icon.png"
+                onclick="open_menu();"
+                >
+        </div>
     </div>
+    <!-- top end -->
+
+    <!-- menu start -->
+    <div class="menu">
+        <div class="menu-listWrapper">
+            <div class="menu-list-itemWrapper">
+                <div class="menu-list-item-myWrapper">
+                    <div class="menu-list-titleWrapper">
+                        <div class="menu-list-title_text">
+                            MY
+                        </div>
+                    </div>
+
+                    <hr class="menu-list-title-underbar">
+
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            Login
+                        </div>
+                    </div>
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            <a href="/join/">
+                                Join
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            Mypage
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-list-item-categoryWrapper">
+                    <div class="menu-list-titleWrapper">
+                        <div class="menu-list-title_text">
+                            CATEGORY
+                        </div>
+                    </div>
+
+                    <hr class="menu-list-title-underbar">
+
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            About us
+                        </div>
+                    </div>
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            Catsitter search
+                        </div>
+                    </div>
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            Catsitter mode
+                        </div>
+                    </div>
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            Catee mode
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-list-item-contactWrapper">
+                    <div class="menu-list-titleWrapper">
+                        <div class="menu-list-title_text">
+                            CONTACT
+                        </div>
+                    </div>
+
+                    <hr class="menu-list-title-underbar">
+
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            wnstlr24@gmail.com
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="menu-aboutWrapper">
+
+        </div>
+
+        <div class="menu-closeWrapper">
+            <img class="menu-close_icon" 
+                src="/static/image/close_icon.png"
+                onclick="close_menu();"
+                >
+        </div>
+    </div>
+    <!-- menu end -->
+
+    <!-- content start -->
+    <div class="content content1">
+        <!-- <img class="content-logo_icon" src="/static/image/logo.png"> -->
+        <div class="content-introWrapper">
+            <div class="content-intro_text">
+                안녕하세요
+                <br>
+                고양이
+            </div>
+        </div>
+    </div>
+
+    <div class="content content2">
+        <div class="content2-buttonWrapper">
+            <button class="content2-catsitter_button">Catsitter</button>
+            <button class="content2-catee_button">Catee</button>
+        </div>
+    </div>
+    <!-- content end -->
+
+    <!-- index start -->
+    <div class="div-index">
+        <div class="div-index_1">
+            <div class="div-index-circle" id="div-index-circle1">
+
+            </div>
+        </div>
+        <div class="div-index_2">
+            <div class="div-index-circle" id="div-index-circle2">
+
+            </div>
+        </div>
+    </div>
+    <!-- index end -->
 </body>
 </html>
