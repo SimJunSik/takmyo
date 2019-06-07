@@ -52,7 +52,7 @@ $(document).ready(function() {
                 $(".content")
                 .stop()
                 .animate({
-                    'top' : "-100%"
+                    'top' : "0%"
                 },500);
 
                 $("#div-index-circle1").css({
@@ -82,7 +82,7 @@ $(document).ready(function() {
                 $(".content")
                 .stop()
                 .animate({
-                    'top' : "0%"
+                    'top' : "-100%"
                 },500);
 
                 $("#div-index-circle2").css({
