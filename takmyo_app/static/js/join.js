@@ -10,6 +10,110 @@ const close_menu = () =>{
     });
 }
 
+const check_id_duplicate = () =>{
+    const user_id = $("#idInput").val();
+
+    if(user_id == ''){
+        alert("아이디를 입력해주세요.");
+        return false;
+    }
+
+    fetch('./check_id_duplicate/' + user_id + '/')
+    .then(e => e.json())
+    .then(e => {
+        if(e.result == 'success'){
+            console.log("success");
+            $("#idInput").data(
+                'checkIdDuplicate' , 'success'
+            );
+
+            $(".content-form-idResultWrapper")
+            .css({
+                'color' : 'green'
+            })
+            .html("사용가능한 아이디입니다.");
+        }
+        else if(e.result == 'failed'){
+            console.log("failed");
+            $("#idInput").data(
+                'checkIdDuplicate' , 'failed'
+            );
+
+            $(".content-form-idResultWrapper")
+            .css({
+                'color' : 'red'
+            })
+            .html("중복된 아이디입니다.");
+        }
+    });
+}
+
+const check_password_is_same = () => {
+    const user_pw = $("#pwInput").val();
+    const user_repw = $("#repwInput").val();
+
+    if(user_pw == user_repw){
+        return true;
+    }
+    else if(user_pw != user_repw){
+        return false;
+    }
+}
+
+const check_password_is_valid = () => {
+    const user_pw = $("#pwInput").val();
+    const user_repw = $("#repwInput").val();
+
+    if(!(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.test(user_pw))){
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+const check_submit_is_valid = () => {
+    const id_valid = $("#idInput").data('checkIdDuplicate');
+    const pw_valid = $("#pwInput").data('checkPwValid');
+
+    console.log(id_valid, pw_valid);
+
+    if(id_valid == 'success' && pw_valid == 'success'){
+        return true;
+    }
+    else {
+        alert("ID 혹은 비밀번호를 체크해주세요.");
+        return false;
+    }
+}
+
+$("#pwInput, #repwInput").change(function(){
+    console.log(check_password_is_same(), check_password_is_valid());
+    
+    if(check_password_is_same() && check_password_is_valid()){
+        $("#pwInput").data(
+            'checkPwValid' , 'success'
+        );
+
+        $(".content-form-pwResultWrapper")
+            .css({
+                'color' : 'green'
+            })
+            .html("PASS");
+    }
+    else {
+        $("#pwInput").data(
+            'checkPwValid' , 'failed'
+        );
+
+        $(".content-form-pwResultWrapper")
+            .css({
+                'color' : 'red'
+            })
+            .html("NON-PASS");
+    }
+});
+
 // 주소 api
 // 우편번호 찾기 찾기 화면을 넣을 element
 

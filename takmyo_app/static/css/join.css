@@ -275,7 +275,7 @@ iframe{
     top: 50%;
     transform: translateY(-50%);
     float: left;
-    font-size: 6vw;
+    font-size: 4vw;
 }
 
 .content-form-repwWrapper{
@@ -307,7 +307,7 @@ iframe{
     top: 50%;
     transform: translateY(-50%);
     float: left;
-    font-size: 6vw;
+    font-size: 4vw;
 }
 
 .content-form-genderWrapper{
@@ -344,6 +344,41 @@ iframe{
     position: relative;
     margin-top: 2%;
     background-color: brown;
+}
+
+.content-form-checkPhoneWrapper{
+    width: 100%;
+    height: 15%;
+    position: relative;
+    margin-top: 2%;
+    background-color: brown;
+    text-align: center;
+}
+
+.content-form-checkPhone_text{
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2%;
+}
+
+.content-form-checkPhone_checkbox{
+    width: 5vw;
+    height: 5vw;
+    position: relative;
+    vertical-align: top;
+}
+
+.content-form-submitButton{
+    width: 40vw;
+    height: 10vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 /* 주소 api */

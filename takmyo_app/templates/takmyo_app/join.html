@@ -122,7 +122,8 @@
     <!-- menu end -->
 
     <div class="content">
-        <form class="content-form" name="frm" method="POST" action='./'>
+        <form class="content-form" name="frm" method="POST" action='./' onsubmit="return check_submit_is_valid();">
+            {% csrf_token %}
             <div class="content-form-idWrapper">
                 <div class="content-form-domainWrapper">
                     <div class="content-form-domain_text">
@@ -135,8 +136,9 @@
                                 class="content-form-idInput" 
                                 id="idInput" 
                                 name="user_id"
+                                data-check-id-duplicate='failed'
                                 required>
-                        <button type="button" class="content-form-idButton">중복확인</button>
+                        <button type="button" class="content-form-idButton" onclick="check_id_duplicate();">중복확인</button>
                     </div>
                     <div class="content-form-idResultWrapper">
 
@@ -155,7 +157,8 @@
                             class="content-form-pwInput" 
                             id="pwInput" 
                             name="user_pw"
-                            placeholder="영문,숫자 조합 8자 이상"
+                            placeholder="영문,숫자,특수문자 조합 8자 이상"
+                            data-check-pw-valid='failed'
                             required>
                 </div>
             </div>
@@ -188,9 +191,9 @@
                 </div>
                 <div class="content-form-inputWrapper">
                     <div class="content-form-genderInputWrapper">
-                        <input type="radio" class="content-form-genderInput" name="gender" checked>남
+                        <input type="radio" class="content-form-genderInput" name="user_gender" value="남" checked>남
                         &nbsp;
-                        <input type="radio" class="content-form-genderInput" name="gender">여
+                        <input type="radio" class="content-form-genderInput" name="user_gender" value="여">여
                     </div>
                 </div>
             </div>
@@ -202,11 +205,11 @@
                     </div>
                 </div>
                 <div class="content-form-inputWrapper">
-                    <input type="text" id="sample3_postcode" placeholder="우편번호">
+                    <input type="text" name="user_postcode" id="sample3_postcode" placeholder="우편번호" required>
                     <input type="button" onclick="sample3_execDaumPostcode()" value="우편번호 찾기"><br>
-                    <input type="text" id="sample3_address" placeholder="주소"><br>
-                    <input type="text" id="sample3_detailAddress" placeholder="상세주소">
-                    <input type="text" id="sample3_extraAddress" placeholder="참고항목">
+                    <input type="text" name="user_address" id="sample3_address" placeholder="주소" required><br>
+                    <input type="text" name="user_detail_address" id="sample3_detailAddress" placeholder="상세주소" required>
+                    <input type="text" name="user_extra_address" id="sample3_extraAddress" placeholder="참고항목">
                 </div>
             </div>
             <div id="wrap">
@@ -232,6 +235,20 @@
                         required>
                 </div>
             </div>
+
+            <div class="content-form-checkPhoneWrapper">
+                <div class="content-form-checkPhone_text">
+                    핸드폰 번호를 공개하시면 
+                    <br>
+                    더 빠른 매칭이 진행될 수 있습니다
+                </div>
+                <input type="checkbox" class="content-form-checkPhone_checkbox" name="user_check_phone" value="checked">공개 동의
+            </div>
+
+            <button type="submit" class="content-form-submitButton">
+                등록하기
+            </button>
+
         </form>
     </div>
 </body>
