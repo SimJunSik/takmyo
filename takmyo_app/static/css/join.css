@@ -12,6 +12,12 @@ a{
     text-decoration: none;
 }
 
+input[type=submit] {-webkit-appearance:none;}
+
+iframe{
+    -webkit-overflow-scrolling:touch;
+}
+
 /* top css */
 .top{
     position: fixed;
