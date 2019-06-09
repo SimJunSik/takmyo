@@ -80,7 +80,7 @@ function sample3_execDaumPostcode() {
             element_wrap.style.height = '50vw';
         },
         width : '100%',
-        height : '100%'
+        height : '101%'
     }).embed(element_wrap);
 
     // iframe을 넣은 element를 보이게 한다.
