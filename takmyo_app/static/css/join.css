@@ -19,6 +19,8 @@ iframe{
     -webkit-overflow-scrolling:touch;
 }
 
+::-webkit-scrollbar{-webkit-appearance: none;}
+
 /* top css */
 .top{
     position: fixed;
@@ -365,5 +367,6 @@ iframe{
     height: 50vw;
     margin:5px 0;
     position:relative;
-    overflow: auto;
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
 }
