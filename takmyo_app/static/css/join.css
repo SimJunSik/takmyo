@@ -13,6 +13,7 @@ a{
 }
 
 input[type=submit] {-webkit-appearance:none;}
+input[type=button] {-webkit-appearance:none;}
 
 iframe{
     -webkit-overflow-scrolling:touch;
@@ -364,4 +365,5 @@ iframe{
     height: 50vw;
     margin:5px 0;
     position:relative;
+    overflow: auto;
 }
