@@ -137,11 +137,13 @@
                                 id="idInput" 
                                 name="user_id"
                                 data-check-id-duplicate='failed'
+                                data-check-id-is-valid='failed'
                                 required>
                         <button type="button" class="content-form-idButton" onclick="check_id_duplicate();">중복확인</button>
                     </div>
                     <div class="content-form-idResultWrapper">
-
+                        <div class="content-form-idResult-duplicate_text"></div>
+                        <div class="content-form-idResult-valid_text"></div>
                     </div>
                 </div>
             </div>

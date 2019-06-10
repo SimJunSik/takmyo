@@ -27,11 +27,20 @@ const check_id_duplicate = () =>{
                 'checkIdDuplicate' , 'success'
             );
 
-            $(".content-form-idResultWrapper")
-            .css({
-                'color' : 'green'
-            })
-            .html("사용가능한 아이디입니다.");
+            if(check_id_is_valid()){
+                $(".content-form-idResult-duplicate_text")
+                .css({
+                    'color' : 'green'
+                })
+                .html("사용가능한 아이디입니다.");
+            }
+            else{
+                $(".content-form-idResult-duplicate_text")
+                .css({
+                    'color' : 'green'
+                })
+                .html("");
+            }
         }
         else if(e.result == 'failed'){
             console.log("failed");
@@ -39,7 +48,7 @@ const check_id_duplicate = () =>{
                 'checkIdDuplicate' , 'failed'
             );
 
-            $(".content-form-idResultWrapper")
+            $(".content-form-idResult-duplicate_text")
             .css({
                 'color' : 'red'
             })
@@ -47,6 +56,47 @@ const check_id_duplicate = () =>{
         }
     });
 }
+
+
+const check_id_is_valid = () =>{
+    const user_id = $("#idInput").val();
+
+    const idReg = /^[a-z]+[a-z0-9]{5,}$/g;
+    if( !idReg.test(user_id)) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+$("#idInput").change(function(){
+    if(check_id_is_valid()){
+        console.log("id_valid","success");
+        $("#idInput").data(
+            'checkIdIsValid' , 'success'
+        );
+
+        $(".content-form-idResult-valid_text")
+        .css({
+            'color' : 'green'
+        })
+        .html("");
+    }
+    else{
+        console.log("id_valid","failed");
+        $("#idInput").data(
+            'checkIdIsValid' , 'failed'
+        );
+
+        $(".content-form-idResult-valid_text")
+        .css({
+            'color' : 'red'
+        })
+        .html("영소문자 + (숫자) 6글자 이상 입력");
+    }
+});
+
 
 const check_password_is_same = () => {
     const user_pw = $("#pwInput").val();
@@ -73,16 +123,17 @@ const check_password_is_valid = () => {
 }
 
 const check_submit_is_valid = () => {
-    const id_valid = $("#idInput").data('checkIdDuplicate');
+    const id_duplicate = $("#idInput").data('checkIdDuplicate');
+    const id_valid = $("#idInput").data('checkIdIsValid');
     const pw_valid = $("#pwInput").data('checkPwValid');
 
-    console.log(id_valid, pw_valid);
+    console.log(id_duplicate, id_valid, pw_valid);
 
-    if(id_valid == 'success' && pw_valid == 'success'){
+    if(id_duplicate == 'success' && id_valid == 'success' && pw_valid == 'success'){
         return true;
     }
     else {
-        alert("ID 혹은 비밀번호를 체크해주세요.");
+        alert("ID 혹은 비밀번호를 확인해주세요.");
         return false;
     }
 }
