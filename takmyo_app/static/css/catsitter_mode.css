@@ -396,6 +396,7 @@
         width: 100%;
         height: 75%;
         background-color: darkblue;
+        margin-top: 3%;
     }
 
     .content-list-selectWrapper{
@@ -448,14 +449,22 @@
         border-bottom: 1px solid black;
     }
 
-    #form-list{
+    #receive_form_list{
         display: block;
         background-color: #2196F3;
     }
 
-    #review-list{
+    #send_form_list{
         display: none;
         background-color: #2196F3;
+    }
+
+
+    .content-list-select-review{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: sandybrown;
     }
 
     /* on off switch css */
