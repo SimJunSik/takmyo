@@ -7,14 +7,13 @@
     <title>Document</title>
 
     <!-- import css -->
-    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/catsitter_mode.css">
 
     <!-- import jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- import js -->
-    <script src="/static/js/index.js" async></script>
-
+    <script src="/static/js/catsitter_mode.js" async></script>
 </head>
 <body>
     <!-- top start -->
@@ -177,38 +176,91 @@
     <!-- menu end -->
 
     <!-- content start -->
-    <div class="content content1">
-        <!-- <img class="content-logo_icon" src="/static/image/logo.png"> -->
-        <div class="content-introWrapper">
-            <div class="content-intro_text">
-                안녕하세요
-                <br>
-                고양이
+    <div class="content">
+        <div class="content-myinfoWrapper">
+            <div class="content-myinfo-profileWrapper">
+                <div class="content-myinfo-profile-imageWrapper">
+                    <img class="content-myinfo-profile_image" src="/static/image/unknown_icon.png">
+                </div>
+                <div class="content-myinfo-profile-idWrapper">
+                    <div class="content-myinfo-profile_text">
+                        junsik<br>
+                        <button>정보수정</button>
+                    </div>
+                </div>
+            </div>
+            <div class="content-myinfo-catsitterWrapper">
+                <div class="content-myinfo-catsitter-countWrapper">
+                    <div class="content-myinfo-catsitter-formCountWrapper">
+                        <div class="content-myinfo-catsitter-iconWrapper">
+                            <img class="content-myinfo-catsitter-icon" src="/static/image/form_icon.png">
+                        </div>
+                        <div class="content-myinfo-catsitter-countTextWrapper">
+                            <div class="content-myinfo-catsitter-count_text">
+                                -건
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-myinfo-catsitter-reviewCountWrapper">
+                        <div class="content-myinfo-catsitter-iconWrapper">
+                            <img class="content-myinfo-catsitter-icon" src="/static/image/review_icon.png">
+                        </div>
+                        <div class="content-myinfo-catsitter-countTextWrapper">
+                            <div class="content-myinfo-catsitter-count_text">
+                                -건
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-myinfo-catsitter-activateWrapper">
+                    <div class="content-myinfo-catsitter-activate-textWrapper">
+                        <div class="content-myinfo-catsitter-activate_text">
+                            캣시터 on/off
+                        </div>
+                    </div>
+                    <div class="content-myinfo-catsitter-activate-switchWrapper">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="content content2">
-        <div class="content2-buttonWrapper">
-            <button class="content2-catsitter_button">Catsitter</button>
-            <button class="content2-catee_button">Catee</button>
+        <div class="content-listWrapper">
+            <div class="content-list-selectWrapper">
+                <div class="content-list-select-item" id="select-form" onclick="select_form()">
+                    <div class="content-list-select-item_text">
+                        신청서
+                    </div>
+                </div>
+                <div class="content-list-select-item" id="select-review" onclick="select_review()">
+                    <div class="content-list-select-item_text">
+                        리뷰
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-list" id="form-list">
+                <div class="content-list-item">
+                    신청서1
+                </div>
+                <div class="content-list-item">
+                    신청서2
+                </div>
+            </div>
+
+            <div class="content-list" id="review-list">
+                <div class="content-list-item">
+                    리뷰1
+                </div>
+                <div class="content-list-item">
+                    리뷰2
+                </div>
+            </div>
         </div>
     </div>
     <!-- content end -->
-
-    <!-- index start -->
-    <div class="div-index">
-        <div class="div-index_1">
-            <div class="div-index-circle" id="div-index-circle1">
-
-            </div>
-        </div>
-        <div class="div-index_2">
-            <div class="div-index-circle" id="div-index-circle2">
-
-            </div>
-        </div>
-    </div>
-    <!-- index end -->
 </body>
 </html>

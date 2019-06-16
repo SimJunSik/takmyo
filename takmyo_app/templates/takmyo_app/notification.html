@@ -7,14 +7,13 @@
     <title>Document</title>
 
     <!-- import css -->
-    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/notification.css">
 
     <!-- import jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- import js -->
-    <script src="/static/js/index.js" async></script>
-
+    <script src="/static/js/notification.js" async></script>
 </head>
 <body>
     <!-- top start -->
@@ -177,38 +176,76 @@
     <!-- menu end -->
 
     <!-- content start -->
-    <div class="content content1">
-        <!-- <img class="content-logo_icon" src="/static/image/logo.png"> -->
-        <div class="content-introWrapper">
-            <div class="content-intro_text">
-                안녕하세요
-                <br>
-                고양이
-            </div>
-        </div>
-    </div>
+    <div class="content">
+        <div class="content-deleteWrapper">
+            <button class="content-delete_button" id="delete_checked_notification_button" onclick="delete_checked_notification()">
+                읽은 알림 삭제
+            </button>
+            <div class="content-delete_bar">
 
-    <div class="content content2">
-        <div class="content2-buttonWrapper">
-            <button class="content2-catsitter_button">Catsitter</button>
-            <button class="content2-catee_button">Catee</button>
+            </div>
+            <button class="content-delete_button" id="delete_all_notification_button" onclick="delete_all_notification()">
+                모두 삭제
+            </button>
+        </div>
+        <div class="content-notificationWrapper">
+            {% for notification in notifications %}
+                {% if notification.is_checked %}
+                    <div class="content-notification checked_notification">
+                        <div class="content-notification-imageWrapper">
+                            {% if notification.category == 'review' %}
+                                <img class="content-notification_image" src="/static/image/review_icon.png">
+                            {% elif notification.category == 'form' %}
+                                <img class="content-notification_image" src="/static/image/form_icon.png">
+                            {% endif %}
+                        </div>
+                        <div class="content-notification-contentWrapper" id="notification_{{notification.id}}" onclick="check_notification(this)">
+                            <div class="content-notification-content-textWrapper">
+                                <div class="content-notification-content_text">
+                                    {% if notification.category == 'review' %}
+                                        {{notification.creator}} 님이 리뷰를 작성하였습니다.
+                                    {% elif notification.category == 'form' %}
+                                        {{notification.creator}} 님이 신청서를 보냈습니다.
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="content-notification-content-createdWrapper">
+                                <div class="content-notification-content_created">
+                                    {{notification.created_at | date:"n월 j일 g시 i분 a"}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="content-notification" >
+                        <div class="content-notification-imageWrapper">
+                            {% if notification.category == 'review' %}
+                                <img class="content-notification_image" src="/static/image/review_icon.png">
+                            {% elif notification.category == 'form' %}
+                                <img class="content-notification_image" src="/static/image/form_icon.png">
+                            {% endif %}
+                        </div>
+                        <div class="content-notification-contentWrapper" id="notification_{{notification.id}}" onclick="check_notification(this)">
+                            <div class="content-notification-content-textWrapper">
+                                <div class="content-notification-content_text">
+                                    {% if notification.category == 'review' %}
+                                        {{notification.creator}} 님이 리뷰를 작성하였습니다.
+                                    {% elif notification.category == 'form' %}
+                                        {{notification.creator}} 님이 신청서를 보냈습니다.
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="content-notification-content-createdWrapper">
+                                <div class="content-notification-content_created">
+                                    {{notification.created_at | date:"n월 j일 g시 i분 a"}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
     <!-- content end -->
-
-    <!-- index start -->
-    <div class="div-index">
-        <div class="div-index_1">
-            <div class="div-index-circle" id="div-index-circle1">
-
-            </div>
-        </div>
-        <div class="div-index_2">
-            <div class="div-index-circle" id="div-index-circle2">
-
-            </div>
-        </div>
-    </div>
-    <!-- index end -->
 </body>
 </html>

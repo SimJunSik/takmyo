@@ -7,7 +7,6 @@
         background-color: beige;
         /* background-color: #FAED7D; */
         /* background-color: #FAF4C0; */
-        overflow: hidden;
     }
 
     a{
@@ -21,8 +20,6 @@
     iframe{
         -webkit-overflow-scrolling:touch;
     }
-
-    ::-webkit-scrollbar{-webkit-appearance: none;}
 
     /* top css */
     .top{
@@ -68,7 +65,6 @@
         top: 0;
         left: 2%;
         background-color: transparent;
-        z-index: 9999;
     }
 
     .menu-notification_image{
@@ -87,6 +83,7 @@
         bottom: 10%;
         right: 10%;
         background-color: red;
+        z-index: 9000;
         border-radius: 50%;
     }
 
@@ -240,22 +237,53 @@
 
     /* content css */
     .content{
+        position: absolute;
+        width: 100%;
+        height: 90%;
+        left: 0;
+        bottom: 0;
+        background-color: brown;
+    }
+
+    .content-myinfoWrapper{
         position: relative;
         width: 100%;
+        height: 25%;
+        background-color: tomato;
+    }
+
+    .content-myinfo-profileWrapper{
+        position: relative;
+        width: 40%;
         height: 100%;
-        background-color: transparent;
+        background-color: teal;
+        float: left;
     }
 
-    .content-introWrapper{
-        position: absolute;
-        width: 75%;
-        height: 20%;
-        background-color: transparent;
-        top: 50px;
-        right: 0%;
+    .content-myinfo-profile-imageWrapper{
+        position: relative;
+        width: 100%;
+        height: 70%;
+        background-color: slateblue;
     }
 
-    .content-intro_text{
+    .content-myinfo-profile_image{
+        position: relative;
+        width: 30vw;
+        height: 30vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .content-myinfo-profile-idWrapper{
+        position: relative;
+        width: 100%;
+        height: 30%;
+        background-color: slategray;
+    }
+
+    .content-myinfo-profile_text{
         position: relative;
         width: 100%;
         height: auto;
@@ -264,124 +292,234 @@
         text-align: center;
     }
 
-    .content-logo_icon{
-        width: 150px;
-        height: auto;
-        position: absolute;
-        left: 0%;
-        top: 50px;
-    }
-
-    .content1{
-        background-image: url('/static/image/index_background_image3.png');
-        background-size: 100% 65%;
-        background-repeat: no-repeat;
-        background-position: bottom;
-    }
-
-    .content2{
-        /* background-image: url('/static/image/index_background4_image5.png');
-        background-size: 100% 50%;
-        background-repeat: no-repeat;
-        background-position: center; */
-
-        background-image: url('/static/image/index_background3_image2.png');
-        background-size: 100% 55%;
-        background-repeat: no-repeat;
-        background-position: bottom;
-    }
-
-    .content2-buttonWrapper{
-        width: 71vw;
-        height: auto;
-        position: absolute;
-        top: 20%;
-        left: 58%;
-        transform: translateX(-50%);
-        background-color: transparent;
-    }
-
-    .content2-catsitter_button{
-        width: 35vw;
-        height: 13vw;
-        background-color: #FAED7D;
-        border-radius: 10px;
-        margin-right: 1vw;
+    .content-myinfo-catsitterWrapper{
         position: relative;
+        width: 60%;
+        height: 100%;
+        background-color: aquamarine;
         float: left;
-        font-size: 5vw;
-        border: none;
-        outline: none;
     }
 
-    .content2-catee_button{
-        width: 35vw;
-        height: 13vw;
-        background-color: #FAED7D;
-        border-radius: 10px;
+    .content-myinfo-catsitter-countWrapper{
         position: relative;
+        width: 100%;
+        height: 70%;
+        background-color: saddlebrown;
+    }
+
+    .content-myinfo-catsitter-formCountWrapper{
+        position: relative;
+        width: 50%;
+        height: 100%;
         float: left;
-        font-size: 5vw;
-        border: none;
-        outline: none;
+        background-color: saddlebrown;
     }
 
-    /* index css */
-    .div-index{
-        width: 10%;
-        height: 20vw;
-        position: fixed;
-        top: 30%;
-        right: 3%;
-        background-color: transparent;
+    .content-myinfo-catsitter-reviewCountWrapper{
+        position: relative;
+        width: 50%;
+        height: 100%;
+        float: left;
+        background-color: seagreen;
     }
 
-    .div-index_1{
+    .content-myinfo-catsitter-iconWrapper{
+        position: relative;
         width: 100%;
-        height: 50%;
-        position: relative;
-        background-color: transparent;
+        height: 70%;
+        background-color: sandybrown;
     }
 
-    .div-index_2{
-        width: 100%;
-        height: 50%;
+    .content-myinfo-catsitter-icon{
         position: relative;
-        background-color: transparent;
-    }
-
-    .div-index-circle{
-        width: 3.5vw;
-        height: 3.5vw;
-        position: relative;
-        border-radius: 50%;
+        width: 12vw;
+        height: 12vw;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
 
-    #div-index-circle1{
-        background-color: black;
-        opacity: 1;
+    .content-myinfo-catsitter-countTextWrapper{
+        position: relative;
+        width: 100%;
+        height: 30%;
+        background-color: sienna;
     }
 
-    #div-index-circle2{
-        background-color: gray;
-        opacity: 0.5;
+    .content-myinfo-catsitter-count_text{
+        position: relative;
+        width: 100%;
+        height: auto;
+        text-align: center;
+        top: 50%;
+        transform: translateY(-50%);
     }
-}
-@media(min-device-width : 600px){
-    *{
+
+    .content-myinfo-catsitter-activateWrapper{
+        position: relative;
+        width: 100%;
+        height: 30%;
+        background-color: springgreen;
+    }
+
+    .content-myinfo-catsitter-activate-textWrapper{
+        position: relative;
+        width: 50%;
+        height: 100%;
+        float: left;
+        background-color: slateblue;
+    }
+
+    .content-myinfo-catsitter-activate_text{
+        position: relative;
+        width: 100%;
+        height: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .content-myinfo-catsitter-activate-switchWrapper{
+        position: relative;
+        width: 50%;
+        height: 100%;
+        float: left;
+        background-color: salmon;
+    }
+
+    .content-listWrapper{
+        position: relative;
+        width: 100%;
+        height: 75%;
+        background-color: darkblue;
+    }
+
+    .content-list-selectWrapper{
+        position: relative;
+        width: 100%;
+        height: 10%;
+        background-color: dodgerblue;
+    }
+
+    .content-list-select-item{
+        position: relative;
+        width: 50%;
+        height: 100%;
+        float: left;
+        background-color: darkgoldenrod;
+    }
+
+    .content-list-select-item_text{
+        position: relative;
+        width: 100%;
+        height: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        font-size: 15px;
+        font-weight: 800;
+    }
+
+    #select-form{
+        background-color: #2196F3;
+    }
+
+    #select-review{
+        background-color: snow;
+    }
+
+    .content-list{
+        position: relative;
+        width: 100%;
+        height: 90%;
+        background-color: #2196F3;
+        overflow-y: scroll;
+    }
+
+    .content-list-item{
+        position: relative;
+        width: 100%;
+        height: 20%;
+        background-color: transparent;
+        border-bottom: 1px solid black;
+    }
+
+    #form-list{
+        display: block;
+        background-color: #2196F3;
+    }
+
+    #review-list{
         display: none;
+        background-color: #2196F3;
     }
-}
 
-
-/* @media(max-device-width : 600px){
+    /* on off switch css */
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
     
+    .switch input { 
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+    
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+    
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+    
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+    
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+    
+    .slider.round {
+        border-radius: 34px;
+    }
+    
+    .slider.round:before {
+        border-radius: 50%;
+    }
 }
 @media(min-device-width : 600px){
     *{
         display: none;
     }
-} */
+}

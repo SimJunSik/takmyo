@@ -71,6 +71,7 @@ const check_id_is_valid = () =>{
 }
 
 $("#idInput").change(function(){
+    console.log("!!!!");
     if(check_id_is_valid()){
         console.log("id_valid","success");
         $("#idInput").data(
@@ -139,8 +140,8 @@ const check_submit_is_valid = () => {
 }
 
 $("#pwInput, #repwInput").change(function(){
-    console.log(check_password_is_same(), check_password_is_valid());
-    
+    // console.log(check_password_is_same(), check_password_is_valid());
+    console.log("!!!!");
     if(check_password_is_same() && check_password_is_valid()){
         $("#pwInput").data(
             'checkPwValid' , 'success'

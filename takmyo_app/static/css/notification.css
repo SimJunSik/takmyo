@@ -4,10 +4,11 @@
         padding: 0;
         width: 100%;
         height: 100%;
-        background-color: #FFD9FA;
+        background-color: beige;
         /* background-color: #FAED7D; */
         /* background-color: #FAF4C0; */
     }
+
     a{
         color: inherit;
         text-decoration: none;
@@ -19,8 +20,6 @@
     iframe{
         -webkit-overflow-scrolling:touch;
     }
-
-    ::-webkit-scrollbar{-webkit-appearance: none;}
 
     /* top css */
     .top{
@@ -57,6 +56,64 @@
         position: fixed;
         z-index: 9999;
         right: -100%;
+    }
+
+    .menu-notificationWrapper{
+        width: 10%;
+        height: 50px;
+        position: absolute;
+        top: 0;
+        left: 2%;
+        background-color: transparent;
+    }
+
+    .menu-notification_image{
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+
+    .menu-notification_count{
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        bottom: 10%;
+        right: 10%;
+        background-color: red;
+        z-index: 9000;
+        border-radius: 50%;
+    }
+
+    .menu-notification_countText{
+        position: relative;
+        width: 100%;
+        height: auto;
+        text-align: center;
+        font-size: 8px;
+        font-weight: 900;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .menu-profileWrapper{
+        width: 50%;
+        height: 15%;
+        position: absolute;
+        left: 50%;
+        top: 2%;
+        transform: translateX(-50%);
+        background-color: transparent;
+        text-align: center;
+    }
+
+    .menu-profile_image{
+        width: 15vw;
+        height: 15vw;
+        position: relative;
+        border-radius: 50%;
     }
 
     .menu-closeWrapper{
@@ -118,7 +175,7 @@
         height: 20%;
         position: relative;
         background-color: transparent;
-        margin-top: 30%;
+        margin-top: 40%;
         margin-bottom: 5%;
     }
 
@@ -180,231 +237,128 @@
 
     /* content css */
     .content{
-        width: 90%;
-        height: 80%;
         position: absolute;
-        top: 15%;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: white;
-    }
-
-    .content-form{
         width: 100%;
-        height: 100%;
-    }
-
-    .content-form-idWrapper{
-        width: 100%;
-        height: 15%;
+        height: 90%;
+        left: 0;
+        bottom: 0;
         background-color: brown;
+    }
+
+    .content-deleteWrapper{
         position: relative;
-        margin-top: 10%;
-    }
-
-    .content-form-domainWrapper{
-        width: 22%;
-        height: 100%;
-        float: left;
-        background-color: cadetblue;
-    }
-
-    .content-form-domain_text{
         width: 100%;
-        height: auto;
-        position: relative;
-        padding-left: 5px;
+        height: 10%;
+        background-color: violet;
+    }
+
+    .content-delete_bar{
+        position: absolute;
         top: 50%;
+        right: 23.5%;
         transform: translateY(-50%);
-        font-size: 6vw;
+        width: 2px;
+        height: 5vw;
+        background-color: gray;
+        opacity: 0.5;
     }
 
-    .content-form-inputWrapper{
-        width: 78%;
+    .content-delete_button{
+        position: absolute;
+        width: auto;
+        height: 10vw;
+        background-color: transparent;
+        border: none;
+        outline: none;
+    }
+
+    #delete_checked_notification_button{
+        top: 50%;
+        right: 25%;
+        transform: translateY(-50%);
+    }
+
+    #delete_all_notification_button{
+        top: 50%;
+        right: 5%;
+        transform: translateY(-50%);
+    }
+
+    .content-notificationWrapper{
+        position: relative;
+        width: 100%;
+        height: 90%;
+        background-color: cadetblue;
+        overflow-y: scroll;
+    }
+
+    .content-notification{
+        position: relative;
+        width: 100%;
+        height: 13%;
+        background-color: transparent;
+        border-bottom: 1px solid gray;
+    }
+
+    .checked_notification{
+        color: gray;
+    }
+
+    .content-notification-imageWrapper{
+        width: 20%;
         height: 100%;
+        position: relative;
         float: left;
-        background-color: tomato;
+        background-color: violet;
     }
 
-    .content-form-idInputWrapper{
+    .content-notification_image{
+        width: 10vw;
+        height: 10vw;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .content-notification-contentWrapper{
+        width: 80%;
+        height: 100%;
+        position: relative;
+        float: left;
+        background-color: aqua;
+    }
+
+    .content-notification-content-textWrapper{
         width: 100%;
         height: 70%;
         position: relative;
-        background-color: blueviolet;
+        background-color: burlywood;
     }
 
-    .content-form-idResultWrapper{
+    .content-notification-content_text{
+        width: 95%;
+        height: auto;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 5%;
+    }
+
+    .content-notification-content-createdWrapper{
         width: 100%;
         height: 30%;
         position: relative;
-        background-color: chocolate;
+        background-color: salmon;
     }
 
-    .content-form-idInput{
-        width: 70%;
-        height: 60%;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-        float: left;
-        font-size: 6vw;
-    }
-
-    .content-form-idButton{
-        width: 25%;
-        height: 60%;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-        float: left;
-        margin-left: 2%;
-        font-size: 3vw;
-    }
-
-    .content-form-pwWrapper{
-        width: 100%;
-        height: 8%;
-        background-color: brown;
-        position: relative;
-        margin-top: 2%;
-    }
-
-    .content-form-pwInput{
-        width: 90%;
-        height: 8vw;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-        float: left;
-        font-size: 4vw;
-    }
-
-    .content-form-repwWrapper{
-        width: 100%;
-        height: 12%;
-        background-color: brown;
-        position: relative;
-        margin-top: 2%;
-    }
-
-    .content-form-repwInputWrapper{
-        width: 100%;
-        height: 60%;
-        position: relative;
-        background-color: #FFD9FA;
-    }
-
-    .content-form-pwResultWrapper{
-        width: 100%;
-        height: 40%;
-        position: relative;
-        background-color: coral;
-    }
-
-    .content-form-repwInput{
-        width: 90%;
-        height: 8vw;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-        float: left;
-        font-size: 4vw;
-    }
-
-    .content-form-genderWrapper{
-        width: 100%;
-        height: 8%;
-        background-color: brown;
-        position: relative;
-        margin-top: 2%;
-    }
-
-    .content-form-genderInputWrapper{
-        width: auto;
-        height: auto;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .content-form-genderInput{
-        
-    }
-
-    .content-form-addressWrapper{
-        width: 100%;
-        height: 20%;
-        position: relative;
-        margin-top: 2%;
-        background-color: brown;
-    }
-
-    .content-form-phoneWrapper{
-        width: 100%;
-        height: 10%;
-        position: relative;
-        margin-top: 2%;
-        background-color: brown;
-    }
-
-    .content-form-checkPhoneWrapper{
-        width: 100%;
-        height: 15%;
-        position: relative;
-        margin-top: 2%;
-        background-color: brown;
-        text-align: center;
-    }
-
-    .content-form-checkPhone_text{
+    .content-notification-content_created{
         width: 100%;
         height: auto;
-        /* text-align: center; */
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 2%;
-    }
-
-    .content-form-checkPhone_checkbox{
-        width: 5vw;
-        height: 5vw;
         position: relative;
-        vertical-align: top;
-    }
-
-    .content-form-submitButton{
-        width: 40vw;
-        height: 10vw;
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-top: 5%;
-        margin-bottom: 5%;
-    }
-
-    /* 주소 api */
-    #sample3_postcode{
-        width: 30vw;
-        height: 5vw;
-    }
-    #sample3_address{
-        height: 5vw;
-    }
-    #sample3_detailAddress{
-        height: 5vw;
-    }
-    #sample3_extraAddress{
-        height: 5vw;
-    }
-    #wrap{
-        display:none;
-        border:1px solid;
-        width: 100%;
-        height: 50vw;
-        margin:5px 0;
-        position:relative;
-        overflow:auto;
-        -webkit-overflow-scrolling:touch;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: right;
     }
 }
 @media(min-device-width : 600px){
