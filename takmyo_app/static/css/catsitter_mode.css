@@ -269,8 +269,8 @@
 
     .content-myinfo-profile_image{
         position: relative;
-        width: 30vw;
-        height: 30vw;
+        width: 25vw;
+        height: 25vw;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
