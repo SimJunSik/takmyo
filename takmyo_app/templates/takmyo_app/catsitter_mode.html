@@ -178,47 +178,97 @@
     <!-- content start -->
     <div class="content">
         <div class="content-myinfoWrapper">
-            <div class="content-myinfo-profileWrapper">
-                <div class="content-myinfo-profile-imageWrapper">
-                    <img class="content-myinfo-profile_image" src="/static/image/unknown_icon.png">
+            <div class="content-myinfo-topWrapper">
+                <div class="content-myinfo-top-profileWrapper">
+                    <div class="content-myinfo-top-profile-imageWrapper">
+                        <img class="content-myinfo-top-profile_image" src="/static/image/unknown_icon.png">
+                    </div>
+                    <div class="content-myinfo-top-profile-textWrapper">
+                        <div class="content-myinfo-top-profile_text">
+                            심준식
+                            <br>
+                            <button>정보수정</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="content-myinfo-profile-idWrapper">
-                    <div class="content-myinfo-profile_text">
-                        junsik<br>
-                        <button>정보수정</button>
+                <div class="content-myinfo-top-formWrapper">
+                    <div class="content-myinfo-top-form-item">
+                        <div class="content-myinfo-top-form-item-iconWrapper">
+                            <!-- <img class="content-myinfo-top-form-item_icon" src="/static/image/form_icon.png"> -->
+                            <div class="content-myinfo-top-form-item_text">
+                                받은<br>
+                                신청서
+                            </div>
+                        </div>
+                        <div class="content-myinfo-top-form-item-textWrapper">
+                            <div class="content-myinfo-top-form-item_text">
+                                - 건
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-myinfo-top-form-item">
+                        <div class="content-myinfo-top-form-item-iconWrapper">
+                            <!-- <img class="content-myinfo-top-form-item_icon" src="/static/image/review_icon.png"> -->
+                            <div class="content-myinfo-top-form-item_text">
+                                보낸<br>
+                                신청서
+                            </div>
+                        </div>
+                        <div class="content-myinfo-top-form-item-textWrapper">
+                            <div class="content-myinfo-top-form-item_text">
+                                - 건                              
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-myinfo-top-form-item">
+                        <div class="content-myinfo-top-form-item-iconWrapper">
+                            <!-- <img class="content-myinfo-top-form-item_icon" src="/static/image/review_icon.png"> -->
+                            <div class="content-myinfo-top-form-item_text">
+                                리뷰
+                            </div>
+                        </div>
+                        <div class="content-myinfo-top-form-item-textWrapper">
+                            <div class="content-myinfo-top-form-item_text">
+                                - 건                              
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="content-myinfo-catsitterWrapper">
-                <div class="content-myinfo-catsitter-countWrapper">
-                    <div class="content-myinfo-catsitter-formCountWrapper">
-                        <div class="content-myinfo-catsitter-iconWrapper">
-                            <img class="content-myinfo-catsitter-icon" src="/static/image/form_icon.png">
-                        </div>
-                        <div class="content-myinfo-catsitter-countTextWrapper">
-                            <div class="content-myinfo-catsitter-count_text">
-                                -건
-                            </div>
+            <div class="content-myinfo-bottomWrapper">
+                <div class="content-myinfo-bottom-itemWrapper">
+                    <div class="content-myinfo-bottom-item-categoryWrapper">
+                        <div class="content-myinfo-bottom-item_text">
+                            핸드폰
                         </div>
                     </div>
-                    <div class="content-myinfo-catsitter-reviewCountWrapper">
-                        <div class="content-myinfo-catsitter-iconWrapper">
-                            <img class="content-myinfo-catsitter-icon" src="/static/image/review_icon.png">
-                        </div>
-                        <div class="content-myinfo-catsitter-countTextWrapper">
-                            <div class="content-myinfo-catsitter-count_text">
-                                -건
-                            </div>
+                    <div class="content-myinfo-bottom-item-textWrapper">
+                        <div class="content-myinfo-bottom-item_text">
+                            010-4618-2620
                         </div>
                     </div>
                 </div>
-                <div class="content-myinfo-catsitter-activateWrapper">
-                    <div class="content-myinfo-catsitter-activate-textWrapper">
-                        <div class="content-myinfo-catsitter-activate_text">
+
+                <div class="content-myinfo-bottom-itemWrapper">
+                    <div class="content-myinfo-bottom-item-categoryWrapper">
+                        <div class="content-myinfo-bottom-item_text">
+                            주소
+                        </div>
+                    </div>
+                    <div class="content-myinfo-bottom-item-textWrapper">
+                        <div class="content-myinfo-bottom-item_text">
+                            서울시 은평구 진관동 은평뉴타운 폭포동아파트 418동 604호
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-myinfo-bottom-itemWrapper">
+                    <div class="content-myinfo-bottom-item-categoryWrapper">
+                        <div class="content-myinfo-bottom-item_text">
                             캣시터 on/off
                         </div>
                     </div>
-                    <div class="content-myinfo-catsitter-activate-switchWrapper">
+                    <div class="content-myinfo-bottom-item-textWrapper">
                         <label class="switch">
                             <input type="checkbox" checked>
                             <span class="slider round"></span>
@@ -230,33 +280,33 @@
 
         <div class="content-listWrapper">
             <div class="content-list-selectWrapper">
-                <div class="content-list-select-item" id="select-form" onclick="select_form()">
+                <div class="content-list-select-item" id="select_receive_form" onclick="select_receive_form()">
                     <div class="content-list-select-item_text">
-                        신청서
+                        받은 신청서(-)
                     </div>
                 </div>
-                <div class="content-list-select-item" id="select-review" onclick="select_review()">
+                <div class="content-list-select-item" id="select_send_form" onclick="select_send_form()">
                     <div class="content-list-select-item_text">
-                        리뷰
+                        보낸 신청서(-)
                     </div>
                 </div>
             </div>
 
-            <div class="content-list" id="form-list">
+            <div class="content-list" id="receive_form_list">
                 <div class="content-list-item">
-                    신청서1
+                    받은 신청서1
                 </div>
                 <div class="content-list-item">
-                    신청서2
+                    받은 신청서2
                 </div>
             </div>
 
-            <div class="content-list" id="review-list">
+            <div class="content-list" id="send_form_list">
                 <div class="content-list-item">
-                    리뷰1
+                    보낸 신청서1
                 </div>
                 <div class="content-list-item">
-                    리뷰2
+                    보낸 신청서2
                 </div>
             </div>
         </div>

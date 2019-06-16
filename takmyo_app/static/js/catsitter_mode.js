@@ -10,34 +10,34 @@ const close_menu = () =>{
     });
 }
 
-const select_form = () =>{
-    $("#select-form").css({
+const select_receive_form = () =>{
+    $("#select_receive_form").css({
         'background-color' : '#2196F3'
     });
-    $("#form-list").css({
-        'display' : 'block'
-    });
-
-    $("#select-review").css({
+    $("#select_send_form").css({
         'background-color' : 'snow'
     });
-    $("#review-list").css({
+
+    $("#receive_form_list").css({
+        'display' : 'block'
+    });
+    $("#send_form_list").css({
         'display' : 'none'
     });
 }
 
-const select_review = () =>{
-    $("#select-form").css({
+const select_send_form = () =>{
+    $("#select_receive_form").css({
         'background-color' : 'snow'
     });
-    $("#form-list").css({
-        'display' : 'none'
-    });
-
-    $("#select-review").css({
+    $("#select_send_form").css({
         'background-color' : '#2196F3'
     });
-    $("#review-list").css({
+
+    $("#receive_form_list").css({
+        'display' : 'none'
+    });
+    $("#send_form_list").css({
         'display' : 'block'
     });
 }

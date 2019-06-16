@@ -248,89 +248,81 @@
     .content-myinfoWrapper{
         position: relative;
         width: 100%;
-        height: 25%;
+        height: 70vw;
         background-color: tomato;
     }
 
-    .content-myinfo-profileWrapper{
+    .content-myinfo-topWrapper{
         position: relative;
-        width: 40%;
+        width: 100%;
+        height: 60%;
+        background-color: sienna;
+    }
+
+    .content-myinfo-top-profileWrapper{
+        position: relative;
+        width: 30%;
         height: 100%;
-        background-color: teal;
+        background-color: slateblue;
         float: left;
     }
 
-    .content-myinfo-profile-imageWrapper{
+    .content-myinfo-top-profile-imageWrapper{
         position: relative;
         width: 100%;
         height: 70%;
-        background-color: slateblue;
+        background-color: seagreen;
     }
 
-    .content-myinfo-profile_image{
+    .content-myinfo-top-profile_image{
         position: relative;
-        width: 25vw;
-        height: 25vw;
+        width: 17vw;
+        height: 17vw;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
 
-    .content-myinfo-profile-idWrapper{
+    .content-myinfo-top-profile-textWrapper{
         position: relative;
         width: 100%;
         height: 30%;
-        background-color: slategray;
+        background-color: skyblue;
     }
 
-    .content-myinfo-profile_text{
+    .content-myinfo-top-profile_text{
         position: relative;
         width: 100%;
         height: auto;
+        text-align: center;
         top: 50%;
         transform: translateY(-50%);
-        text-align: center;
     }
 
-    .content-myinfo-catsitterWrapper{
+    .content-myinfo-top-formWrapper{
         position: relative;
-        width: 60%;
+        width: 70%;
         height: 100%;
-        background-color: aquamarine;
         float: left;
+        background-color: salmon;
     }
 
-    .content-myinfo-catsitter-countWrapper{
+    .content-myinfo-top-form-item{
+        position: relative;
+        width: 33.333%;
+        height: 100%;
+        float: left;
+        background-color: slateblue;
+    }
+
+    .content-myinfo-top-form-item-iconWrapper{
         position: relative;
         width: 100%;
         height: 70%;
-        background-color: saddlebrown;
-    }
-
-    .content-myinfo-catsitter-formCountWrapper{
-        position: relative;
-        width: 50%;
-        height: 100%;
-        float: left;
-        background-color: saddlebrown;
-    }
-
-    .content-myinfo-catsitter-reviewCountWrapper{
-        position: relative;
-        width: 50%;
-        height: 100%;
-        float: left;
         background-color: seagreen;
     }
 
-    .content-myinfo-catsitter-iconWrapper{
-        position: relative;
-        width: 100%;
-        height: 70%;
-        background-color: sandybrown;
-    }
-
-    .content-myinfo-catsitter-icon{
+    .content-myinfo-top-form-item_icon{
         position: relative;
         width: 12vw;
         height: 12vw;
@@ -339,53 +331,64 @@
         transform: translate(-50%, -50%);
     }
 
-    .content-myinfo-catsitter-countTextWrapper{
-        position: relative;
-        width: 100%;
-        height: 30%;
-        background-color: sienna;
-    }
-
-    .content-myinfo-catsitter-count_text{
-        position: relative;
-        width: 100%;
-        height: auto;
-        text-align: center;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .content-myinfo-catsitter-activateWrapper{
+    .content-myinfo-top-form-item-textWrapper{
         position: relative;
         width: 100%;
         height: 30%;
         background-color: springgreen;
     }
 
-    .content-myinfo-catsitter-activate-textWrapper{
+    .content-myinfo-top-form-item_text{
         position: relative;
-        width: 50%;
-        height: 100%;
-        float: left;
-        background-color: slateblue;
+        width: 100%;
+        height: auto;
+        text-align: center;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 4vw;
+        font-weight: 800;
     }
 
-    .content-myinfo-catsitter-activate_text{
+
+    .content-myinfo-bottomWrapper{
+        position: relative;
+        width: 100%;
+        height: 40%;
+        background-color: slategrey;
+    }
+
+    .content-myinfo-bottom-itemWrapper{
+        position: relative;
+        width: 100%;
+        height: 33.3%;
+        background-color: sandybrown;
+    }
+
+    .content-myinfo-bottom-item-categoryWrapper{
+        position: relative;
+        width: 30%;
+        height: 100%;
+        float: left;
+        background-color: seagreen;
+        text-align: center;
+    }
+
+    .content-myinfo-bottom-item-textWrapper{
+        position: relative;
+        width: 70%;
+        height: 100%;
+        float: left;
+        background-color: sienna;
+        text-align: left;
+    }
+
+    .content-myinfo-bottom-item_text{
         position: relative;
         width: 100%;
         height: auto;
         top: 50%;
         transform: translateY(-50%);
-        text-align: center;
-        font-size: 12px;
-    }
-
-    .content-myinfo-catsitter-activate-switchWrapper{
-        position: relative;
-        width: 50%;
-        height: 100%;
-        float: left;
-        background-color: salmon;
+        font-size: 2vw;
     }
 
     .content-listWrapper{
@@ -421,11 +424,11 @@
         font-weight: 800;
     }
 
-    #select-form{
+    #select_receive_form{
         background-color: #2196F3;
     }
 
-    #select-review{
+    #select_send_form{
         background-color: snow;
     }
 
@@ -462,8 +465,8 @@
         width: 60px;
         height: 34px;
         top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        left: 0%;
+        transform: translate(-0%, -50%);
     }
     
     .switch input { 
