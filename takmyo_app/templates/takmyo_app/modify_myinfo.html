@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- import css -->
+    <link rel="stylesheet" href="/static/css/modify_myinfo.css">
+
+    <!-- import jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <!-- top start -->
+    <div class="top">
+        <div class="top-menuWrapper">
+            <img class="top-menu_icon" 
+                src="/static/image/menu_icon.png"
+                onclick="open_menu();"
+                >
+        </div>
+    </div>
+    <!-- top end -->
+
+    <!-- menu start -->
+    <div class="menu">
+        <div class="menu-listWrapper">
+            <div class="menu-list-itemWrapper">
+                <div class="menu-list-item-myWrapper">
+                    <div class="menu-list-titleWrapper">
+                        <div class="menu-list-title_text">
+                            MY
+                        </div>
+                    </div>
+
+                    <hr class="menu-list-title-underbar">
+
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            <a href="/login/">
+                                Login
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            <a href="/join/">
+                                Join
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            <a href="/mypage/">
+                                Mypage
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-list-item-categoryWrapper">
+                    <div class="menu-list-titleWrapper">
+                        <div class="menu-list-title_text">
+                            CATEGORY
+                        </div>
+                    </div>
+
+                    <hr class="menu-list-title-underbar">
+
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            <a href="/aboutus/">
+                                About us
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            <a href="/catsitter_search/">
+                                Catsitter search
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            <a href="/catsitter_mode/">
+                                Catsitter mode
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            <a href="/catee_mode/">
+                                Catee mode
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-list-item-contactWrapper">
+                    <div class="menu-list-titleWrapper">
+                        <div class="menu-list-title_text">
+                            CONTACT
+                        </div>
+                    </div>
+
+                    <hr class="menu-list-title-underbar">
+
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            wnstlr24@gmail.com
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="menu-aboutWrapper">
+
+        </div>
+
+        <div class="menu-closeWrapper">
+            <img class="menu-close_icon" 
+                src="/static/image/close_icon.png"
+                onclick="close_menu();"
+                >
+        </div>
+    </div>
+    <!-- menu end -->
+
+    <div class="content">
+        <form class="content-form" name="frm" method="POST" action='./' onsubmit="return check_submit_is_valid();">
+            {% csrf_token %}
+            <div class="content-form-idWrapper">
+                <div class="content-form-domainWrapper">
+                    <div class="content-form-domain_text">
+                        ID
+                    </div>
+                </div>
+                <div class="content-form-inputWrapper">
+                    <div class="content-form-idInputWrapper">
+                        <input type="text" 
+                                class="content-form-idInput" 
+                                id="idInput" 
+                                name="user_id"
+                                data-check-id-duplicate='success'
+                                data-check-id-is-valid='success'
+                                disabled='true'
+                                value='{{user.username}}'
+                                required>
+                    </div>
+                    <div class="content-form-idResultWrapper">
+                        <div class="content-form-idResult-duplicate_text"></div>
+                        <div class="content-form-idResult-valid_text"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-form-repwWrapper">
+                <div class="content-form-domainWrapper">
+                    <div class="content-form-domain_text">
+                        cur
+                    </div>
+                </div>
+                <div class="content-form-inputWrapper">
+                    <div class="content-form-repwInputWrapper">
+                        <input type="password" 
+                            class="content-form-pwInput" 
+                            id="current_pwInput" 
+                            name="user_current_pw"
+                            placeholder="현재 비밀번호 입력 필수"
+                            data-check-pw-valid='failed'
+                            required>
+                    </div>
+                    <div class="content-form-currentpwResultWrapper">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-form-pwWrapper">
+                <div class="content-form-domainWrapper">
+                    <div class="content-form-domain_text">
+                        new
+                    </div>
+                </div>
+                <div class="content-form-inputWrapper">
+                    <input type="password" 
+                            class="content-form-pwInput" 
+                            id="new_pwInput" 
+                            name="user_new_pw"
+                            placeholder="영문,숫자,특수문자 조합 8자 이상"
+                            data-check-pw-valid='failed'
+                            >
+                </div>
+            </div>
+
+            <div class="content-form-repwWrapper">
+                <div class="content-form-domainWrapper">
+                    <div class="content-form-domain_text">
+                        new-re
+                    </div>
+                </div>
+                <div class="content-form-inputWrapper">
+                    <div class="content-form-repwInputWrapper">
+                        <input type="password" 
+                            class="content-form-repwInput" 
+                            id="new_repwInput" 
+                            name="user_new_repw">
+                    </div>
+                    <div class="content-form-pwResultWrapper">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-form-genderWrapper">
+                <div class="content-form-domainWrapper">
+                    <div class="content-form-domain_text">
+                        m/w
+                    </div>
+                </div>
+                <div class="content-form-inputWrapper">
+                    <div class="content-form-genderInputWrapper">
+                        {% if user.gender == '남' %}
+                        <input type="radio" class="content-form-genderInput" name="user_gender" value="남" checked>남
+                        &nbsp;
+                        <input type="radio" class="content-form-genderInput" name="user_gender" value="여">여
+                        {% elif user.gender == '여' %}
+                        <input type="radio" class="content-form-genderInput" name="user_gender" value="남">남
+                        &nbsp;
+                        <input type="radio" class="content-form-genderInput" name="user_gender" value="여" checked>여
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-form-addressWrapper">
+                <div class="content-form-domainWrapper">
+                    <div class="content-form-domain_text">
+                        addr
+                    </div>
+                </div>
+                <div class="content-form-inputWrapper">
+                    <input type="text" name="user_postcode" id="sample3_postcode" placeholder="우편번호" value="{{user.postcode}}" required>
+                    <input type="button" onclick="sample3_execDaumPostcode()" value="우편번호 찾기"><br>
+                    <input type="text" name="user_address" id="sample3_address" placeholder="주소" value="{{user.address}}"required><br>
+                    <input type="text" name="user_detail_address" id="sample3_detailAddress" placeholder="상세주소" value="{{user.detail_address}}"required>
+                    <input type="text" name="user_extra_address" id="sample3_extraAddress" placeholder="참고항목" value="{{user.extra_address}}">
+                </div>
+            </div>
+            <div id="wrap">
+                <img src="//t1.daumcdn.net/postcode/resource/images/close.png" 
+                    id="btnFoldWrap" 
+                    style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" 
+                    onclick="foldDaumPostcode()" 
+                    alt="접기 버튼">
+            </div>
+
+            <div class="content-form-phoneWrapper">
+                <div class="content-form-domainWrapper">
+                    <div class="content-form-domain_text">
+                        phone
+                    </div>
+                </div>
+                <div class="content-form-inputWrapper">
+                    <input type="text" 
+                        class="content-form-pwInput" 
+                        id="phoneInput" 
+                        name="user_phone"
+                        placeholder=" - 없이 입력"
+                        value='{{user.phone}}'
+                        required>
+                </div>
+            </div>
+
+            <div class="content-form-checkPhoneWrapper">
+                <div class="content-form-checkPhone_text">
+                    핸드폰 번호를 공개하시면 
+                    <br>
+                    더 빠른 매칭이 진행될 수 있습니다
+                </div>
+                {% if user.check_phone %}
+                <input type="checkbox" class="content-form-checkPhone_checkbox" name="user_check_phone" value="checked" checked>공개 동의
+                {% else %}
+                <input type="checkbox" class="content-form-checkPhone_checkbox" name="user_check_phone" value="checked">공개 동의
+                {% endif %}
+            </div>
+
+            <button type="submit" class="content-form-submitButton">
+                수정하기
+            </button>
+
+        </form>
+    </div>
+
+    <!-- import js -->
+    <script src="/static/js/modify_myinfo.js"></script>
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+</body>
+</html>

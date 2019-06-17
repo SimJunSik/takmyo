@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser) :
     
     gender = models.CharField(max_length=10, default='unknown')
+    postcode = models.CharField(max_length=255, default='unknown')
     address = models.CharField(max_length=255, default='unknown')
     detail_address = models.CharField(max_length=255, default='unknown')
     extra_address = models.CharField(max_length=255, default='unknown')

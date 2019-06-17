@@ -7,14 +7,13 @@
     <title>Document</title>
 
     <!-- import css -->
-    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/mypage.css">
 
     <!-- import jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- import js -->
-    <script src="/static/js/index.js" async></script>
-
+    <script src="/static/js/mypage.js" async></script>
 </head>
 <body>
     <!-- top start -->
@@ -24,46 +23,12 @@
                 src="/static/image/menu_icon.png"
                 onclick="open_menu();"
                 >
-
-            {% if notifications_count > 0 %}
-            <div class="menu-notification_count">
-                <div class="menu-notification_countText">
-                    {{notifications_count}}
-                </div>
-            </div>
-            {% endif %}
         </div>
     </div>
     <!-- top end -->
 
     <!-- menu start -->
     <div class="menu">
-        <div class="menu-notificationWrapper">
-            <a href="/notification/">
-                <img src="/static/image/notification_icon.png" class="menu-notification_image">
-                {% if notifications_count > 0 %}
-                <div class="menu-notification_count">
-                    <div class="menu-notification_countText">
-                        {{notifications_count}}
-                    </div>
-                </div>
-                {% endif %}
-            </a>
-        </div>
-
-        <div class="menu-profileWrapper">
-            {% if not user.is_authenticated %}
-                <img src="/static/image/unknown_icon.png" class="menu-profile_image">
-                <br>
-                <font></font>
-            {% else %}
-                <!-- <img src="user.profile_image.url" class="menu-profile_image"> -->
-                <img src="/static/image/unknown_icon.png" class="menu-profile_image">
-                <br>
-                <font>{{user.username}}</font>
-            {% endif %}
-        </div>
-
         <div class="menu-listWrapper">
             <div class="menu-list-itemWrapper">
                 <div class="menu-list-item-myWrapper">
@@ -77,15 +42,9 @@
 
                     <div class="menu-list-item-my">
                         <div class="menu-list-item_text menu-list-item_textTop">
-                            {% if not user.is_authenticated %}
-                                <a href="/login/">
-                                    Login
-                                </a>
-                            {% else %}
-                                <a href="/logout/">
-                                    Logout
-                                </a>
-                            {% endif %}
+                            <a href="/login/">
+                                Login
+                            </a>
                         </div>
                     </div>
                     <div class="menu-list-item-my">
@@ -112,14 +71,6 @@
                     </div>
 
                     <hr class="menu-list-title-underbar">
-
-                    <div class="menu-list-item-category">
-                        <div class="menu-list-item_text menu-list-item_textBottom">
-                            <a href="/main/">
-                                Home
-                            </a>
-                        </div>
-                    </div>
 
                     <div class="menu-list-item-category">
                         <div class="menu-list-item_text menu-list-item_textBottom">
@@ -183,38 +134,33 @@
     <!-- menu end -->
 
     <!-- content start -->
-    <div class="content content1">
-        <!-- <img class="content-logo_icon" src="/static/image/logo.png"> -->
-        <div class="content-introWrapper">
-            <div class="content-intro_text">
-                안녕하세요
+    <div class="content">
+        <div class="content-titleWrapper">
+            <div class="content-title_text">
+                <strong>비밀번호 확인</strong>
                 <br>
-                고양이
+                회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 입력해주세요.
             </div>
         </div>
-    </div>
+        <div class="content-loginWrapper">
+            <div class="content-loginInputWrapper">
+                <input type="text" 
+                        class="content-loginInput" 
+                        id="idInput" 
+                        name="user_id" 
+                        placeholder=" ID"
+                        value="{{user.username}}"
+                        disabled='true'>
+                <input type="password" 
+                        class="content-loginInput" 
+                        id="pwInput" 
+                        name="user_pw" 
+                        placeholder=" PASSWORD">
+            </div>
 
-    <div class="content content2">
-        <div class="content2-buttonWrapper">
-            <button class="content2-catsitter_button">Catsitter</button>
-            <button class="content2-catee_button">Catee</button>
+            <button type="button" class="content-loginButton" id="loginButton" onclick="login();">확인</button>
         </div>
     </div>
     <!-- content end -->
-
-    <!-- index start -->
-    <div class="div-index">
-        <div class="div-index_1">
-            <div class="div-index-circle" id="div-index-circle1">
-
-            </div>
-        </div>
-        <div class="div-index_2">
-            <div class="div-index-circle" id="div-index-circle2">
-
-            </div>
-        </div>
-    </div>
-    <!-- index end -->
 </body>
 </html>

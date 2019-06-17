@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .models import *
@@ -36,6 +37,7 @@ def join(request) :
         user_id = request.POST['user_id']
         user_pw = request.POST['user_pw']
         user_gender = request.POST['user_gender']
+        user_postcode = request.POST['user_postcode']
         user_address = request.POST['user_address']
         user_detail_address = request.POST['user_detail_address']
         user_extra_address = request.POST.get('user_extra_address','')
@@ -48,6 +50,7 @@ def join(request) :
         print(user_id,
                 user_pw,
                 user_gender,
+                user_postcode,
                 user_address,
                 user_detail_address,
                 user_extra_address,
@@ -58,6 +61,8 @@ def join(request) :
         new_user = User.objects.create_user(
             username = user_id,
             password = user_pw,
+            gender = user_gender,
+            postcode = user_postcode,
             address = user_address,
             detail_address = user_detail_address,
             extra_address = user_extra_address,
@@ -175,3 +180,91 @@ def check_notification(request, notification_id) :
 def catsitter_mode(request) :
 
     return render(request, 'takmyo_app/catsitter_mode.html')
+
+def modify_myinfo(request) :
+
+    user = request.user
+
+    if user.is_authenticated :
+
+        if request.method == 'GET' :
+
+            context = { 'user' : user }
+
+            return render(request, 'takmyo_app/modify_myinfo.html', context)
+
+        elif request.method == 'POST' :
+
+            # user_id = request.POST['user_id']
+            user_new_pw = request.POST.get('user_new_pw','')
+            user_gender = request.POST['user_gender']
+            user_postcode = request.POST['user_postcode']
+            user_address = request.POST['user_address']
+            user_detail_address = request.POST['user_detail_address']
+            user_extra_address = request.POST.get('user_extra_address','')
+            user_phone = request.POST['user_phone']
+            if request.POST.get('user_check_phone','unchecked') == 'checked' :
+                user_check_phone = True
+            else :
+                user_check_phone = False
+
+            User = get_user_model()
+
+            updated_user = User.objects.get(id = user.id)
+            print(updated_user, user_new_pw)
+            
+            if user_new_pw != '' :
+                updated_user.set_password(user_new_pw)
+            updated_user.gender = user_gender
+            updated_user.ostcode = user_postcode
+            updated_user.address = user_address
+            updated_user.detail_address = user_detail_address
+            updated_user.extra_address = user_extra_address
+            updated_user.phone = user_phone
+            updated_user.check_phone = user_check_phone
+
+            updated_user.save()
+
+            return redirect('/modify_myinfo/')
+    
+    else :
+
+        return redirect('/login/')
+
+@csrf_exempt
+def check_current_pw(request) :
+
+    user = request.user
+
+    current_pw_input = request.POST['current_pw_input']
+
+    valid_user = authenticate(username = user.username, password = current_pw_input)
+
+    if valid_user is not None :
+        result = { "result" : "success" }
+
+    else :
+        result = { "result" : "failed" }
+
+    return JsonResponse(result)
+
+
+def mypage(request) :
+
+    user = request.user
+
+    if user.is_authenticated :
+
+        context = { 'user' : user }
+
+        return render(request, 'takmyo_app/mypage.html', context)
+    
+    else :
+
+        return redirect('/login/')
+
+def my_logout(request) :
+
+    logout(request)
+
+    return redirect('/main/')
