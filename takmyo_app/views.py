@@ -225,7 +225,9 @@ def modify_myinfo(request) :
 
             updated_user.save()
 
-            return redirect('/modify_myinfo/')
+            login(request, updated_user)
+
+            return redirect('/main/')
     
     else :
 

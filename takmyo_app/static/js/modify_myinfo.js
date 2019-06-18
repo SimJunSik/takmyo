@@ -135,6 +135,7 @@ const check_submit_is_valid = () => {
     console.log(new_pw_value);
     if(new_pw_value == '') {
         if(id_duplicate == 'success' && id_valid == 'success' && current_pw_valid == 'success'){
+            alert("정보 수정이 완료되었습니다.");
             return true;
         }
         else {
