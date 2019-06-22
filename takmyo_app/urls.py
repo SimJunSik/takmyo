@@ -17,4 +17,8 @@ urlpatterns = [
     path('modify_myinfo/', views.modify_myinfo),
     path('modify_myinfo/check_current_pw/', views.check_current_pw),
     path('mypage/', views.mypage),
+    path('search_catsitter/', views.search_catsitter),
+
+    path('test/', views.test),
+    path('test/get_user_list/', views.get_user_list),
 ]

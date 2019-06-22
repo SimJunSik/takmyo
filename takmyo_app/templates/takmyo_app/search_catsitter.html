@@ -7,13 +7,11 @@
     <title>Document</title>
 
     <!-- import css -->
-    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/search_catsitter.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- import jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!-- import js -->
-    <script src="/static/js/index.js" async></script>
 
 </head>
 <body>
@@ -77,15 +75,9 @@
 
                     <div class="menu-list-item-my">
                         <div class="menu-list-item_text menu-list-item_textTop">
-                            {% if not user.is_authenticated %}
-                                <a href="/login/">
-                                    Login
-                                </a>
-                            {% else %}
-                                <a href="/logout/">
-                                    Logout
-                                </a>
-                            {% endif %}
+                            <a href="/login/">
+                                Login
+                            </a>
                         </div>
                     </div>
                     <div class="menu-list-item-my">
@@ -130,7 +122,7 @@
                     </div>
                     <div class="menu-list-item-category">
                         <div class="menu-list-item_text menu-list-item_textBottom">
-                            <a href="/search_catsitter/">
+                            <a href="/catsitter_search/">
                                 Catsitter search
                             </a>
                         </div>
@@ -183,38 +175,66 @@
     <!-- menu end -->
 
     <!-- content start -->
-    <div class="content content1">
-        <!-- <img class="content-logo_icon" src="/static/image/logo.png"> -->
-        <div class="content-introWrapper">
-            <div class="content-intro_text">
-                안녕하세요
-                <br>
-                고양이
+    <div class="content">
+        <div class='content-searchWrapper'>
+            <div class='content-search-addressWrapper'>
+                <input type="text" name="user_postcode" id="sample3_postcode" placeholder="우편번호" value="{{user.postcode}}" required><br>
+                <input type="text" name="user_address" id="sample3_address" placeholder="주소" value="{{user.address}}"required><br>
+                <input type="text" name="user_detail_address" id="sample3_detailAddress" placeholder="상세주소" value="{{user.detail_address}}"required><br>
+                <input type="text" name="user_extra_address" id="sample3_extraAddress" placeholder="참고항목" value="{{user.extra_address}}">
+                <input type="button" onclick="sample3_execDaumPostcode()" value="주소변경하기">
+                <div id="wrap">
+                    <img src="//t1.daumcdn.net/postcode/resource/images/close.png" 
+                        id="btnFoldWrap" 
+                        style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" 
+                        onclick="foldDaumPostcode()" 
+                        alt="접기 버튼">
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="content content2">
-        <div class="content2-buttonWrapper">
-            <button class="content2-catsitter_button">Catsitter</button>
-            <button class="content2-catee_button">Catee</button>
+            
+        </div>
+        <div class="content-catsitterListWrapper">
+            <div class="content-catsitter-topWrapper">
+                <div class="content-catsitter-top-sortWrapper">
+                    <div class="dropdown">
+                        <button class="dropbtn">
+                            정렬
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="#" onclick="sort_by_rate('평점순')">평점순</a>
+                            <a href="#" onclick="sort_by_rate('거리순')">거리순</a>
+                            <a href="#" onclick="sort_by_rate('최신등록순')">최신등록순</a>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="content-catsitter-resultWrapper">
+                {% for catsitter in catsitters %}
+                    <div class="content-catsitter-itemWrapper">
+                        <div class="content-catsitter-item-profileWrapper">
+                            <div class="content-catsitter-item-profile-imageWrapper">
+                                <img class="content-catsitter-item-profile_image" src="{{catsitter.profile_image.url}}">
+                            </div>
+                            <div class="content-catsitter-item-profile-textWrapper">
+                                <div class="content-catsitter-item-profile_text">
+                                    {{catsitter.username}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-catsitter-item-infoWrapper">
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
     <!-- content end -->
 
-    <!-- index start -->
-    <div class="div-index">
-        <div class="div-index_1">
-            <div class="div-index-circle" id="div-index-circle1">
-
-            </div>
-        </div>
-        <div class="div-index_2">
-            <div class="div-index-circle" id="div-index-circle2">
-
-            </div>
-        </div>
-    </div>
-    <!-- index end -->
+    <!-- import js -->
+    <script src="/static/js/search_catsitter.js" async></script>
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </body>
 </html>

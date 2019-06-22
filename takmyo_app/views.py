@@ -6,6 +6,8 @@ from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .models import *
+import requests
+from .serializers import *
 
 # Create your views here.
 def index(request) :
@@ -69,6 +71,25 @@ def join(request) :
             phone = user_phone,
             check_phone = user_check_phone
         )
+
+        print(user_address, user_detail_address)
+
+        address = user_address + user_detail_address
+        api_key = "AIzaSyDyFSiU__Yph4023Zgl_Ptc-WNuEQ6jTGU"
+        api_response = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address={0}&key={1}'.format(address, api_key))
+        api_response_dict = api_response.json()
+
+        # print(api_response_dict)
+
+        if api_response_dict['status'] == 'OK':
+            latitude = api_response_dict['results'][0]['geometry']['location']['lat']
+            longitude = api_response_dict['results'][0]['geometry']['location']['lng']
+            print('Latitude:', latitude)
+            print('Longitude:', longitude)
+
+            new_user.lat = latitude
+            new_user.lng = longitude
+            new_user.save()
 
         print(new_user)
 
@@ -215,8 +236,9 @@ def modify_myinfo(request) :
             
             if user_new_pw != '' :
                 updated_user.set_password(user_new_pw)
+                
             updated_user.gender = user_gender
-            updated_user.ostcode = user_postcode
+            updated_user.postcode = user_postcode
             updated_user.address = user_address
             updated_user.detail_address = user_detail_address
             updated_user.extra_address = user_extra_address
@@ -270,3 +292,56 @@ def my_logout(request) :
     logout(request)
 
     return redirect('/main/')
+
+
+def search_catsitter(request) :
+
+    user = request.user
+
+    User = get_user_model()
+
+    catsitters = User.objects.filter(is_catsitter=True)
+
+    context = { 'user' : user , 'catsitters' : catsitters }
+
+    return render(request, 'takmyo_app/search_catsitter.html', context)
+    
+
+
+
+
+
+
+
+
+from django.db.models import Q
+
+def test(request) :
+
+    User = get_user_model()
+
+    users = User.objects.filter(~Q(lat=0.0,lng=0.0))
+
+    context = { 'users' : users }
+
+    return render(request, 'takmyo_app/test.html', context)
+
+def get_user_list(request) :
+
+    User = get_user_model()
+
+    users = User.objects.filter(~Q(lat=0.0,lng=0.0))
+
+    if users :
+
+        serializer = UserSerializer(users, many=True)
+
+        result = { "result" : "success" , "users" : serializer.data }
+    
+    else :
+
+        result = { "result" : "failed" }
+
+    return JsonResponse(result)
+
+

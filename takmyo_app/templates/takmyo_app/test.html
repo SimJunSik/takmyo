@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- import jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <button onclick="get_user_list()">click</button>
+    <input type="text" value={{user.lat}} id="user_lat">
+    <br>
+    <input type="text" value={{user.lng}} id="user_lng">
+    <div class="main">
+        {% for user in users %}
+            <div class="userWrapper">
+                <div class="user-usernameWrapper">
+                    {{user.username}}
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+    </div>
+
+    <script>
+
+        function distance(lat1, lon1, lat2, lon2, unit) {
+            if ((lat1 == lat2) && (lon1 == lon2)) {
+                return 0;
+            }
+            else {
+                var radlat1 = Math.PI * lat1/180;
+                var radlat2 = Math.PI * lat2/180;
+                var theta = lon1-lon2;
+                var radtheta = Math.PI * theta/180;
+                var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+                if (dist > 1) {
+                    dist = 1;
+                }
+                dist = Math.acos(dist);
+                dist = dist * 180/Math.PI;
+                dist = dist * 60 * 1.1515;
+                if (unit=="K") { dist = dist * 1.609344 }
+                if (unit=="N") { dist = dist * 0.8684 }
+                return dist;
+            }
+        }
+
+        const get_user_list = () => {
+            const user_lat = $("#user_lat").val();
+            const user_lng = $("#user_lng").val();
+
+            console.log(user_lat, user_lng);
+
+            console.log("!!!!");
+            fetch('./get_user_list/')
+            .then(e => e.json())
+            .then(e => {
+                console.log(e.users);
+                
+                const users = e.users;
+
+                for(var i=0;i<users.length;i++){
+                    users[i]['distance'] = distance(user_lat, user_lng, users[i].lat, users[i].lng, 'K');
+                }
+
+                users.sort(function(a,b) {
+                        return parseFloat(b.distance) - parseFloat(a.distance);
+                    }
+                )
+
+                $(".main").html('');
+                for(var user of users){
+                    console.log(user.username, user.distance);
+                    const start = `            <div class="userWrapper">
+                <div class="user-usernameWrapper">`;
+                    const value = user.username;
+                    const end = `</div>
+            </div>
+            <br>`;
+
+                    const result = start + value + end;
+                    $(".main").append(result);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
