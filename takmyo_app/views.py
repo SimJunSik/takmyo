@@ -236,7 +236,7 @@ def modify_myinfo(request) :
             
             if user_new_pw != '' :
                 updated_user.set_password(user_new_pw)
-                
+
             updated_user.gender = user_gender
             updated_user.postcode = user_postcode
             updated_user.address = user_address
@@ -246,6 +246,23 @@ def modify_myinfo(request) :
             updated_user.check_phone = user_check_phone
 
             updated_user.save()
+
+            address = user_address + user_detail_address
+            api_key = "AIzaSyDyFSiU__Yph4023Zgl_Ptc-WNuEQ6jTGU"
+            api_response = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address={0}&key={1}'.format(address, api_key))
+            api_response_dict = api_response.json()
+
+            # print(api_response_dict)
+
+            if api_response_dict['status'] == 'OK':
+                latitude = api_response_dict['results'][0]['geometry']['location']['lat']
+                longitude = api_response_dict['results'][0]['geometry']['location']['lng']
+                print('Latitude:', latitude)
+                print('Longitude:', longitude)
+
+                updated_user.lat = latitude
+                updated_user.lng = longitude
+                updated_user.save()
 
             login(request, updated_user)
 
@@ -300,11 +317,846 @@ def search_catsitter(request) :
 
     User = get_user_model()
 
-    catsitters = User.objects.filter(is_catsitter=True)
+    if request.method == 'GET' :
 
-    context = { 'user' : user , 'catsitters' : catsitters }
+        request.session['select_place'] = 'visit'
+        request.session['select_havePet'] = 'unknown'
+        request.session['day'] = 'both'
+        request.session['time'] = 'both'
+        request.session['gender'] = 'both'
+        request.session['pill'] = 'both'
 
-    return render(request, 'takmyo_app/search_catsitter.html', context)
+        catsitters = Catsitter.objects.filter()
+
+        context = { 'user' : user , 'catsitters' : catsitters }
+
+        return render(request, 'takmyo_app/search_catsitter.html', context)
+
+    elif request.method == 'POST' : 
+
+        select_place_value = request.POST.get('select_place','unknown')
+        select_havePet_value = request.POST.get('select_havePet','unknown')
+        select_day = request.POST.get('day','unknown')
+        select_time = request.POST.get('time','unknown')
+        select_gender = request.POST.get('gender','unknown')
+        select_pill = request.POST.get('pill','unknown')
+        if select_pill == 'possible' :
+            select_pill = True
+
+        print(select_place_value, select_havePet_value, select_day, select_time, select_gender, select_pill)
+
+        if select_place_value == 'both' :
+            catsitters = Catsitter.objects.filter()
+        else :
+            catsitters = Catsitter.objects.filter(
+                available_place = select_place_value
+            )
+
+        if select_havePet_value != 'unknown' :
+            catsitters = catsitters.filter(
+                have_pet = select_havePet_value
+            )
+
+        if select_day != 'both' :
+            catsitters = catsitters.filter(
+                available_day = select_day
+            ) | catsitters.filter(
+                available_day = 'both'
+            )
+
+        if select_time != 'both' :
+            if select_day == 'weekday' :
+                catsitters = catsitters.filter(
+                    available_weekday_time = select_time
+                ) | catsitters.filter(
+                    available_weekday_time = 'both'
+                )
+            elif select_day == 'weekend' :
+                catsitters = catsitters.filter(
+                    available_weekend_time = select_time
+                ) | catsitters.filter(
+                    available_weekday_time = 'both'
+                )
+            else :
+                catsitters = catsitters.filter(
+                    available_weekday_time = select_time
+                ) | catsitters.filter(
+                    available_weekend_time = select_time
+                ) | catsitters.filter(
+                    available_weekday_time = 'both'
+                )
+
+        if select_gender != 'both' :
+            catsitters = catsitters.filter(
+                user__gender = select_gender
+            )
+
+        if select_pill != 'both' :
+            catsitters = catsitters.filter(
+                available_pill = select_pill
+            )
+
+        # if select_place_value == 'both' :
+        #     if select_havePet_value == 'unknown' :
+        #         if select_day == 'both' :
+        #             if select_time == 'both' :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+                                    
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+        #             else :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_weekday_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             available_weekend_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             available_weekend_time = 'both'
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_weekday_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_weekend_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_weekend_time = 'both',
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             user__gender = select_gender,
+        #                             available_weekday_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             user__gender = select_gender,
+        #                             available_weekend_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             user__gender = select_gender,
+        #                             available_weekend_time = 'both'
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             user__gender = select_gender,
+        #                             available_weekday_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             user__gender = select_gender,
+        #                             available_weekend_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             user__gender = select_gender,
+        #                             available_weekend_time = 'both',
+        #                             available_pill = select_pill
+        #                         )
+        #         else :
+        #             if select_time == 'both' :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_day = select_day
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+        #             else :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             available_weekday_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             available_weekend_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             available_weekend_time = 'both'
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             available_weekday_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             available_weekend_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             available_weekend_time = 'both',
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             available_weekday_time = select_time,
+        #                             user__gender = select_gender
+        #                         ) | Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             available_weekend_time = select_time,
+        #                             user__gender = select_gender
+        #                         ) | Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             available_weekend_time = 'both',
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             available_weekday_time = select_time,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             available_weekend_time = select_time,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_day = select_day,
+        #                             available_weekend_time = 'both',
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+        #     else :
+        #         if select_day == 'both' :
+        #             if select_time == 'both' :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+        #             else :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_weekday_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = 'both'
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_weekday_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = 'both',
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_weekday_time = select_time,
+        #                             user__gender = select_gender
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = select_time,
+        #                             user__gender = select_gender
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = 'both',
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_weekday_time = select_time,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = select_time,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = 'both',
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+        #         else :
+        #             if select_time == 'both' :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+        #             else :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             available_weekday_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = 'both'
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             available_weekday_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = 'both',
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             available_weekday_time = select_time,
+        #                             user__gender = select_gender
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = select_time,
+        #                             user__gender = select_gender
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = 'both',
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             available_weekday_time = select_time,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = select_time,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             have_pet = select_havePet_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = 'both',
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+        # else :
+        #     if select_havePet_value == 'unknown' :
+        #         if select_day == 'both' :
+        #             if select_time == 'both' :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+        #             else :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_weekday_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_weekend_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_weekend_time = 'both'
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_weekday_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_weekend_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_weekend_time = 'both',
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_weekday_time = select_time,
+        #                             user__gender = select_gender
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_weekend_time = select_time,
+        #                             user__gender = select_gender
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_weekend_time = 'both',
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_weekday_time = select_time,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_weekend_time = select_time,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_weekend_time = 'both',
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+        #         else :
+        #             if select_time == 'both' :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+        #             else :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             available_weekday_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = 'both'
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             available_weekday_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = 'both',
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             available_weekday_time = select_time,
+        #                             user__gender = select_gender
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = select_time,
+        #                             user__gender = select_gender
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = 'both',
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             available_weekday_time = select_time,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = select_time,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             available_weekend_time = 'both',
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+        #     else :
+        #         if select_day == 'both' :
+        #             if select_time == 'both' :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+        #             else :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekday_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = 'both'
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekday_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = 'both',
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekday_time = select_time,
+        #                             user__gender = select_gender
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = select_time,
+        #                             user__gender = select_gender
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = 'both',
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekday_time = select_time,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = select_time,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = 'both',
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+        #         else :
+        #             if select_time == 'both' :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+        #             else :
+        #                 if select_gender == 'both' :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekday_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = select_time
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = 'both'
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekday_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = select_time,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = 'both',
+        #                             available_pill = select_pill
+        #                         )
+        #                 else :
+        #                     if select_pill == 'both' :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekday_time = select_time,
+        #                             user__gender = select_gender
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = select_time,
+        #                             user__gender = select_gender
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = 'both',
+        #                             user__gender = select_gender
+        #                         )
+        #                     else :
+        #                         catsitters = Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekday_time = select_time,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = select_time,
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         ) | Catsitter.objects.filter(
+        #                             available_place = select_place_value,
+        #                             available_day = select_day,
+        #                             have_pet = select_havePet_value,
+        #                             available_weekend_time = 'both',
+        #                             user__gender = select_gender,
+        #                             available_pill = select_pill
+        #                         )
+
+
+        print(catsitters)
+
+        # print(select_place_value, select_havePet_value, select_day, select_time, select_gender, select_pill)
+        if select_pill == True :
+            select_pill = 'possible'
+
+        request.session['select_place'] = select_place_value
+        request.session['select_havePet'] = select_havePet_value
+        request.session['day'] = select_day
+        request.session['time'] = select_time
+        request.session['gender'] = select_gender
+        request.session['pill'] = select_pill
+
+        context = { 'user' : user , 
+                    'catsitters' : catsitters , 
+                    'select_place_value' : select_place_value ,
+                    'select_havePet_value' : select_havePet_value,
+                    'select_day' : select_day,
+                    'select_time' : select_time,
+                    'select_gender' : select_gender,
+                    'select_pill' : select_pill
+                }
+
+        return render(request, 'takmyo_app/search_catsitter.html', context)
     
 
 

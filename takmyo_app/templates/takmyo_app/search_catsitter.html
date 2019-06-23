@@ -176,13 +176,14 @@
 
     <!-- content start -->
     <div class="content">
-        <div class='content-searchWrapper'>
+        <form class='content-searchWrapper' name='search_frm' method="POST" action='./'>
+            {% csrf_token %}
             <div class='content-search-addressWrapper'>
-                <input type="text" name="user_postcode" id="sample3_postcode" placeholder="우편번호" value="{{user.postcode}}" required><br>
-                <input type="text" name="user_address" id="sample3_address" placeholder="주소" value="{{user.address}}"required><br>
-                <input type="text" name="user_detail_address" id="sample3_detailAddress" placeholder="상세주소" value="{{user.detail_address}}"required><br>
-                <input type="text" name="user_extra_address" id="sample3_extraAddress" placeholder="참고항목" value="{{user.extra_address}}">
-                <input type="button" onclick="sample3_execDaumPostcode()" value="주소변경하기">
+                <!-- <input type="text" name="user_postcode" id="sample3_postcode" placeholder="우편번호" value="{{user.postcode}}" required><br> -->
+                <input type="text" name="user_address" id="sample3_address" placeholder="주소" value="{{user.address}}">
+                <!-- <input type="text" name="user_detail_address" id="sample3_detailAddress" placeholder="상세주소" value="{{user.detail_address}}"required><br> -->
+                <!-- <input type="text" name="user_extra_address" id="sample3_extraAddress" placeholder="참고항목" value="{{user.extra_address}}"> -->
+                <input class="content-search-address_button" type="button" onclick="sample3_execDaumPostcode()" value="주소변경하기">
                 <div id="wrap">
                     <img src="//t1.daumcdn.net/postcode/resource/images/close.png" 
                         id="btnFoldWrap" 
@@ -192,22 +193,197 @@
                 </div>
             </div>
 
-            
-        </div>
+            <div class="content-search-firstWrapper">
+                <div class="content-search-placeWrapper">
+                    <div class="content-search-titleWrapper">
+                        <div class="content-search-title_text">
+                            &nbsp;탁묘 장소
+                        </div>
+                    </div>
+                    <div class="content-search-selectWrapper">
+                        <select class="content-search_select" id="select_place" name="select_place">
+                            {% if not select_place_value %}
+                                <option value="visit">방문탁묘</option>
+                                <option value="consignment">위탁탁묘</option>
+                                <option value="both">협의가능</option>
+                            {% elif select_place_value == 'visit' %}
+                                <option value="visit" selected>방문탁묘</option>
+                                <option value="consignment">위탁탁묘</option>
+                                <option value="both">협의가능</option>
+                            {% elif select_place_value == 'consignment' %}
+                                <option value="visit">방문탁묘</option>
+                                <option value="consignment" selected>위탁탁묘</option>
+                                <option value="both">협의가능</option>
+                            {% elif select_place_value == 'both' %}
+                                <option value="visit">방문탁묘</option>
+                                <option value="consignment">위탁탁묘</option>
+                                <option value="both" selected>협의가능</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="content-search-havePetWrapper">
+                    <div class="content-search-titleWrapper">
+                        <div class="content-search-title_text">
+                            &nbsp;반려동물 여부
+                        </div>
+                    </div>
+                    <div class="content-search-selectWrapper">
+                        <select class="content-search_select" id="select_havePet" name="select_havePet" disabled=true>
+                            {% if select_havePet_value == 'unknown' %}
+                                <option value="no">없음</option>
+                                <option value="yes">있음</option>
+                                <option value="both" selected>협의가능</option>
+                            {% elif select_havePet_value == 'no' %}
+                                <option value="no" selected>없음</option>
+                                <option value="yes">있음</option>
+                                <option value="both">협의가능</option>
+                            {% elif select_havePet_value == 'yes' %}
+                                <option value="no">없음</option>
+                                <option value="yes" selected>있음</option>
+                                <option value="both">협의가능</option>
+                            {% elif select_havePet_value == 'both' %}
+                                <option value="no">없음</option>
+                                <option value="yes">있음</option>
+                                <option value="both" selected>협의가능</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-search-secondWrapper">
+                <div class="content-search-timeWrapper">
+                    <div class="content-search-titleWrapper">
+                        <div class="content-search-title_text">
+                            &nbsp;평일/주말
+                        </div>
+                    </div>
+                    <div class="content-search-selectWrapper">
+                        <div class="content-search-select-itemWrapper">
+                            {% if not select_day %}
+                                <input class="content-search-select_item" type="radio" name="day" value="weekday">평일
+                                <input class="content-search-select_item" type="radio" name="day" value="weekend">주말
+                                <input class="content-search-select_item" type="radio" name="day" value="both" checked>협의가능
+                            {% elif select_day == 'weekday' %}
+                                <input class="content-search-select_item" type="radio" name="day" value="weekday" checked>평일
+                                <input class="content-search-select_item" type="radio" name="day" value="weekend">주말
+                                <input class="content-search-select_item" type="radio" name="day" value="both">협의가능
+                            {% elif select_day == 'weekend' %}
+                                <input class="content-search-select_item" type="radio" name="day" value="weekday">평일
+                                <input class="content-search-select_item" type="radio" name="day" value="weekend" checked>주말
+                                <input class="content-search-select_item" type="radio" name="day" value="both">협의가능
+                            {% elif select_day == 'both' %}
+                                <input class="content-search-select_item" type="radio" name="day" value="weekday">평일
+                                <input class="content-search-select_item" type="radio" name="day" value="weekend">주말
+                                <input class="content-search-select_item" type="radio" name="day" value="both" checked>협의가능
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-search-secondWrapper">
+                <div class="content-search-timeWrapper">
+                    <div class="content-search-titleWrapper">
+                        <div class="content-search-title_text">
+                            &nbsp;가능 시간
+                        </div>
+                    </div>
+                    <div class="content-search-selectWrapper">
+                        <div class="content-search-select-itemWrapper">
+                            {% if not select_time %}
+                                <input class="content-search-select_item" type="radio" name="time" value="am">오전
+                                <input class="content-search-select_item" type="radio" name="time" value="pm">오후
+                                <input class="content-search-select_item" type="radio" name="time" value="both" checked>협의가능
+                            {% elif select_time == 'am' %}
+                                <input class="content-search-select_item" type="radio" name="time" value="am" checked>오전
+                                <input class="content-search-select_item" type="radio" name="time" value="pm">오후
+                                <input class="content-search-select_item" type="radio" name="time" value="both">협의가능
+                            {% elif select_time == 'pm' %}
+                                <input class="content-search-select_item" type="radio" name="time" value="am">오전
+                                <input class="content-search-select_item" type="radio" name="time" value="pm" checked>오후
+                                <input class="content-search-select_item" type="radio" name="time" value="both">협의가능
+                            {% elif select_time == 'both' %}
+                                <input class="content-search-select_item" type="radio" name="time" value="am">오전
+                                <input class="content-search-select_item" type="radio" name="time" value="pm">오후
+                                <input class="content-search-select_item" type="radio" name="time" value="both" checked>협의가능
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-search-secondWrapper">
+                <div class="content-search-timeWrapper">
+                    <div class="content-search-titleWrapper">
+                        <div class="content-search-title_text">
+                            &nbsp;성별
+                        </div>
+                    </div>
+                    <div class="content-search-selectWrapper">
+                        <div class="content-search-select-itemWrapper">
+                            {% if not select_gender %}
+                                <input class="content-search-select_item" type="radio" name="gender" value="남">남
+                                <input class="content-search-select_item" type="radio" name="gender" value="여">여
+                                <input class="content-search-select_item" type="radio" name="gender" value="both" checked>무관
+                            {% elif select_gender == '남' %}
+                                <input class="content-search-select_item" type="radio" name="gender" value="남" checked>남
+                                <input class="content-search-select_item" type="radio" name="gender" value="여">여
+                                <input class="content-search-select_item" type="radio" name="gender" value="both">무관
+                            {% elif select_gender == '여' %}
+                                <input class="content-search-select_item" type="radio" name="gender" value="남">남
+                                <input class="content-search-select_item" type="radio" name="gender" value="여" checked>여
+                                <input class="content-search-select_item" type="radio" name="gender" value="both">무관
+                            {% elif select_gender == 'both' %}
+                                <input class="content-search-select_item" type="radio" name="gender" value="남">남
+                                <input class="content-search-select_item" type="radio" name="gender" value="여">여
+                                <input class="content-search-select_item" type="radio" name="gender" value="both" checked>무관
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-search-secondWrapper">
+                <div class="content-search-timeWrapper">
+                    <div class="content-search-titleWrapper">
+                        <div class="content-search-title_text">
+                            &nbsp;알약 투약 가능
+                        </div>
+                    </div>
+                    <div class="content-search-selectWrapper">
+                        <div class="content-search-select-itemWrapper">
+                            {% if not select_pill %}
+                                <input class="content-search-select_item" type="radio" name="pill" value="possible">가능
+                                <input class="content-search-select_item" type="radio" name="pill" value="both" checked>무관
+                            {% elif select_pill == 'possible' %}
+                                <input class="content-search-select_item" type="radio" name="pill" value="possible" checked>가능
+                                <input class="content-search-select_item" type="radio" name="pill" value="both">무관
+                            {% elif select_pill == 'both' %}
+                                <input class="content-search-select_item" type="radio" name="pill" value="possible">가능
+                                <input class="content-search-select_item" type="radio" name="pill" value="both" checked>무관
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="content-search_button" onclick="searching_catsitter()">
+                검색하기
+            </button>
+        </form>
+
+
         <div class="content-catsitterListWrapper">
             <div class="content-catsitter-topWrapper">
                 <div class="content-catsitter-top-sortWrapper">
-                    <div class="dropdown">
-                        <button class="dropbtn">
-                            정렬
-                            <i class="fa fa-caret-down"></i>
-                        </button>
-                        <div class="dropdown-content">
-                            <a href="#" onclick="sort_by_rate('평점순')">평점순</a>
-                            <a href="#" onclick="sort_by_rate('거리순')">거리순</a>
-                            <a href="#" onclick="sort_by_rate('최신등록순')">최신등록순</a>
-                        </div>
-                    </div> 
+                    <select class="content-catsitter-top-sort_select" id="select_sort">
+                        <option value="latest">최신순</option>
+                        <option value="rate">평점순</option>
+                        <option value="distance">거리순</option>
+                    </select>
                 </div>
             </div>
             <div class="content-catsitter-resultWrapper">
@@ -215,11 +391,11 @@
                     <div class="content-catsitter-itemWrapper">
                         <div class="content-catsitter-item-profileWrapper">
                             <div class="content-catsitter-item-profile-imageWrapper">
-                                <img class="content-catsitter-item-profile_image" src="{{catsitter.profile_image.url}}">
+                                <img class="content-catsitter-item-profile_image" src="{{catsitter.catsitter_profile_image.url}}">
                             </div>
                             <div class="content-catsitter-item-profile-textWrapper">
                                 <div class="content-catsitter-item-profile_text">
-                                    {{catsitter.username}}
+                                    {{catsitter.name}}
                                 </div>
                             </div>
                         </div>

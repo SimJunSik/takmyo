@@ -248,7 +248,7 @@
         position: relative;
         width: 100%;
         height: auto;
-        min-height: 80vw;
+        min-height: 130vw;
         background-color: skyblue;
     }
 
@@ -256,9 +256,114 @@
         position: relative;
         width: 100%;
         height: auto;
-        min-height: 30vw;
+        min-height: 10vw;
         background-color: greenyellow;
     }
+
+    .content-search-address_button{
+        position: relative;
+        border: none;
+        outline: none;
+        background-color: blueviolet;
+    }
+
+    .content-search-firstWrapper{
+        position: relative;
+        width: 100%;
+        height: 20vw;
+        background-color: violet;
+    }
+
+    .content-search-placeWrapper{
+        position: relative;
+        width: 50%;
+        height: 100%;
+        float: left;
+        background-color: brown;
+    }
+
+    .content-search-havePetWrapper{
+        position: relative;
+        width: 50%;
+        height: 100%;
+        float: left;
+        background-color: brown;
+    }
+
+    .content-search-titleWrapper{
+        position: relative;
+        width: 100%;
+        height: 30%;
+        background-color: wheat;
+        font-weight: 800;
+    }
+
+    .content-search-title_text{
+        position: relative;
+        width: 100%;
+        height: auto;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .content-search-selectWrapper{
+        position: relative;
+        width: 100%;
+        height: 70%;
+        background-color: saddlebrown;
+    }
+
+    .content-search_select{
+        position: relative;
+        width: 90%;
+        height: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .content-search-secondWrapper{
+        position: relative;
+        width: 100%;
+        height: 20vw;
+        background-color: violet;
+    }
+
+    .content-search-timeWrapper{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: brown;
+    }
+
+    .content-search-select-itemWrapper{
+        position: relative;
+        width: 100%;
+        height: auto;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .content-search-select_item{
+        margin-left: 5%;
+        margin-right: 1%;
+    }
+
+    .content-search_button{
+        position: relative;
+        width: 40vw;
+        height: 10vw;
+        left: 50%;
+        transform: translate(-50%,50%);
+        border: none;
+        outline: none;
+        background-color: #FFD9FA;
+        font-weight: 800;
+    }
+
+
+
+
 
     .content-catsitterListWrapper{
         position: relative;
@@ -270,7 +375,7 @@
     .content-catsitter-topWrapper{
         position: relative;
         width: 100%;
-        height: 10%;
+        height: 5%;
         background-color: yellowgreen;
     }
 
@@ -281,6 +386,15 @@
         background-color: darkblue;
         top:0;
         right:0;
+    }
+
+    .content-catsitter-top-sort_select{
+        position: relative;
+        width: 90%;
+        height: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     .content-catsitter-resultWrapper{
@@ -301,7 +415,7 @@
 
     .content-catsitter-item-profileWrapper{
         position: relative;
-        width: 35%;
+        width: 25%;
         height: 100%;
         background-color: cadetblue;
         float: left;
@@ -320,6 +434,7 @@
         height: 17vw;
         top: 50%;
         left: 50%;
+        border-radius: 50%;
         transform: translate(-50%, -50%);
     }
 
@@ -341,53 +456,12 @@
 
     .content-catsitter-item-infoWrapper{
         position: relative;
-        width: 65%;
+        width: 75%;
         height: 100%;
         background-color: crimson;
         float: left;
     }
 
-    /* drop down css */
-      
-    .dropdown .dropbtn {
-        font-size: 16px;  
-        border: none;
-        outline: none;
-        color: white;
-        padding: 14px 16px;
-        background-color: transparent;
-        font-family: inherit;
-        margin: 0;
-        position: relative;
-        top: 0%;
-        left: 50%;
-        transform: translate(-50%, 0%);
-    }
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-      
-    .dropdown-content a {
-        float: none;
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        text-align: left;
-    }
-      
-    .dropdown-content a:hover {
-        background-color: #ddd;
-    }
-      
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
 
 
     /* 주소 api */

@@ -18,6 +18,33 @@ const sort_by_rate = (category) =>{
     // });
 }
 
+const searching_catsitter = () =>{
+    const place_value = $('select[id=select_place]').val();
+    const have_pet_value = $('select[id=select_havePet]').val();
+    const time_value = $('input[name=time]:checked').val();
+    const gender_value = $('input[name=gender]:checked').val();
+    const pill_value = $('input[name=pill]:checked').val();
+
+    console.log(place_value, have_pet_value, time_value, gender_value, pill_value);
+}
+
+
+
+$("#select_place").change(function(){
+    const current_value = $(this).val();
+    console.log(current_value);
+
+    if(current_value == 'consignment'){
+        $("#select_havePet").attr({
+            'disabled' : false
+        });
+    }
+    else{
+        $("#select_havePet").attr({
+            'disabled' : true
+        });
+    }
+});
 
 
 // 주소 api
@@ -68,17 +95,17 @@ function sample3_execDaumPostcode() {
                     extraAddr = ' (' + extraAddr + ')';
                 }
                 // 조합된 참고항목을 해당 필드에 넣는다.
-                document.getElementById("sample3_extraAddress").value = extraAddr;
+                // document.getElementById("sample3_extraAddress").value = extraAddr;
             
             } else {
-                document.getElementById("sample3_extraAddress").value = '';
+                // document.getElementById("sample3_extraAddress").value = '';
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample3_postcode').value = data.zonecode;
+            // document.getElementById('sample3_postcode').value = data.zonecode;
             document.getElementById("sample3_address").value = addr;
             // 커서를 상세주소 필드로 이동한다.
-            document.getElementById("sample3_detailAddress").focus();
+            // document.getElementById("sample3_detailAddress").focus();
 
             // iframe을 넣은 element를 안보이게 한다.
             // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
