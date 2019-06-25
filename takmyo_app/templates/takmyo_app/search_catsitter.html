@@ -230,8 +230,12 @@
                         </div>
                     </div>
                     <div class="content-search-selectWrapper">
-                        <select class="content-search_select" id="select_havePet" name="select_havePet" disabled=true>
-                            {% if select_havePet_value == 'unknown' %}
+                        {% if select_place_value == 'consignment' %}
+                            <select class="content-search_select" id="select_havePet" name="select_havePet">
+                        {% else %}
+                            <select class="content-search_select" id="select_havePet" name="select_havePet" disabled=true>
+                        {% endif %}
+                            {% if select_havePet_value == 'unknown' or not select_havePet_value %}
                                 <option value="no">없음</option>
                                 <option value="yes">있음</option>
                                 <option value="both" selected>협의가능</option>

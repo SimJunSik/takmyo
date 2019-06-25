@@ -46,6 +46,95 @@ $("#select_place").change(function(){
     }
 });
 
+function distance(lat1, lon1, lat2, lon2, unit) {
+    if ((lat1 == lat2) && (lon1 == lon2)) {
+        return 0;
+    }
+    else {
+        var radlat1 = Math.PI * lat1/180;
+        var radlat2 = Math.PI * lat2/180;
+        var theta = lon1-lon2;
+        var radtheta = Math.PI * theta/180;
+        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        if (dist > 1) {
+            dist = 1;
+        }
+        dist = Math.acos(dist);
+        dist = dist * 180/Math.PI;
+        dist = dist * 60 * 1.1515;
+        if (unit=="K") { dist = dist * 1.609344 }
+        if (unit=="N") { dist = dist * 0.8684 }
+        return dist;
+    }
+}
+
+const cmp = (x, y) =>{
+    return x > y ? 1 : x < y ? -1 : 0; 
+};
+
+$("#select_sort").change(function(){
+    const selected_sort = $(this).val();
+    console.log(selected_sort);
+
+    if(selected_sort == 'distance'){
+        fetch('./get_user_list/distance/')
+        .then(e => e.json())
+        .then(e => {
+            console.log(e.catsitters);
+            console.log(e.lat);
+            console.log(e.lng);
+
+            const catsitters = e.catsitters;
+            const user_lat = e.lat;
+            const user_lng = e.lng;
+
+            for(var i=0;i<catsitters.length;i++){
+                catsitters[i]['distance'] = distance(user_lat, user_lng, catsitters[i].user.lat, catsitters[i].user.lng, 'K');
+            }
+
+            catsitters.sort(function(a,b) {
+                    return parseFloat(a.distance) - parseFloat(b.distance);
+                }
+            )
+
+            for(var i=0;i<catsitters.length;i++){
+                console.log(catsitters[i].name, catsitters[i]['distance']);
+            }
+        });
+    }
+    else if(selected_sort == 'rate'){
+        fetch('./get_user_list/rate/')
+        .then(e => e.json())
+        .then(e => {
+            console.log(e.catsitters);
+            const catsitters = e.catsitters;
+
+            // console.log(e.lat);
+            // console.log(e.lng);
+
+            // const catsitters = e.catsitters;
+            // const user_lat = e.lat;
+            // const user_lng = e.lng;
+
+            // for(var i=0;i<catsitters.length;i++){
+            //     catsitters[i]['distance'] = distance(user_lat, user_lng, catsitters[i].user.lat, catsitters[i].user.lng, 'K');
+            // }
+
+            // catsitters.sort(function(a, b){
+            //     //note the minus before -cmp, for descending order
+            //     return cmp( 
+            //         [cmp(parseFloat(a.distance), parseFloat(b.distance)), -cmp(a.rate, b.rate)], 
+            //         [cmp(parseFloat(b.distance), parseFloat(a.distance)), -cmp(b.rate, a.rate)]
+            //     );
+            // });
+
+            for(var i=0;i<catsitters.length;i++){
+                console.log(catsitters[i].name, catsitters[i].rate);
+            }
+        });
+    }
+});
+
 
 // 주소 api
 // 우편번호 찾기 찾기 화면을 넣을 element

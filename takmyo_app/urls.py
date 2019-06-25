@@ -18,7 +18,9 @@ urlpatterns = [
     path('modify_myinfo/check_current_pw/', views.check_current_pw),
     path('mypage/', views.mypage),
     path('search_catsitter/', views.search_catsitter),
+    path('search_catsitter/get_user_list/distance/', views.get_user_list_by_distance),
+    path('search_catsitter/get_user_list/rate/', views.get_user_list_by_rate),
 
-    path('test/', views.test),
-    path('test/get_user_list/', views.get_user_list),
+    # path('test/', views.test),
+    # path('test/get_user_list/', views.get_user_list),
 ]

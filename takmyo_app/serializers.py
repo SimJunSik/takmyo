@@ -14,3 +14,11 @@ class UserSerializer(serializers.ModelSerializer) :
             'lat',
             'lng',
         )
+
+class CatsitterSerializer(serializers.ModelSerializer) :
+
+    user = UserSerializer()
+
+    class Meta :
+        model = Catsitter
+        fields = '__all__'

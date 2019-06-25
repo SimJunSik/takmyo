@@ -55,11 +55,11 @@ $(document).ready(function() {
                     'top' : "0%"
                 },500);
 
-                $("#div-index-circle1").css({
+                $("#div-index-circle2").css({
                     'background-color' : 'gray',
                     'opacity' : '0.5'
                 });
-                $("#div-index-circle2").css({
+                $("#div-index-circle1").css({
                     'background-color' : 'black',
                     'opacity' : '1'
                 });
@@ -85,11 +85,11 @@ $(document).ready(function() {
                     'top' : "-100%"
                 },500);
 
-                $("#div-index-circle2").css({
+                $("#div-index-circle1").css({
                     'background-color' : 'gray',
                     'opacity' : '0.5'
                 });
-                $("#div-index-circle1").css({
+                $("#div-index-circle2").css({
                     'background-color' : 'black',
                     'opacity' : '1'
                 });
