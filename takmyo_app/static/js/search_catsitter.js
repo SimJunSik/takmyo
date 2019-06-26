@@ -10,42 +10,6 @@ const close_menu = () =>{
     });
 }
 
-const sort_by_rate = (category) =>{
-    console.log(category);
-    $(".dropbtn").html(category);
-    // $(".dropdown-content").css({
-    //     'display' : 'none'
-    // });
-}
-
-const searching_catsitter = () =>{
-    const place_value = $('select[id=select_place]').val();
-    const have_pet_value = $('select[id=select_havePet]').val();
-    const time_value = $('input[name=time]:checked').val();
-    const gender_value = $('input[name=gender]:checked').val();
-    const pill_value = $('input[name=pill]:checked').val();
-
-    console.log(place_value, have_pet_value, time_value, gender_value, pill_value);
-}
-
-
-
-$("#select_place").change(function(){
-    const current_value = $(this).val();
-    console.log(current_value);
-
-    if(current_value == 'consignment'){
-        $("#select_havePet").attr({
-            'disabled' : false
-        });
-    }
-    else{
-        $("#select_havePet").attr({
-            'disabled' : true
-        });
-    }
-});
-
 function distance(lat1, lon1, lat2, lon2, unit) {
     if ((lat1 == lat2) && (lon1 == lon2)) {
         return 0;
@@ -64,13 +28,127 @@ function distance(lat1, lon1, lat2, lon2, unit) {
         dist = dist * 60 * 1.1515;
         if (unit=="K") { dist = dist * 1.609344 }
         if (unit=="N") { dist = dist * 0.8684 }
-        return dist;
+        return dist.toFixed(3);
     }
 }
 
 const cmp = (x, y) =>{
     return x > y ? 1 : x < y ? -1 : 0; 
 };
+
+
+const searching_catsitter = () =>{
+    const place_value = $('select[id=select_place]').val();
+    const have_pet_value = $('select[id=select_havePet]').val();
+    const time_value = $('input[name=time]:checked').val();
+    const gender_value = $('input[name=gender]:checked').val();
+    const pill_value = $('input[name=pill]:checked').val();
+
+    console.log(place_value, have_pet_value, time_value, gender_value, pill_value);
+}
+
+$(document).ready(function(){
+    const lat = $("#sample3_address").data('lat');
+    const lng = $("#sample3_address").data('lng');
+
+    console.log(lat, lng);
+
+    const catsitters= $(".content-catsitter-item-info-distance_text");
+    console.log(catsitters);
+    for(var catsitter of catsitters){
+        console.log($(catsitter).data('catsitterLat'), $(catsitter).data('catsitterLng'));
+        const catsitter_lat = $(catsitter).data('catsitterLat');
+        const catsitter_lng = $(catsitter).data('catsitterLng');
+        $(catsitter).html("~" + String(distance(lat, lng, catsitter_lat, catsitter_lng, 'K')) + "km");
+    }
+
+    const selected_distance = $('#select_distance').val();
+    console.log(selected_distance);
+
+    let select_distance = 0;
+    if(selected_distance == '5km'){
+        select_distance = 5;
+    }
+    else if(selected_distance == '10km'){
+        select_distance = 10;
+    }
+    else if(selected_distance == '20km'){
+        select_distance = 20;
+    }
+    else if(selected_distance == 'all'){
+        select_distance = 100000;
+    }
+
+    for(var catsitter of catsitters){
+        console.log($(catsitter).data('catsitterLat'), $(catsitter).data('catsitterLng'));
+        const catsitter_lat = $(catsitter).data('catsitterLat');
+        const catsitter_lng = $(catsitter).data('catsitterLng');
+        const catsitter_id = $(catsitter).data('catsitterId');
+        const catsitter_distance = distance(lat, lng, catsitter_lat, catsitter_lng, 'K');
+
+        if(select_distance < catsitter_distance){
+            $('#catsitter_' + catsitter_id).hide();
+        }
+        else{
+            $('#catsitter_' + catsitter_id).show();
+        }
+    }
+});
+
+$("#select_place").change(function(){
+    const current_value = $(this).val();
+    console.log(current_value);
+
+    if(current_value == 'consignment'){
+        $("#select_havePet").attr({
+            'disabled' : false
+        });
+    }
+    else{
+        $("#select_havePet").attr({
+            'disabled' : true
+        });
+    }
+});
+
+$("#select_distance").change(function(){
+    const lat = $("#sample3_address").data('lat');
+    const lng = $("#sample3_address").data('lng');
+
+    const selected_distance = $(this).val();
+    console.log(selected_distance);
+
+    let select_distance = 0;
+    if(selected_distance == '5km'){
+        select_distance = 5;
+    }
+    else if(selected_distance == '10km'){
+        select_distance = 10;
+    }
+    else if(selected_distance == '20km'){
+        select_distance = 20;
+    }
+    else if(selected_distance == 'all'){
+        select_distance = 100000;
+    }
+
+    const catsitters= $(".content-catsitter-item-info-distance_text");
+
+    for(var catsitter of catsitters){
+        console.log($(catsitter).data('catsitterLat'), $(catsitter).data('catsitterLng'));
+        const catsitter_lat = $(catsitter).data('catsitterLat');
+        const catsitter_lng = $(catsitter).data('catsitterLng');
+        const catsitter_id = $(catsitter).data('catsitterId');
+        const catsitter_distance = distance(lat, lng, catsitter_lat, catsitter_lng, 'K');
+
+        if(select_distance < catsitter_distance){
+            $('#catsitter_' + catsitter_id).hide();
+        }
+        else{
+            $('#catsitter_' + catsitter_id).show();
+        }
+    }
+});
 
 $("#select_sort").change(function(){
     const selected_sort = $(this).val();
@@ -100,6 +178,137 @@ $("#select_sort").change(function(){
             for(var i=0;i<catsitters.length;i++){
                 console.log(catsitters[i].name, catsitters[i]['distance']);
             }
+
+            $(".content-catsitter-resultWrapper").html('');
+
+            for(var catsitter of catsitters){
+                const a = `<div class="content-catsitter-itemWrapper" id="catsitter_`
+                
+                const catsitter_id = catsitter.id;
+                
+                const a2 = `">
+                <div class="content-catsitter-item-profileWrapper">
+                    <div class="content-catsitter-item-profile-imageWrapper">
+                        <img class="content-catsitter-item-profile_image" src="`
+                        
+                const catsitter_profile_image = catsitter.catsitter_profile_image;  
+                        
+                const a3 = `">
+                    </div>
+                    <div class="content-catsitter-item-profile-textWrapper">
+                        <div class="content-catsitter-item-profile_text">`;
+
+                const catsitter_name = catsitter.name;
+
+                const b = `</div>
+                </div>
+            </div>
+            <div class="content-catsitter-item-infoWrapper">
+                <div class="content-catsitter-item-info-topWrapper">
+                    <div class="stars-outer">
+                        <div class="stars-inner" style="width: `
+                        
+                const catsitter_rate_per_hundred = catsitter.rate_per_hundred;
+                        
+                const b2 = `%;"></div>
+                    </div>&nbsp;&nbsp;`;
+
+                const catsitter_rate_per_five = catsitter.rate_per_five;
+
+                const c = `<div class="content-catsitter-item-info-distanceWrapper">
+                <div class="content-catsitter-item-info-distance_text"
+                    data-catsitter-lat="`
+                    
+                const catsitter_lat = catsitter.user.lat;
+
+                const c2 = `"data-catsitter-lng="`;
+
+                const catsitter_lng = catsitter.user.lng;
+
+                const c3 = `"data-catsitter-id="`
+                
+                const catsitter_distance_id = catsitter.id;
+
+                const c4 = `">`;
+                    
+                const catsitter_distance = "~" + catsitter.distance + "km";
+
+                const c5 = `</div>
+                        </div>
+                    </div>
+
+                    <div class="content-catsitter-item-info-middleWrapper">
+                        <div class="content-catsitter-item-info-middle-regionWrapper">
+                            <div class="content-catsitter-item-info-middle_text">
+                                <strong>`;
+
+                const catsitter_available_region = catsitter.available_region;
+
+                const d = `</strong> 에서 활동 중
+                </div>
+            </div>
+            <div class="content-catsitter-item-info-middle-introduceWrapper">
+                <div class="content-catsitter-item-info-middle_text">`;
+
+                const catsitter_introduce = catsitter.introduce;
+
+                const e = `</div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+                const result = a + catsitter_id + a2 + catsitter_profile_image + a3 +
+                catsitter_name + 
+                b + catsitter_rate_per_hundred + b2 +
+                catsitter_rate_per_five + 
+                c + catsitter_lat + c2 + catsitter_lng + c3 + catsitter_distance_id + c4 + catsitter_distance + c5 +
+                catsitter_available_region + 
+                d + 
+                catsitter_introduce + 
+                e;
+                $(".content-catsitter-resultWrapper").append(result);
+            }
+
+
+            const lat = $("#sample3_address").data('lat');
+            const lng = $("#sample3_address").data('lng');
+
+            console.log(lat, lng);
+
+            const selected_distance = $('#select_distance').val();
+            console.log(selected_distance);
+
+            let select_distance = 0;
+            if(selected_distance == '5km'){
+                select_distance = 5;
+            }
+            else if(selected_distance == '10km'){
+                select_distance = 10;
+            }
+            else if(selected_distance == '20km'){
+                select_distance = 20;
+            }
+            else if(selected_distance == 'all'){
+                select_distance = 100000;
+            }
+
+            for(var catsitter of catsitters){
+                const catsitter_lat = catsitter.user.lat;
+                const catsitter_lng = catsitter.user.lng;
+                const catsitter_id = catsitter.id;
+                const catsitter_distance = distance(lat, lng, catsitter_lat, catsitter_lng, 'K');
+
+                console.log(catsitter.name, catsitter.user.lat, catsitter.user.lng, parseFloat(catsitter_distance));
+                //console.log(parseFloat(select_distance), parseFloat(catsitter_distance));
+                if(parseFloat(select_distance) < parseFloat(catsitter_distance)){
+                    console.log(parseFloat(select_distance), parseFloat(catsitter_distance));
+                    $('#catsitter_' + catsitter_id).hide();
+                }
+                else{
+                    $('#catsitter_' + catsitter_id).show();
+                }
+            }
         });
     }
     else if(selected_sort == 'rate'){
@@ -108,28 +317,145 @@ $("#select_sort").change(function(){
         .then(e => {
             console.log(e.catsitters);
             const catsitters = e.catsitters;
-
-            // console.log(e.lat);
-            // console.log(e.lng);
-
-            // const catsitters = e.catsitters;
-            // const user_lat = e.lat;
-            // const user_lng = e.lng;
-
-            // for(var i=0;i<catsitters.length;i++){
-            //     catsitters[i]['distance'] = distance(user_lat, user_lng, catsitters[i].user.lat, catsitters[i].user.lng, 'K');
-            // }
-
-            // catsitters.sort(function(a, b){
-            //     //note the minus before -cmp, for descending order
-            //     return cmp( 
-            //         [cmp(parseFloat(a.distance), parseFloat(b.distance)), -cmp(a.rate, b.rate)], 
-            //         [cmp(parseFloat(b.distance), parseFloat(a.distance)), -cmp(b.rate, a.rate)]
-            //     );
-            // });
+            const user_lat = e.lat;
+            const user_lng = e.lng;
 
             for(var i=0;i<catsitters.length;i++){
-                console.log(catsitters[i].name, catsitters[i].rate);
+                catsitters[i]['distance'] = distance(user_lat, user_lng, catsitters[i].user.lat, catsitters[i].user.lng, 'K');
+            }
+
+            for(var i=0;i<catsitters.length;i++){
+                console.log(catsitters[i].name, catsitters[i].rate_per_five);
+            }
+
+            $(".content-catsitter-resultWrapper").html('');
+
+            for(var catsitter of catsitters){
+                const a = `<div class="content-catsitter-itemWrapper" id="catsitter_`
+                
+                const catsitter_id = catsitter.id;
+                
+                const a2 = `">
+                <div class="content-catsitter-item-profileWrapper">
+                    <div class="content-catsitter-item-profile-imageWrapper">
+                        <img class="content-catsitter-item-profile_image" src="`
+                        
+                const catsitter_profile_image = catsitter.catsitter_profile_image;  
+                        
+                const a3 = `">
+                    </div>
+                    <div class="content-catsitter-item-profile-textWrapper">
+                        <div class="content-catsitter-item-profile_text">`;
+
+                const catsitter_name = catsitter.name;
+
+                const b = `</div>
+                </div>
+            </div>
+            <div class="content-catsitter-item-infoWrapper">
+                <div class="content-catsitter-item-info-topWrapper">
+                    <div class="stars-outer">
+                        <div class="stars-inner" style="width: `
+                        
+                const catsitter_rate_per_hundred = catsitter.rate_per_hundred;
+                        
+                const b2 = `%;"></div>
+                    </div>&nbsp;&nbsp;`;
+
+                const catsitter_rate_per_five = catsitter.rate_per_five;
+
+                const c = `<div class="content-catsitter-item-info-distanceWrapper">
+                <div class="content-catsitter-item-info-distance_text"
+                    data-catsitter-lat="`
+                    
+                const catsitter_lat = catsitter.user.lat;
+
+                const c2 = `"data-catsitter-lng="`;
+
+                const catsitter_lng = catsitter.user.lng;
+
+                const c3 = `"data-catsitter-id="`
+                
+                const catsitter_distance_id = catsitter.id;
+
+                const c4 = `">`;
+                    
+                const catsitter_distance = "~" + catsitter.distance + "km";
+
+                const c5 = `</div>
+                        </div>
+                    </div>
+
+                    <div class="content-catsitter-item-info-middleWrapper">
+                        <div class="content-catsitter-item-info-middle-regionWrapper">
+                            <div class="content-catsitter-item-info-middle_text">
+                                <strong>`;
+
+                const catsitter_available_region = catsitter.available_region;
+
+                const d = `</strong> 에서 활동 중
+                </div>
+            </div>
+            <div class="content-catsitter-item-info-middle-introduceWrapper">
+                <div class="content-catsitter-item-info-middle_text">`;
+
+                const catsitter_introduce = catsitter.introduce;
+
+                const e = `</div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+                const result = a + catsitter_id + a2 + catsitter_profile_image + a3 +
+                catsitter_name + 
+                b + catsitter_rate_per_hundred + b2 +
+                catsitter_rate_per_five + 
+                c + catsitter_lat + c2 + catsitter_lng + c3 + catsitter_distance_id + c4 + catsitter_distance + c5 +
+                catsitter_available_region + 
+                d + 
+                catsitter_introduce + 
+                e;
+                $(".content-catsitter-resultWrapper").append(result);
+            }
+
+            const lat = $("#sample3_address").data('lat');
+            const lng = $("#sample3_address").data('lng');
+
+            console.log(lat, lng);
+
+            const selected_distance = $('#select_distance').val();
+            console.log(selected_distance);
+
+            let select_distance = 0;
+            if(selected_distance == '5km'){
+                select_distance = 5;
+            }
+            else if(selected_distance == '10km'){
+                select_distance = 10;
+            }
+            else if(selected_distance == '20km'){
+                select_distance = 20;
+            }
+            else if(selected_distance == 'all'){
+                select_distance = 100000;
+            }
+
+            for(var catsitter of catsitters){
+                const catsitter_lat = catsitter.user.lat;
+                const catsitter_lng = catsitter.user.lng;
+                const catsitter_id = catsitter.id;
+                const catsitter_distance = distance(lat, lng, catsitter_lat, catsitter_lng, 'K');
+
+                console.log(catsitter.name, catsitter.user.lat, catsitter.user.lng, parseFloat(catsitter_distance));
+                //console.log(parseFloat(select_distance), parseFloat(catsitter_distance));
+                if(parseFloat(select_distance) < parseFloat(catsitter_distance)){
+                    console.log(parseFloat(select_distance), parseFloat(catsitter_distance));
+                    $('#catsitter_' + catsitter_id).hide();
+                }
+                else{
+                    $('#catsitter_' + catsitter_id).show();
+                }
             }
         });
     }

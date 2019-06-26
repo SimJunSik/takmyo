@@ -46,7 +46,8 @@ class Catsitter(models.Model) :
 
     name = models.CharField(max_length = 100, default="unknown")
     catsitter_profile_image = models.ImageField(upload_to='catsitter_profileImage/', default='unknown_icon.png')
-    rate = models.FloatField(blank=True, default=0.0)
+    rate_per_hundred = models.FloatField(blank=True, default=0.0)
+    rate_per_five = models.FloatField(blank=True, default=0.0)
     have_pet = models.BooleanField(default=False)
     have_pet_experience = models.BooleanField(default=False)
     have_care_experience = models.BooleanField(default=False)

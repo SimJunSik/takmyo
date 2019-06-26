@@ -380,12 +380,11 @@
     }
 
     .content-catsitter-top-sortWrapper{
-        position: absolute;
+        position: relative;
         width: 30%;
         height: 100%;
         background-color: darkblue;
-        top:0;
-        right:0;
+        float: right;
     }
 
     .content-catsitter-top-sort_select{
@@ -395,6 +394,14 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+
+    .content-catsitter-top-selectDistanceWrapper{
+        position: relative;
+        width: 30%;
+        height: 100%;
+        background-color: sandybrown;
+        float: right;
     }
 
     .content-catsitter-resultWrapper{
@@ -461,6 +468,92 @@
         background-color: crimson;
         float: left;
     }
+
+    .content-catsitter-item-info-topWrapper{
+        position: relative;
+        width: 100%;
+        height: 25%;
+        background-color: turquoise;
+    }
+
+    .content-catsitter-item-info-distanceWrapper{
+        position: relative;
+        width: 40%;
+        height: 100%;
+        background-color: slateblue;
+        float: right;
+    }
+
+    .content-catsitter-item-info-distance_text{
+        position: relative;
+        width: 100%;
+        height: auto;
+        text-align: right;
+        font-size: 5vw;
+        font-weight: 800;
+    }
+
+    .content-catsitter-item-info-selectDistanceWrapper{
+        position: relative;
+        width: 40%;
+        height: 100%;
+        background-color: sandybrown;
+        float: right;
+    }
+
+    .content-catsitter-item-info-middleWrapper{
+        position: relative;
+        width: 100%;
+        height: 50%;
+        background-color: seagreen;
+    }
+
+    .content-catsitter-item-info-middle-regionWrapper{
+        position: relative;
+        width: 100%;
+        height: 50%;
+        background-color: #FFD9FA;
+    }
+
+    .content-catsitter-item-info-middle-introduceWrapper{
+        position: relative;
+        width: 100%;
+        height: 50%;
+        background-color: #f8ce0b;
+    }
+
+    .content-catsitter-item-info-middle_text{
+        position: relative;
+        width: 100%;
+        height: auto;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    /* star rating css */
+    .stars-outer {
+        display: inline-block;
+        position: relative;
+        font-family: FontAwesome;
+      }
+
+      .stars-outer::before {
+        content: "\f006 \f006 \f006 \f006 \f006";
+      }
+
+      .stars-inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 0;
+      }
+
+      .stars-inner::before {
+        content: "\f005 \f005 \f005 \f005 \f005";
+        color: #f8ce0b;
+      }
 
 
 

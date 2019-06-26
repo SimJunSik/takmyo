@@ -180,7 +180,14 @@
             {% csrf_token %}
             <div class='content-search-addressWrapper'>
                 <!-- <input type="text" name="user_postcode" id="sample3_postcode" placeholder="우편번호" value="{{user.postcode}}" required><br> -->
-                <input type="text" name="user_address" id="sample3_address" placeholder="주소" value="{{user.address}}">
+                <input type="text" 
+                        name="user_address" 
+                        id="sample3_address" 
+                        placeholder="주소" 
+                        value="{{user.address}}"
+                        data-lat={{lat}}
+                        data-lng={{lng}}
+                        >
                 <!-- <input type="text" name="user_detail_address" id="sample3_detailAddress" placeholder="상세주소" value="{{user.detail_address}}"required><br> -->
                 <!-- <input type="text" name="user_extra_address" id="sample3_extraAddress" placeholder="참고항목" value="{{user.extra_address}}"> -->
                 <input class="content-search-address_button" type="button" onclick="sample3_execDaumPostcode()" value="주소변경하기">
@@ -389,10 +396,19 @@
                         <option value="distance">거리순</option>
                     </select>
                 </div>
+
+                <div class="content-catsitter-top-selectDistanceWrapper">
+                    <select class="content-catsitter-top-sort_select" id="select_distance">
+                        <option value="all">모두보기</option>
+                        <option value="5km">5km 이내</option>
+                        <option value="10km">10km 이내</option>
+                        <option value="20km">20km 이내</option>
+                    </select>  
+                </div>
             </div>
             <div class="content-catsitter-resultWrapper">
                 {% for catsitter in catsitters %}
-                    <div class="content-catsitter-itemWrapper">
+                    <div class="content-catsitter-itemWrapper" id="catsitter_{{catsitter.id}}">
                         <div class="content-catsitter-item-profileWrapper">
                             <div class="content-catsitter-item-profile-imageWrapper">
                                 <img class="content-catsitter-item-profile_image" src="{{catsitter.catsitter_profile_image.url}}">
@@ -404,7 +420,35 @@
                             </div>
                         </div>
                         <div class="content-catsitter-item-infoWrapper">
+                            <div class="content-catsitter-item-info-topWrapper">
+                                <div class="stars-outer">
+                                    <div class="stars-inner" style="width: {{catsitter.rate_per_hundred}}%;"></div>
+                                </div>
+                                &nbsp;{{catsitter.rate_per_five}}
 
+                                <div class="content-catsitter-item-info-distanceWrapper">
+                                    <div class="content-catsitter-item-info-distance_text"
+                                        data-catsitter-lat="{{catsitter.user.lat}}"
+                                        data-catsitter-lng="{{catsitter.user.lng}}"
+                                        data-catsitter-id="{{catsitter.id}}"
+                                        >
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content-catsitter-item-info-middleWrapper">
+                                <div class="content-catsitter-item-info-middle-regionWrapper">
+                                    <div class="content-catsitter-item-info-middle_text">
+                                        <strong>{{catsitter.available_region}}</strong> 에서 활동 중
+                                    </div>
+                                </div>
+                                <div class="content-catsitter-item-info-middle-introduceWrapper">
+                                    <div class="content-catsitter-item-info-middle_text">
+                                        {{catsitter.introduce}}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
