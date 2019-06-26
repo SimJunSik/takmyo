@@ -21,6 +21,9 @@ urlpatterns = [
     path('search_catsitter/get_user_list/distance/', views.get_user_list_by_distance),
     path('search_catsitter/get_user_list/rate/', views.get_user_list_by_rate),
 
+
+
+
     # path('test/', views.test),
     # path('test/get_user_list/', views.get_user_list),
 ]

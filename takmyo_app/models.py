@@ -53,7 +53,7 @@ class Catsitter(models.Model) :
     have_care_experience = models.BooleanField(default=False)
     available_pill = models.BooleanField(default=False)
     available_identification = models.BooleanField(default=False)
-    available_place = models.CharField(max_length=10, choices=PLACE_CHOICES, default='')
+    available_place = models.CharField(max_length=20, choices=PLACE_CHOICES, default='')
 
     visit_price_per_once = models.IntegerField(default=0)
     visit_price_per_extra_cat = models.IntegerField(default=0)
