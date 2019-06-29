@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- import css -->
+    <link rel="stylesheet" href="/static/css/show_catsitter.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+
+
+    <!-- import jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- import js -->
+    <script src="/static/js/show_catsitter.js" async></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+
+</head>
+<body>
+    <!-- top start -->
+    <div class="top">
+        <div class="top-menuWrapper">
+            <img class="top-menu_icon" 
+                src="/static/image/menu_icon.png"
+                onclick="open_menu();"
+                >
+
+            {% if notifications_count > 0 %}
+            <div class="menu-notification_count">
+                <div class="menu-notification_countText">
+                    {{notifications_count}}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- top end -->
+
+    <!-- menu start -->
+    <div class="menu">
+        <div class="menu-notificationWrapper">
+            <a href="/notification/">
+                <img src="/static/image/notification_icon.png" class="menu-notification_image">
+                {% if notifications_count > 0 %}
+                <div class="menu-notification_count">
+                    <div class="menu-notification_countText">
+                        {{notifications_count}}
+                    </div>
+                </div>
+                {% endif %}
+            </a>
+        </div>
+
+        <div class="menu-profileWrapper">
+            {% if not user.is_authenticated %}
+                <img src="/static/image/unknown_icon.png" class="menu-profile_image">
+                <br>
+                <font></font>
+            {% else %}
+                <!-- <img src="user.profile_image.url" class="menu-profile_image"> -->
+                <img src="/static/image/unknown_icon.png" class="menu-profile_image">
+                <br>
+                <font>{{user.username}}</font>
+            {% endif %}
+        </div>
+
+        <div class="menu-listWrapper">
+            <div class="menu-list-itemWrapper">
+                <div class="menu-list-item-myWrapper">
+                    <div class="menu-list-titleWrapper">
+                        <div class="menu-list-title_text">
+                            MY
+                        </div>
+                    </div>
+
+                    <hr class="menu-list-title-underbar">
+
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            {% if not user.is_authenticated %}
+                                <a href="/login/">
+                                    Login
+                                </a>
+                            {% else %}
+                                <a href="/logout/">
+                                    Logout
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            <a href="/join/">
+                                Join
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            <a href="/mypage/">
+                                Mypage
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-list-item-categoryWrapper">
+                    <div class="menu-list-titleWrapper">
+                        <div class="menu-list-title_text">
+                            CATEGORY
+                        </div>
+                    </div>
+
+                    <hr class="menu-list-title-underbar">
+
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            <a href="/main/">
+                                Home
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            <a href="/aboutus/">
+                                About us
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            <a href="/search_catsitter/">
+                                Catsitter search
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            <a href="/catsitter_mode/">
+                                Catsitter mode
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
+                            <a href="/catee_mode/">
+                                Catee mode
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-list-item-contactWrapper">
+                    <div class="menu-list-titleWrapper">
+                        <div class="menu-list-title_text">
+                            CONTACT
+                        </div>
+                    </div>
+
+                    <hr class="menu-list-title-underbar">
+
+                    <div class="menu-list-item-my">
+                        <div class="menu-list-item_text menu-list-item_textTop">
+                            wnstlr24@gmail.com
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="menu-aboutWrapper">
+
+        </div>
+
+        <div class="menu-closeWrapper">
+            <img class="menu-close_icon" 
+                src="/static/image/close_icon.png"
+                onclick="close_menu();"
+                >
+        </div>
+    </div>
+    <!-- menu end -->
+
+
+    <!-- content start -->
+    <div class="content">
+        <div class="content-profileWrapper">
+            <div class="content-profile-imageWrapper">
+                <img class="content-profile_image" src="/static/image/suji.jpg">
+            </div>
+            <div class="content-profile-textWrapper">
+                <div class="content-profile-nameWrapper">
+                    <div class="content-profile-name_text">
+                        <font style="font-size: 6vw;">심준식</font>
+                        <br>
+                        은평구, 종로구
+                    </div>
+                </div>
+
+                <div class="content-profile-etcWrapper">
+                    <div class="content-profile-etc-itemWrapper">
+                        <div class="content-profile-etc-item-domainWrapper">
+                            <div class="content-profile-etc-item_text">
+                                활동수
+                            </div>
+                        </div>
+                        <div class="content-prifile-etc-item-valueWrapper">
+                            <div class="content-profile-etc-item_text">
+                                -
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-profile-etc-itemWrapper">
+                        <div class="content-profile-etc-item-domainWrapper">
+                            <div class="content-profile-etc-item_text">
+                                좋아요
+                            </div>
+                        </div>
+                        <div class="content-prifile-etc-item-valueWrapper">
+                            <div class="content-profile-etc-item_text">
+                                -
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-profile-etc-itemWrapper">
+                        <div class="content-profile-etc-item-domainWrapper">
+                            <div class="content-profile-etc-item_text">
+                                리뷰
+                            </div>
+                        </div>
+                        <div class="content-prifile-etc-item-valueWrapper">
+                            <div class="content-profile-etc-item_text">
+                                -
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-infoWrapper">
+            <div class="content-info-tabWrapper">
+                <div class="content-info-tab-itemWrapper" id="tab_introduce" onclick="click_tab(this);">
+                    <div class="content-info-tab-item_text">
+                        켓시터  소개
+                    </div>
+                </div>
+                <div class="content-info-tab-itemWrapper" id="tab_charge" onclick="click_tab(this);">
+                    <div class="content-info-tab-item_text">
+                        탁묘 비용
+                    </div>
+                </div>
+                <div class="content-info-tab-itemWrapper" id="tab_experience" onclick="click_tab(this);">
+                    <div class="content-info-tab-item_text">
+                        탁묘 경험
+                    </div>
+                </div>
+                <div class="content-info-tab-itemWrapper" id="tab_review" onclick="click_tab(this);">
+                    <div class="content-info-tab-item_text">
+                        리뷰
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-info-bodyWrapper" id="body_introduce">
+                <div class="content-info-introduce-availableTimeWrapper">
+                    <div class="content-info-introduce-titleWrapper">
+                        <div class="content-info-introduce-title_text">
+                            &nbsp;&nbsp;가능 시간/요일
+                        </div>
+                    </div>
+                    <div class="content-info-introduce-availableTime-timeWrapper">
+
+                    </div>
+                </div>
+                <div class="content-info-introduce-availableEtcWrapper">
+                    <div class="content-info-introduce-titleWrapper">
+                        <div class="content-info-introduce-title_text">
+                            &nbsp;&nbsp;켓시터 스킬
+                        </div>
+                    </div>
+
+                    <div class="content-info-introduce-availableEtc-itemWrapper">
+                        <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                            <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png">
+                        </div>
+                        <div class="content-info-introduce-availableEtc-item-textWrapper">
+                            <div class="content-info-introduce-availableEtc-item_text">
+                                방문탁묘
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-info-introduce-availableEtc-itemWrapper">
+                        <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                            <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png">
+                        </div>
+                        <div class="content-info-introduce-availableEtc-item-textWrapper">
+                            <div class="content-info-introduce-availableEtc-item_text">
+                                위탁탁묘
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-info-introduce-availableEtc-itemWrapper">
+                        <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                            <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png" style="opacity: 0.1;">
+                        </div>
+                        <div class="content-info-introduce-availableEtc-item-textWrapper">
+                            <div class="content-info-introduce-availableEtc-item_text">
+                                반려동물 여부
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-info-introduce-availableEtc-itemWrapper">
+                        <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                            <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png" style="opacity: 0.1;">
+                        </div>
+                        <div class="content-info-introduce-availableEtc-item-textWrapper">
+                            <div class="content-info-introduce-availableEtc-item_text">
+                                알약투여
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-info-introduce-availableEtc-itemWrapper">
+                        <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                            <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png">
+                        </div>
+                        <div class="content-info-introduce-availableEtc-item-textWrapper">
+                            <div class="content-info-introduce-availableEtc-item_text">
+                                탁묘경험
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-info-introduce-availableEtc-itemWrapper">
+                        <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                            <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png">
+                        </div>
+                        <div class="content-info-introduce-availableEtc-item-textWrapper">
+                            <div class="content-info-introduce-availableEtc-item_text">
+                                반려동물 경험
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-info-introduce-commentWrapper">
+                    <div class="content-info-introduce-titleWrapper">
+                        <div class="content-info-introduce-title_text">
+                            &nbsp;&nbsp;소개
+                        </div>
+                    </div>
+                </div>
+                <div class="content-info-introduce-warningWrapper">
+                    <div class="content-info-introduce-titleWrapper">
+                        <div class="content-info-introduce-title_text">
+                            &nbsp;&nbsp;주의사항
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-info-bodyWrapper" id="body_charge">
+                <div class="content-info-charge-visitWrapper">
+                    <div class="content-info-charge-titleWrapper">
+                        <div class="content-info-charge-title_text">
+                            &nbsp;&nbsp;방문탁묘
+                        </div>
+                    </div>
+
+                    <div class="content-info-charge-bodyWrapper">
+                        <div class="content-info-charge-body-domainWrapper">
+                            <div class="content-info-charge-body-domain">
+                                <div class="content-info-charge-body-domain_text">
+                                    1회
+                                </div>
+                            </div>
+                            <div class="content-info-charge-body-domain">
+                                <div class="content-info-charge-body-domain_text">
+                                    마리 추가시 
+                                    <br>
+                                    추가비용
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-info-charge-body-valueWrapper">
+                            <div class="content-info-charge-body-value">
+                                <div class="content-info-charge-body-value_text">
+                                    10,000원
+                                </div>
+                            </div>
+                            <div class="content-info-charge-body-value">
+                                <div class="content-info-charge-body-value_text">
+                                    1마리당 -원
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-info-charge-consignmentWrapper">
+                    <div class="content-info-charge-titleWrapper">
+                        <div class="content-info-charge-title_text">
+                            &nbsp;&nbsp;위탁탁묘
+                        </div>
+                    </div>
+
+                    <div class="content-info-charge-bodyWrapper">
+                        <div class="content-info-charge-body-domainWrapper">
+                            <div class="content-info-charge-body-domain">
+                                <div class="content-info-charge-body-domain_text">
+                                    1일 이하
+                                </div>
+                            </div>
+                            <div class="content-info-charge-body-domain">
+                                <div class="content-info-charge-body-domain_text">
+                                    1주일
+                                </div>
+                            </div>
+                            <div class="content-info-charge-body-domain">
+                                <div class="content-info-charge-body-domain_text">
+                                    1달
+                                </div>
+                            </div>
+                            <div class="content-info-charge-body-domain">
+                                <div class="content-info-charge-body-domain_text">
+                                    마리 추가시 
+                                    <br>
+                                    추가비용
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-info-charge-body-valueWrapper">
+                            <div class="content-info-charge-body-value">
+                                <div class="content-info-charge-body-value_text">
+                                    15,000원
+                                </div>
+                            </div>
+                            <div class="content-info-charge-body-value">
+                                <div class="content-info-charge-body-value_text">
+                                    -원
+                                </div>
+                            </div>
+                            <div class="content-info-charge-body-value">
+                                <div class="content-info-charge-body-value_text">
+                                    -원
+                                </div>
+                            </div>
+                            <div class="content-info-charge-body-value">
+                                <div class="content-info-charge-body-value_text">
+                                    1마리당 -원
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-info-bodyWrapper" id="body_experience">
+                <div class="content-info-experience-recordWrapper">
+                    <div class="content-info-experience-titleWrapper">
+                        <div class="content-info-experience-title_text">
+                            &nbsp;&nbsp;탁묘 관련 경험
+                        </div>
+                    </div>
+    
+                    <div class="content-info-experience-bodyWrapper">
+                        - 1
+                        <br>
+                        - 2
+                    </div>
+                </div>
+
+                <div class="content-info-experience-albumWrapper">
+                    <div class="content-info-experience-titleWrapper">
+                        <div class="content-info-experience-title_text">
+                            &nbsp;&nbsp;탁묘 사진
+                        </div>
+                    </div>
+
+                    <div class="content-info-experience-bodyWrapper">
+                        <div class="content-info-experience-album-imageWrapper">
+                            <img class="content-info-experience-album_image" src="/static/image/e1.jpg">
+                        </div>
+                        <div class="content-info-experience-album-imageWrapper">
+                            <img class="content-info-experience-album_image" src="/static/image/e1.jpg">
+                        </div>
+                        <div class="content-info-experience-album-imageWrapper">
+                            <img class="content-info-experience-album_image" src="/static/image/e1.jpg">
+                        </div>
+                        <div class="content-info-experience-album-imageWrapper">
+                            <img class="content-info-experience-album_image" src="/static/image/e1.jpg">
+                        </div>
+                        <div class="content-info-experience-album-imageWrapper">
+                            <img class="content-info-experience-album_image" src="/static/image/e1.jpg">
+                        </div>
+                        <div class="content-info-experience-album-imageWrapper">
+                            <img class="content-info-experience-album_image" src="/static/image/e1.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-info-bodyWrapper" id="body_review">
+                <div class="content-info-review-writeWrapper">
+                    <button class="content-info-review_writeButton">리뷰쓰기</button>
+                </div>
+
+                <div class="content-info-reviewListWrapper">
+                    <div class="content-info-reivew-itemWrapper">
+                        <div class="content-info-review-item-nameWrapper">
+                            홍길동
+                        </div>
+                        <div class="content-info-review-item-rateWrapper">
+                            <div class="stars-outer">
+                                <div class="stars-inner" style="width: 100%;"></div>
+                            </div>
+                            &nbsp;5.0
+                        </div>
+                        <div class="content-info-review-item-textWrapper">
+                            <div class="content-info-review-item_text">
+                                너무 좋아용
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-info-reivew-itemWrapper">
+                        <div class="content-info-review-item-nameWrapper">
+                            강호동
+                        </div>
+                        <div class="content-info-review-item-rateWrapper">
+                            <div class="stars-outer">
+                                <div class="stars-inner" style="width: 100%;"></div>
+                            </div>
+                            &nbsp;5.0
+                        </div>
+                        <div class="content-info-review-item-textWrapper">
+                            <div class="content-info-review-item_text">
+                                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content end -->
+
+    <!-- mask start -->
+    <div id="mask"></div>
+    <!-- mask end -->
+
+    <!-- register review start -->
+    <div class="register_review_Wrapper">
+        <div class="content-info-review-write_form" data-is-open="false">
+            <img class="content-info-review-write-closeImage" 
+                src="/static/image/close_icon.png"
+                >
+
+            <div class="content-info-review-write-itemWrapper">
+                <div class="content-info-review-write-item-domainWrapper">
+                    <div class="content-info-review-write-item-domain_text">
+                        시간준수
+                    </div>
+                </div>
+
+                <div class="content-info-review-write-item-rateWrapper">
+                    <div id="rateYo_time"></div>
+                </div>
+            </div>
+
+            <div class="content-info-review-write-itemWrapper">
+                <div class="content-info-review-write-item-domainWrapper">
+                    <div class="content-info-review-write-item-domain_text">
+                        친절함
+                    </div>
+                </div>
+
+                <div class="content-info-review-write-item-rateWrapper">
+                    <div id="rateYo_kindness"></div>
+                </div>
+            </div>
+
+            <div class="content-info-review-write-itemWrapper">
+                <div class="content-info-review-write-item-domainWrapper">
+                    <div class="content-info-review-write-item-domain_text">
+                        수행능력
+                    </div>
+                </div>
+
+                <div class="content-info-review-write-item-rateWrapper">
+                    <div id="rateYo_achievement"></div>
+                </div>
+            </div>
+
+            <div class="content-info-review-write-inputWrapper">
+                <input type="text" 
+                        class="content-info-review-write_input"
+                        name="review_text" 
+                        placeholder="리뷰를 남겨주세요.">
+            </div>
+
+            <button class="content-info-review_registerButton" onclick="register_review();">등록하기</button>
+        </div>
+    </div>
+    <!-- register review end -->
+</body>
+</html>

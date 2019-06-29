@@ -503,6 +503,12 @@ def get_user_list_by_distance(request) :
     select_time = request.session['time']
     select_gender = request.session['gender']
     select_pill = request.session['pill']
+
+    if select_havePet_value == 'yes' :
+        select_havePet_value = True
+    elif select_havePet_value == 'no' :
+        select_havePet_value = False
+
     if select_pill == 'possible' :
         select_pill = True
 
@@ -513,15 +519,19 @@ def get_user_list_by_distance(request) :
         catsitters = Catsitter.objects.filter(activation=True)
     else :
         catsitters = Catsitter.objects.filter(
+            activation=True,
             available_place = select_place_value
+        ) | Catsitter.objects.filter(
+            available_place = 'both'
         )
 
     print(catsitters)
 
     if select_havePet_value != 'unknown' :
-        catsitters = catsitters.filter(
-            have_pet = select_havePet_value
-        )
+        if select_havePet_value != 'both' :
+            catsitters = catsitters.filter(
+                have_pet = select_havePet_value
+            )
 
     if select_day != 'both' :
         catsitters = catsitters.filter(
@@ -550,6 +560,8 @@ def get_user_list_by_distance(request) :
                 available_weekend_time = select_time
             ) | catsitters.filter(
                 available_weekday_time = 'both'
+            ) | catsitters.filter(
+                available_weekend_time = 'both'
             )
 
     if select_gender != 'both' :
@@ -596,6 +608,12 @@ def get_user_list_by_rate(request) :
     select_time = request.session['time']
     select_gender = request.session['gender']
     select_pill = request.session['pill']
+
+    if select_havePet_value == 'yes' :
+        select_havePet_value = True
+    elif select_havePet_value == 'no' :
+        select_havePet_value = False
+
     if select_pill == 'possible' :
         select_pill = True
 
@@ -603,16 +621,24 @@ def get_user_list_by_rate(request) :
 
 
     if select_place_value == 'both' :
-            catsitters = Catsitter.objects.filter(activation=True)
+        catsitters = Catsitter.objects.filter(activation=True)
     else :
         catsitters = Catsitter.objects.filter(
+            activation=True,
             available_place = select_place_value
+        ) | Catsitter.objects.filter(
+            available_place = 'both'
         )
 
+    print("select_place_value")
+
     if select_havePet_value != 'unknown' :
-        catsitters = catsitters.filter(
-            have_pet = select_havePet_value
-        )
+        if select_havePet_value != 'both' :
+            catsitters = catsitters.filter(
+                have_pet = select_havePet_value
+            )
+
+    print("select_havePet_value")
 
     if select_day != 'both' :
         catsitters = catsitters.filter(
@@ -620,6 +646,8 @@ def get_user_list_by_rate(request) :
         ) | catsitters.filter(
             available_day = 'both'
         )
+
+    print("select_day")
 
     if select_time != 'both' :
         if select_day == 'weekday' :
@@ -641,17 +669,25 @@ def get_user_list_by_rate(request) :
                 available_weekend_time = select_time
             ) | catsitters.filter(
                 available_weekday_time = 'both'
+            ) | catsitters.filter(
+                available_weekend_time = 'both'
             )
+
+    print("select_time")
 
     if select_gender != 'both' :
         catsitters = catsitters.filter(
             user__gender = select_gender
         )
 
+    print("select_gender")
+
     if select_pill != 'both' :
         catsitters = catsitters.filter(
             available_pill = select_pill
         )
+
+    print("select_pill")
 
     catsitters = catsitters.order_by('-rate_per_five')
 
@@ -679,36 +715,8 @@ def get_user_list_by_rate(request) :
     return JsonResponse(result)
 
 
+def show_catsitter(request) :
 
-
-# from django.db.models import Q
-
-# def test(request) :
-
-#     User = get_user_model()
-
-#     users = User.objects.filter(~Q(lat=0.0,lng=0.0))
-
-#     context = { 'users' : users }
-
-#     return render(request, 'takmyo_app/test.html', context)
-
-# def get_user_list(request) :
-
-#     User = get_user_model()
-
-#     users = User.objects.filter(~Q(lat=0.0,lng=0.0))
-
-#     if users :
-
-#         serializer = UserSerializer(users, many=True)
-
-#         result = { "result" : "success" , "users" : serializer.data }
-    
-#     else :
-
-#         result = { "result" : "failed" }
-
-#     return JsonResponse(result)
+    return render(request, 'takmyo_app/show_catsitter.html')
 
 
