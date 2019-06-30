@@ -393,11 +393,11 @@
         overflow-y: scroll;
     }
 
-    #body_review{
+    #body_introduce{
         display: block;
     }
 
-    #body_introduce, #body_charge, #body_experience{
+    #body_review, #body_charge, #body_experience{
         display: none;
     }
 

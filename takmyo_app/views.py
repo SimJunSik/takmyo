@@ -715,8 +715,22 @@ def get_user_list_by_rate(request) :
     return JsonResponse(result)
 
 
-def show_catsitter(request) :
+def show_catsitter(request, catsitter_id) :
 
-    return render(request, 'takmyo_app/show_catsitter.html')
+    user = request.user
+
+    try :
+
+        catsitter = Catsitter.objects.get(id = catsitter_id)
+
+        context = { "user" : user , "catsitter" : catsitter }
+
+        print(context)
+
+        return render(request, 'takmyo_app/show_catsitter.html', context)
+
+    except :
+
+        return redirect('/search_catsitter/')
 
 

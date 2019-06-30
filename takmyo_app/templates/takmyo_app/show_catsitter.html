@@ -193,14 +193,14 @@
     <div class="content">
         <div class="content-profileWrapper">
             <div class="content-profile-imageWrapper">
-                <img class="content-profile_image" src="/static/image/suji.jpg">
+                <img class="content-profile_image" src="{{catsitter.catsitter_profile_image.url}}">
             </div>
             <div class="content-profile-textWrapper">
                 <div class="content-profile-nameWrapper">
                     <div class="content-profile-name_text">
-                        <font style="font-size: 6vw;">심준식</font>
+                        <font style="font-size: 6vw;">{{catsitter.name}}</font>
                         <br>
-                        은평구, 종로구
+                        {{catsitter.available_region}}
                     </div>
                 </div>
 
@@ -287,9 +287,15 @@
                     </div>
 
                     <div class="content-info-introduce-availableEtc-itemWrapper">
+                        {% if catsitter.available_place == 'visit' or catsitter.available_place == 'both' %}
                         <div class="content-info-introduce-availableEtc-item-iconWrapper">
                             <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png">
                         </div>
+                        {% else %}
+                        <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                            <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png" style="opacity: 0.1;">
+                        </div>
+                        {% endif %}
                         <div class="content-info-introduce-availableEtc-item-textWrapper">
                             <div class="content-info-introduce-availableEtc-item_text">
                                 방문탁묘
@@ -298,9 +304,15 @@
                     </div>
 
                     <div class="content-info-introduce-availableEtc-itemWrapper">
-                        <div class="content-info-introduce-availableEtc-item-iconWrapper">
-                            <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png">
-                        </div>
+                        {% if catsitter.available_place == 'consignment' or catsitter.available_place == 'both' %}
+                            <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                                <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png">
+                            </div>
+                        {% else %}
+                            <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                                <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png" style="opacity: 0.1;">
+                            </div>
+                        {% endif %}
                         <div class="content-info-introduce-availableEtc-item-textWrapper">
                             <div class="content-info-introduce-availableEtc-item_text">
                                 위탁탁묘
@@ -309,9 +321,15 @@
                     </div>
 
                     <div class="content-info-introduce-availableEtc-itemWrapper">
-                        <div class="content-info-introduce-availableEtc-item-iconWrapper">
-                            <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png" style="opacity: 0.1;">
-                        </div>
+                        {% if catsitter.have_pet %}
+                            <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                                <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png">
+                            </div>
+                        {% else %}
+                            <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                                <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png" style="opacity: 0.1;">
+                            </div>
+                        {% endif %}
                         <div class="content-info-introduce-availableEtc-item-textWrapper">
                             <div class="content-info-introduce-availableEtc-item_text">
                                 반려동물 여부
@@ -320,9 +338,15 @@
                     </div>
 
                     <div class="content-info-introduce-availableEtc-itemWrapper">
-                        <div class="content-info-introduce-availableEtc-item-iconWrapper">
-                            <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png" style="opacity: 0.1;">
-                        </div>
+                        {% if catsitter.available_pill %}
+                            <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                                <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png">
+                            </div>
+                        {% else %}
+                            <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                                <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png" style="opacity: 0.1;">
+                            </div>
+                        {% endif %}
                         <div class="content-info-introduce-availableEtc-item-textWrapper">
                             <div class="content-info-introduce-availableEtc-item_text">
                                 알약투여
@@ -331,9 +355,15 @@
                     </div>
 
                     <div class="content-info-introduce-availableEtc-itemWrapper">
-                        <div class="content-info-introduce-availableEtc-item-iconWrapper">
-                            <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png">
-                        </div>
+                        {% if catsitter.have_care_experience %}
+                            <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                                <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png">
+                            </div>
+                        {% else %}
+                            <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                                <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png" style="opacity: 0.1;">
+                            </div>
+                        {% endif %}
                         <div class="content-info-introduce-availableEtc-item-textWrapper">
                             <div class="content-info-introduce-availableEtc-item_text">
                                 탁묘경험
@@ -342,9 +372,15 @@
                     </div>
 
                     <div class="content-info-introduce-availableEtc-itemWrapper">
-                        <div class="content-info-introduce-availableEtc-item-iconWrapper">
-                            <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png">
-                        </div>
+                        {% if catsitter.have_pet_experience %}
+                            <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                                <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png">
+                            </div>
+                        {% else %}
+                            <div class="content-info-introduce-availableEtc-item-iconWrapper">
+                                <img class="content-info-introduce-availableEtc-item_icon" src="/static/image/pill_icon.png" style="opacity: 0.1;">
+                            </div>
+                        {% endif %}
                         <div class="content-info-introduce-availableEtc-item-textWrapper">
                             <div class="content-info-introduce-availableEtc-item_text">
                                 반려동물 경험
@@ -394,12 +430,12 @@
                         <div class="content-info-charge-body-valueWrapper">
                             <div class="content-info-charge-body-value">
                                 <div class="content-info-charge-body-value_text">
-                                    10,000원
+                                    {{catsitter.visit_price_per_once}}원
                                 </div>
                             </div>
                             <div class="content-info-charge-body-value">
                                 <div class="content-info-charge-body-value_text">
-                                    1마리당 -원
+                                    1마리당 {{catsitter.visit_price_per_extra_cat}}원
                                 </div>
                             </div>
                         </div>
@@ -441,22 +477,22 @@
                         <div class="content-info-charge-body-valueWrapper">
                             <div class="content-info-charge-body-value">
                                 <div class="content-info-charge-body-value_text">
-                                    15,000원
+                                    {{catsitter.consignment_price_per_one_day}}원
                                 </div>
                             </div>
                             <div class="content-info-charge-body-value">
                                 <div class="content-info-charge-body-value_text">
-                                    -원
+                                    {{catsitter.consignment_price_per_one_week}}원
                                 </div>
                             </div>
                             <div class="content-info-charge-body-value">
                                 <div class="content-info-charge-body-value_text">
-                                    -원
+                                    {{catsitter.consignment_price_per_one_month}}원
                                 </div>
                             </div>
                             <div class="content-info-charge-body-value">
                                 <div class="content-info-charge-body-value_text">
-                                    1마리당 -원
+                                    1마리당 {{catsitter.consignment_price_per_extra_cat}}원
                                 </div>
                             </div>
                         </div>
