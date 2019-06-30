@@ -277,6 +277,48 @@
                     </div>
                     <div class="content-info-introduce-availableTime-timeWrapper">
 
+                        <div class="content-info-introduce-availableTime-domainWrapper">
+                            <div class="content-info-introduce-availableTime-domain">
+                                <div class="content-info-introduce-availableTime-domain_text">
+                                    평일
+                                </div>
+                            </div>
+                            <div class="content-info-introduce-availableTime-domain">
+                                <div class="content-info-introduce-availableTime-domain_text">
+                                    주말
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content-info-introduce-availableTime-valueWrapper">
+                            <div class="content-info-introduce-availableTime-value">
+                                <div class="content-info-introduce-availableTime-value_text">
+                                    {% if catsitter.available_day == 'weekday' or catsitter.available_day == 'both' %}
+                                        {% if catsitter.available_weekday_time == 'both' %}
+                                            am/pm
+                                        {% else %}
+                                            {{catsitter.available_weekday_time}}
+                                        {% endif %}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="content-info-introduce-availableTime-value">
+                                <div class="content-info-introduce-availableTime-value_text">
+                                    {% if catsitter.available_day == 'weekend' or catsitter.available_day == 'both' %}
+                                        {% if catsitter.available_weekend_time == 'both' %}
+                                            am/pm
+                                        {% else %}
+                                            {{catsitter.available_weekend_time}}
+                                        {% endif %}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="content-info-introduce-availableEtcWrapper">
@@ -433,11 +475,19 @@
                                     {{catsitter.visit_price_per_once}}원
                                 </div>
                             </div>
+                            {% if catsitter.available_change_visit_price_per_extra_cat %}
+                            <div class="content-info-charge-body-value">
+                                <div class="content-info-charge-body-value_text">
+                                    협의
+                                </div>
+                            </div>
+                            {% else %}
                             <div class="content-info-charge-body-value">
                                 <div class="content-info-charge-body-value_text">
                                     1마리당 {{catsitter.visit_price_per_extra_cat}}원
                                 </div>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -490,11 +540,19 @@
                                     {{catsitter.consignment_price_per_one_month}}원
                                 </div>
                             </div>
+                            {% if catsitter.available_change_consignment_price_per_extra_cat %}
+                            <div class="content-info-charge-body-value">
+                                <div class="content-info-charge-body-value_text">
+                                    협의
+                                </div>
+                            </div>
+                            {% else %}
                             <div class="content-info-charge-body-value">
                                 <div class="content-info-charge-body-value_text">
                                     1마리당 {{catsitter.consignment_price_per_extra_cat}}원
                                 </div>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -648,5 +706,12 @@
         </div>
     </div>
     <!-- register review end -->
+
+
+    <!-- bottom fixed menubar start -->
+    <div class="bottom-fixed-menubar">
+        <button class="bottom-fixed-menubar_button">신청하기</button>
+    </div>
+    <!-- bottom fixed menubar end -->
 </body>
 </html>
