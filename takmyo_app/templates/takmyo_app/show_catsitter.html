@@ -237,7 +237,7 @@
                         </div>
                         <div class="content-prifile-etc-item-valueWrapper">
                             <div class="content-profile-etc-item_text">
-                                -
+                                {{catsitter.rate_per_five}}({{catsitter.get_reviews_num}})
                             </div>
                         </div>
                     </div>
@@ -609,7 +609,25 @@
                 </div>
 
                 <div class="content-info-reviewListWrapper">
+                    {% for review in catsitter.catsitter_reviews.all %}
                     <div class="content-info-reivew-itemWrapper">
+                        <div class="content-info-review-item-nameWrapper">
+                            {{review.catee.name}}
+                        </div>
+                        <div class="content-info-review-item-rateWrapper">
+                            <div class="stars-outer">
+                                <div class="stars-inner" style="width: {{review.total_rate_per_hundred}}%;"></div>
+                            </div>
+                            &nbsp;{{review.total_rate}}
+                        </div>
+                        <div class="content-info-review-item-textWrapper">
+                            <div class="content-info-review-item_text">
+                                {{review.content}}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- <div class="content-info-reivew-itemWrapper">
                         <div class="content-info-review-item-nameWrapper">
                             홍길동
                         </div>
@@ -641,7 +659,7 @@
                                 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -698,6 +716,7 @@
             <div class="content-info-review-write-inputWrapper">
                 <input type="text" 
                         class="content-info-review-write_input"
+                        id="review_comment_input"
                         name="review_text" 
                         placeholder="리뷰를 남겨주세요.">
             </div>

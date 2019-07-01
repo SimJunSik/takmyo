@@ -46,8 +46,8 @@ class Catsitter(models.Model) :
 
     name = models.CharField(max_length = 100, default="unknown")
     catsitter_profile_image = models.ImageField(upload_to='catsitter_profileImage/', default='unknown_icon.png')
-    rate_per_hundred = models.FloatField(blank=True, default=0.0)
-    rate_per_five = models.FloatField(blank=True, default=0.0)
+    rate_per_hundred = models.DecimalField(blank=True, default=0.0, max_digits=5, decimal_places=1)
+    rate_per_five = models.DecimalField(blank=True, default=0.0, max_digits=5, decimal_places=1)
     have_pet = models.BooleanField(default=False)
     have_pet_experience = models.BooleanField(default=False)
     have_care_experience = models.BooleanField(default=False)
@@ -176,11 +176,14 @@ class Notification(models.Model) :
 
 class CatsitterReview(models.Model) :
 
-    # creator = 
+    catee = models.ForeignKey(Catee, 
+                                on_delete = models.CASCADE,
+                                null=True,
+                                related_name='catee_reviews')
+
     catsitter = models.ForeignKey(Catsitter, 
-                                on_delete = models.CASCADE, 
-                                null=True, 
-                                blank=True, 
+                                on_delete = models.CASCADE,
+                                null=True,
                                 related_name='catsitter_reviews')
 
     content = models.CharField(max_length=255, null=True, blank=True)
@@ -189,6 +192,7 @@ class CatsitterReview(models.Model) :
     kindness_rate = models.FloatField(default=0.0)
     achievement_rate = models.FloatField(default=0.0)
     total_rate = models.FloatField(default=0.0)
+    total_rate_per_hundred = models.IntegerField(default=0)
 
     def __str__(self) :
 

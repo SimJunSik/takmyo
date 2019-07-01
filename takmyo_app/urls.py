@@ -21,7 +21,7 @@ urlpatterns = [
     path('search_catsitter/get_user_list/distance/', views.get_user_list_by_distance),
     path('search_catsitter/get_user_list/rate/', views.get_user_list_by_rate),
     path('show_catsitter/<int:catsitter_id>/', views.show_catsitter),
-
+    path('show_catsitter/<int:catsitter_id>/register_review/<str:time_rate>/<str:kindness_rate>/<str:achievement_rate>/<str:review_comment>/', views.register_review),
 
 
     # path('test/', views.test),
