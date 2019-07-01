@@ -815,14 +815,31 @@ def register_review(request, catsitter_id, time_rate, kindness_rate, achievement
             )
 
             new_rate = 0
+            new_time_rate = 0
+            new_kindness_rate = 0
+            new_achievement_rate = 0
             for review in catsitter.catsitter_reviews.all() :
                 new_rate += review.total_rate
+                new_time_rate += review.time_rate
+                new_kindness_rate += review.kindness_rate
+                new_achievement_rate += review.achievement_rate
 
-            print(new_rate)
             new_rate = new_rate / catsitter.catsitter_reviews.all().count()
-            print(new_rate)
             catsitter.rate_per_five = new_rate
             catsitter.rate_per_hundred = new_rate * 20
+
+            new_time_rate = new_time_rate / catsitter.catsitter_reviews.all().count()
+            catsitter.time_rate_per_five = new_time_rate
+            catsitter.time_rate_per_hundred = new_time_rate * 20
+
+            new_kindness_rate = new_kindness_rate / catsitter.catsitter_reviews.all().count()
+            catsitter.kindness_rate_per_five = new_kindness_rate
+            catsitter.kindness_rate_per_hundred = new_kindness_rate * 20
+
+            new_achievement_rate = new_achievement_rate / catsitter.catsitter_reviews.all().count()
+            catsitter.achievement_rate_per_five = new_achievement_rate
+            catsitter.achievement_rate_per_hundred = new_achievement_rate * 20
+
             catsitter.save()
 
             result = { "result" : "success" }

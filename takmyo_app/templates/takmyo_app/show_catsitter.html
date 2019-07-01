@@ -606,6 +606,69 @@
             <div class="content-info-bodyWrapper" id="body_review">
                 <div class="content-info-review-writeWrapper">
                     <button class="content-info-review_writeButton">리뷰쓰기</button>
+
+                    <div class="content-info-review-showWrapper">
+                        <div class="content-info-review-show-totalWrapper">
+                            <div class="content-info-review-show-total">
+                                <div class="stars-outer" style="font-size: 10vw;">
+                                    <div class="stars-inner" style="width: {{catsitter.rate_per_hundred}}%; font-size: 10vw;"></div>
+                                </div>
+                                {{catsitter.rate_per_five}}
+                            </div>
+                        </div>
+
+                        <div class="content-info-review-show-detailWrapper">
+                            <div class="content-info-review-show-detail-itemWrapper">
+                                <div class="content-info-review-show-detail-item">
+                                    <div class="content-info-review-show-detail-item-domain">
+                                        <div class="content-info-review-show-detail-item_text">
+                                            시간준수
+                                        </div>
+                                    </div>
+                                    <div class="content-info-review-show-detail-item-value">
+                                        <div class="content-info-review-show-detail-item_text">
+                                            <div class="stars-outer" style="font-size: 5vw;">
+                                                <div class="stars-inner" style="width: {{catsitter.time_rate_per_hundred}}%; font-size: 5vw;"></div>
+                                            </div>
+                                            {{catsitter.time_rate_per_five}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="content-info-review-show-detail-item">
+                                    <div class="content-info-review-show-detail-item-domain">
+                                        <div class="content-info-review-show-detail-item_text">
+                                            친절함
+                                        </div>
+                                    </div>
+                                    <div class="content-info-review-show-detail-item-value">
+                                        <div class="content-info-review-show-detail-item_text">
+                                            <div class="stars-outer" style="font-size: 5vw;">
+                                                <div class="stars-inner" style="width: {{catsitter.kindness_rate_per_hundred}}%; font-size: 5vw;"></div>
+                                            </div>
+                                            {{catsitter.kindness_rate_per_five}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="content-info-review-show-detail-item">
+                                    <div class="content-info-review-show-detail-item-domain">
+                                        <div class="content-info-review-show-detail-item_text">
+                                            수행능력
+                                        </div>
+                                    </div>
+                                    <div class="content-info-review-show-detail-item-value">
+                                        <div class="content-info-review-show-detail-item_text">
+                                            <div class="stars-outer" style="font-size: 5vw;">
+                                                <div class="stars-inner" style="width: {{catsitter.achievement_rate_per_hundred}}%; font-size: 5vw;"></div>
+                                            </div>
+                                            {{catsitter.achievement_rate_per_five}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="content-info-reviewListWrapper">

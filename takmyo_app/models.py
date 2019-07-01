@@ -48,6 +48,14 @@ class Catsitter(models.Model) :
     catsitter_profile_image = models.ImageField(upload_to='catsitter_profileImage/', default='unknown_icon.png')
     rate_per_hundred = models.DecimalField(blank=True, default=0.0, max_digits=5, decimal_places=1)
     rate_per_five = models.DecimalField(blank=True, default=0.0, max_digits=5, decimal_places=1)
+
+    time_rate_per_hundred = models.DecimalField(blank=True, default=0.0, max_digits=5, decimal_places=1)
+    time_rate_per_five = models.DecimalField(blank=True, default=0.0, max_digits=5, decimal_places=1)
+    kindness_rate_per_hundred = models.DecimalField(blank=True, default=0.0, max_digits=5, decimal_places=1)
+    kindness_rate_per_five = models.DecimalField(blank=True, default=0.0, max_digits=5, decimal_places=1)
+    achievement_rate_per_hundred = models.DecimalField(blank=True, default=0.0, max_digits=5, decimal_places=1)
+    achievement_rate_per_five = models.DecimalField(blank=True, default=0.0, max_digits=5, decimal_places=1)
+
     have_pet = models.BooleanField(default=False)
     have_pet_experience = models.BooleanField(default=False)
     have_care_experience = models.BooleanField(default=False)

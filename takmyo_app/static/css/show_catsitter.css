@@ -730,19 +730,99 @@
     .content-info-review-writeWrapper{
         position: relative;
         width: 100%;
-        height: auto;
-        min-height: 20vw;
+        height: 80vw;
         margin-bottom: 5%;
         background-color: slateblue;
     }
 
     .content-info-review_writeButton{
-        position: relative;
+        position: absolute;
         width: 30vw;
         height: 10vw;
-        margin-top: 2%;
-        margin-bottom: 5%;
-        left: 65%;
+        top: 5%;
+        right: 5%;
+        z-index: 2000;
+    }
+    
+    .content-info-review-showWrapper{
+        position: absolute;
+        width: 90%;
+        height: 80%;
+        left: 50%;
+        bottom: 2%;
+        transform: translateX(-50%);
+        background-color: sienna;
+    }
+
+    .content-info-review-show-totalWrapper{
+        position: absolute;
+        width: 90%;
+        height: 35%;
+        left: 50%;
+        top: 5%;
+        transform: translateX(-50%);
+        background-color: indianred;
+    }
+
+    .content-info-review-show-total{
+        position: relative;
+        width: 100%;
+        height: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        font-size: 6vw;
+    }
+    
+    .content-info-review-show-detailWrapper{
+        position: absolute;
+        width: 90%;
+        height: 50%;
+        left: 50%;
+        bottom: 5%;
+        transform: translateX(-50%);
+        background-color: indianred;
+    }
+
+    .content-info-review-show-detail-itemWrapper{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color:indigo;
+    }
+
+    .content-info-review-show-detail-item{
+        position: relative;
+        width: 100%;
+        height: 33%;
+        background-color: tomato;
+    }
+
+    .content-info-review-show-detail-item-domain{
+        position: relative;
+        width: 40%;
+        height: 100%;
+        background-color: salmon;
+        float: left;
+    }
+
+    .content-info-review-show-detail-item_text{
+        position: relative;
+        width: 100%;
+        height: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        font-size: 3vw;
+        font-weight: 800;
+    }
+
+    .content-info-review-show-detail-item-value{
+        position: relative;
+        width: 60%;
+        height: 100%;
+        background-color: darkred;
+        float: left;
     }
 
     .content-info-review-write_form{
