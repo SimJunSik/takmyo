@@ -196,10 +196,10 @@ class CatsitterReview(models.Model) :
 
     content = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    time_rate = models.FloatField(default=0.0)
-    kindness_rate = models.FloatField(default=0.0)
-    achievement_rate = models.FloatField(default=0.0)
-    total_rate = models.FloatField(default=0.0)
+    time_rate = models.DecimalField(blank=True, default=0.0, max_digits=5, decimal_places=1)
+    kindness_rate = models.DecimalField(blank=True, default=0.0, max_digits=5, decimal_places=1)
+    achievement_rate = models.DecimalField(blank=True, default=0.0, max_digits=5, decimal_places=1)
+    total_rate = models.DecimalField(blank=True, default=0.0, max_digits=5, decimal_places=1)
     total_rate_per_hundred = models.IntegerField(default=0)
 
     def __str__(self) :

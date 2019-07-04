@@ -673,7 +673,7 @@
 
                 <div class="content-info-reviewListWrapper">
                     {% for review in catsitter.catsitter_reviews.all %}
-                    <div class="content-info-reivew-itemWrapper">
+                    <div class="content-info-review-itemWrapper">
                         <div class="content-info-review-item-nameWrapper">
                             {{review.catee.name}}
                         </div>
@@ -688,41 +688,27 @@
                                 {{review.content}}
                             </div>
                         </div>
+                        {% if review.catee.user == user %}
+                        <div class="content-info-review-item-manageWrapper">
+                            <div class="content-info-review-item-manage-buttonWrapper">
+                                <button class="content-info-review-item-manage_button review_modify_button"
+                                        data-review-id={{review.id}}
+                                        data-content={{review.content}}
+                                        data-time_rate={{review.time_rate}}
+                                        data-kindness_rate={{review.time_rate}}
+                                        data-achievement_rate={{review.achievement_rate}}
+                                        onclick="open_modify_review(this);">
+                                    수정
+                                </button>
+                                <button class="content-info-review-item-manage_button review_delete_button"
+                                        onclick="open_delete_review({{review.id}});">
+                                    삭제
+                                </button>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                     {% endfor %}
-                    <!-- <div class="content-info-reivew-itemWrapper">
-                        <div class="content-info-review-item-nameWrapper">
-                            홍길동
-                        </div>
-                        <div class="content-info-review-item-rateWrapper">
-                            <div class="stars-outer">
-                                <div class="stars-inner" style="width: 100%;"></div>
-                            </div>
-                            &nbsp;5.0
-                        </div>
-                        <div class="content-info-review-item-textWrapper">
-                            <div class="content-info-review-item_text">
-                                너무 좋아용
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-info-reivew-itemWrapper">
-                        <div class="content-info-review-item-nameWrapper">
-                            강호동
-                        </div>
-                        <div class="content-info-review-item-rateWrapper">
-                            <div class="stars-outer">
-                                <div class="stars-inner" style="width: 100%;"></div>
-                            </div>
-                            &nbsp;5.0
-                        </div>
-                        <div class="content-info-review-item-textWrapper">
-                            <div class="content-info-review-item_text">
-                                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -735,7 +721,7 @@
 
     <!-- register review start -->
     <div class="register_review_Wrapper">
-        <div class="content-info-review-write_form" data-is-open="false">
+        <div class="content-info-review-write_form" data-state="register" data-review-id="-1">
             <img class="content-info-review-write-closeImage" 
                 src="/static/image/close_icon.png"
                 >
@@ -788,6 +774,25 @@
         </div>
     </div>
     <!-- register review end -->
+
+    <!-- delete review start -->
+    <div class="delete_review_Wrapper">
+        <div class="delete_review-textWrapper">
+            <div class="delete_review_text">
+                리뷰를 삭제하시겠습니까?
+            </div>
+        </div>
+        <div class="delete_review-buttonWrapper">
+            <button class="delete_review_button" 
+                    id="delete_review_ok_button"
+                    data-review-id=''
+                    onclick="delete_review();">
+                삭제
+            </button>
+            <button class="delete_review_button" id="delete_review_cancel_button">취소</button>
+        </div>
+    </div>
+    <!-- delete review end -->
 
 
     <!-- bottom fixed menubar start -->

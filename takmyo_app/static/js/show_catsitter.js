@@ -65,39 +65,110 @@ const register_review = () => {
     const kindness_rate = $("#rateYo_kindness").rateYo("option", "rating");
     const achievement_rate = $("#rateYo_achievement").rateYo("option", "rating");
     let review_comment = $("#review_comment_input").val();
+    const state = $(".content-info-review-write_form").data('state');
 
     if(review_comment == ''){
         review_comment = ' ';
     }
-    console.log(time_rate, kindness_rate, achievement_rate, review_comment);
+    console.log(time_rate, kindness_rate, achievement_rate, review_comment, state);
 
-    fetch('./register_review/' + time_rate + '/' + 
+    if(state == 'register'){
+        fetch('./register_review/' + time_rate + '/' + 
                                 kindness_rate + '/' + 
                                 achievement_rate + '/' + 
                                 review_comment + '/')
+        .then(e => e.json())
+        .then(e => {
+            console.log(e);
+            if(e.result == 'success'){
+                alert("리뷰 등록이 완료되었습니다.");
+                location.reload(true);
+            }
+            else if(e.result == 'create review failed'){
+                alert("리뷰 등록에 실패했습니다.");
+            }
+            else if(e.result == 'anonymous_user'){
+                alert("로그인 해주세요.");
+            }
+            else if(e.result == 'already registered'){
+                alert("이미 리뷰를 등록하셨습니다.");
+            }
+            else if(e.result == 'not recognized'){
+                alert("신청서가 수락되어야 리뷰를 등록할 수 있습니다.");
+            }
+            else if(e.result == 'not applied'){
+                alert("탁묘를 신청한 켓티만 리뷰를 등록할 수 있습니다.");
+            }
+        });
+    }
+    else if(state == 'modify'){
+        const review_id = $('.content-info-review-write_form').data('reviewId');
+
+        fetch('./modify_review/' + review_id + '/' +
+                                time_rate + '/' + 
+                                kindness_rate + '/' + 
+                                achievement_rate + '/' + 
+                                review_comment + '/')
+        .then(e => e.json())
+        .then(e => {
+            console.log(e);
+            if(e.result == 'modify review success'){
+                alert("리뷰 수정이 완료되었습니다.");
+                location.reload(true);
+            }
+            else if(e.result == 'modify review failed'){
+                alert("리뷰 수정에 실패했습니다.");
+            }
+        });
+    }
+}
+
+const open_delete_review = (review_id) => {
+    console.log(review_id);
+
+    wrapWindowByMask();
+    $(".delete_review_Wrapper").fadeIn(200);
+
+    $(".delete_review_Wrapper").data('reviewId', review_id);
+}
+
+const delete_review = () => {
+    const review_id = $(".delete_review_Wrapper").data('reviewId');
+    
+    console.log(review_id);
+
+    fetch('./delete_review/' + review_id + '/')
     .then(e => e.json())
     .then(e => {
-        console.log(e);
-        if(e.result == 'success'){
-            alert("리뷰 등록이 완료되었습니다.");
+        console.log(e.result);
+        if(e.result == "delete review success"){
+            alert("리뷰 삭제가 완료되었습니다.");
             location.reload(true);
         }
-        else if(e.result == 'failed'){
-            alert("리뷰 등록에 실패했습니다.");
-        }
-        else if(e.result == 'anonymous_user'){
-            alert("로그인 해주세요.");
-        }
-        else if(e.result == 'already registered'){
-            alert("이미 리뷰를 등록하셨습니다.");
-        }
-        else if(e.result == 'not recognized'){
-            alert("신청서가 수락되어야 리뷰를 등록할 수 있습니다.");
-        }
-        else if(e.result == 'not applied'){
-            alert("탁묘를 신청한 켓티만 리뷰를 등록할 수 있습니다.");
+        else if(e.result == "delete review failed"){
+            alert("리뷰 삭제를 실패했습니다.");
         }
     });
+}
+
+const open_modify_review = (div) => {
+    const review_id = $(div).data('reviewId');
+    const content = $(div).data('content');
+    const time_rate = $(div).data('time_rate');
+    const kindness_rate = $(div).data('kindness_rate');
+    const achievement_rate = $(div).data('achievement_rate');
+
+    $(".content-info-review-write_form").data('state', 'modify');
+    $(".content-info-review-write_form").data('reviewId', review_id);
+    $("#rateYo_time").rateYo('rating', time_rate);
+    $("#rateYo_kindness").rateYo('rating', kindness_rate);
+    $("#rateYo_achievement").rateYo('rating', achievement_rate);
+    $("#review_comment_input").val(content);
+
+    wrapWindowByMask();
+    $(".register_review_Wrapper").fadeIn(200);
+    
+    console.log(review_id, content, time_rate, kindness_rate, achievement_rate);
 }
 
 function wrapWindowByMask(){
@@ -120,6 +191,13 @@ $(document).ready(function(){
     //검은 막 띄우기
     $('.content-info-review_writeButton').click(function(e){
         e.preventDefault();
+
+        $(".content-info-review-write_form").data('state', 'register');
+        $("#rateYo_time").rateYo('rating', 0);
+        $("#rateYo_kindness").rateYo('rating', 0);
+        $("#rateYo_achievement").rateYo('rating', 0);
+        $("#review_comment_input").val('');
+
         wrapWindowByMask();
         $(".register_review_Wrapper").fadeIn(200);
     });
@@ -128,11 +206,16 @@ $(document).ready(function(){
     $(".content-info-review-write-closeImage").click(function(e){
         e.preventDefault();  
         $('#mask, .register_review_Wrapper').hide(); 
-    })
+    });
+    $("#delete_review_cancel_button").click(function(e){
+        e.preventDefault();
+        $("#mask, .delete_review_Wrapper").hide();
+    });
 
     //검은 막을 눌렀을 때
     $('#mask').click(function () {  
         $(this).hide();  
         $(".register_review_Wrapper").hide();
+        $(".delete_review_Wrapper").hide();
     });      
 });
