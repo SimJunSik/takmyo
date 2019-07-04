@@ -75,9 +75,15 @@
 
                     <div class="menu-list-item-my">
                         <div class="menu-list-item_text menu-list-item_textTop">
-                            <a href="/login/">
-                                Login
-                            </a>
+                            {% if not user.is_authenticated %}
+                                <a href="/login/">
+                                    Login
+                                </a>
+                            {% else %}
+                                <a href="/logout/">
+                                    Logout
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="menu-list-item-my">
@@ -122,7 +128,7 @@
                     </div>
                     <div class="menu-list-item-category">
                         <div class="menu-list-item_text menu-list-item_textBottom">
-                            <a href="/catsitter_search/">
+                            <a href="/search_catsitter/">
                                 Catsitter search
                             </a>
                         </div>

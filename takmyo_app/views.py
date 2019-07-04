@@ -790,6 +790,7 @@ def register_review(request, catsitter_id, time_rate, kindness_rate, achievement
             return JsonResponse(result)
 
         except :
+            
             pass
 
 

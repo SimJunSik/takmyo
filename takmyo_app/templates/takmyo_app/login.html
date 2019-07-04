@@ -23,12 +23,46 @@
                 src="/static/image/menu_icon.png"
                 onclick="open_menu();"
                 >
+
+            {% if notifications_count > 0 %}
+            <div class="menu-notification_count">
+                <div class="menu-notification_countText">
+                    {{notifications_count}}
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
     <!-- top end -->
 
     <!-- menu start -->
     <div class="menu">
+        <div class="menu-notificationWrapper">
+            <a href="/notification/">
+                <img src="/static/image/notification_icon.png" class="menu-notification_image">
+                {% if notifications_count > 0 %}
+                <div class="menu-notification_count">
+                    <div class="menu-notification_countText">
+                        {{notifications_count}}
+                    </div>
+                </div>
+                {% endif %}
+            </a>
+        </div>
+
+        <div class="menu-profileWrapper">
+            {% if not user.is_authenticated %}
+                <img src="/static/image/unknown_icon.png" class="menu-profile_image">
+                <br>
+                <font></font>
+            {% else %}
+                <!-- <img src="user.profile_image.url" class="menu-profile_image"> -->
+                <img src="/static/image/unknown_icon.png" class="menu-profile_image">
+                <br>
+                <font>{{user.username}}</font>
+            {% endif %}
+        </div>
+
         <div class="menu-listWrapper">
             <div class="menu-list-itemWrapper">
                 <div class="menu-list-item-myWrapper">
@@ -42,9 +76,15 @@
 
                     <div class="menu-list-item-my">
                         <div class="menu-list-item_text menu-list-item_textTop">
-                            <a href="/login/">
-                                Login
-                            </a>
+                            {% if not user.is_authenticated %}
+                                <a href="/login/">
+                                    Login
+                                </a>
+                            {% else %}
+                                <a href="/logout/">
+                                    Logout
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="menu-list-item-my">
@@ -74,6 +114,14 @@
 
                     <div class="menu-list-item-category">
                         <div class="menu-list-item_text menu-list-item_textBottom">
+                            <a href="/main/">
+                                Home
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="menu-list-item-category">
+                        <div class="menu-list-item_text menu-list-item_textBottom">
                             <a href="/aboutus/">
                                 About us
                             </a>
@@ -81,7 +129,7 @@
                     </div>
                     <div class="menu-list-item-category">
                         <div class="menu-list-item_text menu-list-item_textBottom">
-                            <a href="/catsitter_search/">
+                            <a href="/search_catsitter/">
                                 Catsitter search
                             </a>
                         </div>
