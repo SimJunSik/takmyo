@@ -106,7 +106,7 @@ class Catsitter(models.Model) :
 
 class Catee(models.Model) :
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="catee")
     name = models.CharField(max_length = 100, default="unknown")
     register_date = models.DateTimeField(auto_now_add=True)
     catee_profile_image = models.ImageField(upload_to='catee_profileImage/', default='unknown_icon.png')
@@ -123,7 +123,7 @@ class Catee(models.Model) :
 class Cat(models.Model) :
 
     owner = models.ForeignKey(Catee, on_delete=models.CASCADE, related_name='catee_cats')
-    cat_profile_image = models.ImageField(upload_to='cat_profileImage/' + str(owner.name) + '/', 
+    cat_profile_image = models.ImageField(upload_to='cat_profileImage/', 
                                             default='unknown_icon.png',
                                             null=True,
                                             blank=True)
@@ -132,8 +132,9 @@ class Cat(models.Model) :
     breed = models.CharField(max_length=50, default='unknown')
     gender = models.CharField(max_length=20, default='unknown')
     neutralization = models.BooleanField(default=False)
-    hospital = models.CharField(max_length=200, default='unknown')
-    warning = models.TextField()
+    feature = models.TextField(blank=True, null=True)
+    hospital = models.CharField(blank=True, null=True, max_length=200, default='unknown')
+    warning = models.TextField(blank=True, null=True)
 
     def __str__(self) :
 

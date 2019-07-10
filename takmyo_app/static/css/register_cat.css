@@ -4,10 +4,13 @@
         padding: 0;
         width: 100%;
         height: 100%;
-        background-color: #FFD9FA;
+        background-color: beige;
         /* background-color: #FAED7D; */
         /* background-color: #FAF4C0; */
+        overflow-x: hidden;
+        overflow-y: hidden;
     }
+
     a{
         color: inherit;
         text-decoration: none;
@@ -238,234 +241,159 @@
 
     /* content css */
     .content{
-        width: 90%;
-        height: 150vw;
         position: absolute;
-        top: 15%;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: white;
-    }
-
-    .content-form{
         width: 100%;
-        height: 100%;
+        height: 90%;
+        left: 0;
+        bottom: 0;
+        background-color: brown;
     }
 
-    .content-form-idWrapper{
+    .content-formWrapper{
+        position: absolute;
+        width: 100%;
+        height: 95%;
+        left: 0;
+        top: 5%;
+        background-color: teal;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+
+    input:focus{
+        background-color: khaki;
+    }
+
+    .content-form-itemListWrapper{
+        position: relative;
+        width: 500%;
+        height: 90%;
+        background-color: yellow;
+    }
+
+    .content-form-itemWrapper{
+        position: relative;
+        width: 35vh;
+        height: 90%;
+        background-color: indianred;
+        float: left;
+        top: 50%;
+        margin-left: 5.6vh;
+        transform: translateY(-50%);
+    }
+    
+    .content-form-item-inputImageWrapper{
+        position: relative;
         width: 100%;
         height: 15%;
-        background-color: brown;
+        background-color: steelblue;
+    }
+
+    .content-form-item-imageInput{
+        display: none;
+    }
+
+    .content-form-item-imageInput_icon{
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 26vw;
+        height: 26vw;
+        transform: translate(-50%, -30%);
+        border-radius: 50%;
+    }
+
+    .content-form-item-inputWrapper{
         position: relative;
-        margin-top: 10%;
-    }
-
-    .content-form-domainWrapper{
-        width: 22%;
-        height: 100%;
-        float: left;
-        background-color: cadetblue;
-    }
-
-    .content-form-domain_text{
-        width: 100%;
-        height: auto;
-        position: relative;
-        padding-left: 5px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 6vw;
-    }
-
-    .content-form-inputWrapper{
-        width: 78%;
-        height: 100%;
-        float: left;
-        background-color: tomato;
-    }
-
-    .content-form-idInputWrapper{
-        width: 100%;
-        height: 70%;
-        position: relative;
-        background-color: blueviolet;
-    }
-
-    .content-form-idResultWrapper{
-        width: 100%;
-        height: 30%;
-        position: relative;
-        background-color: chocolate;
-    }
-
-    .content-form-idInput{
-        width: 50%;
-        height: 60%;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-        float: left;
-        font-size: 6vw;
-    }
-
-    .content-form-idButton{
-        width: 25%;
-        height: 60%;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-        float: left;
-        margin-left: 2%;
-        font-size: 3vw;
-    }
-
-    .content-form-pwWrapper{
-        width: 100%;
-        height: 8%;
-        background-color: brown;
-        position: relative;
-        margin-top: 2%;
-    }
-
-    .content-form-pwInput{
-        width: 90%;
-        height: 8vw;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-        float: left;
-        font-size: 4vw;
-    }
-
-    .content-form-repwWrapper{
-        width: 100%;
-        height: 12%;
-        background-color: brown;
-        position: relative;
-        margin-top: 2%;
-    }
-
-    .content-form-repwInputWrapper{
-        width: 100%;
-        height: 60%;
-        position: relative;
-        background-color: #FFD9FA;
-    }
-
-    .content-form-pwResultWrapper{
-        width: 100%;
-        height: 40%;
-        position: relative;
-        background-color: coral;
-    }
-
-    .content-form-repwInput{
-        width: 90%;
-        height: 8vw;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-        float: left;
-        font-size: 4vw;
-    }
-
-    .content-form-genderWrapper{
-        width: 100%;
-        height: 8%;
-        background-color: brown;
-        position: relative;
-        margin-top: 2%;
-    }
-
-    .content-form-genderInputWrapper{
-        width: auto;
-        height: auto;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .content-form-genderInput{
-        
-    }
-
-    .content-form-addressWrapper{
-        width: 100%;
-        height: 20%;
-        position: relative;
-        margin-top: 2%;
-        background-color: brown;
-    }
-
-    .content-form-phoneWrapper{
         width: 100%;
         height: 10%;
-        position: relative;
-        margin-top: 2%;
-        background-color: brown;
+        background-color: darkcyan;
     }
 
-    .content-form-checkPhoneWrapper{
-        width: 100%;
-        height: 15%;
+    .content-form-item_input{
         position: relative;
-        margin-top: 2%;
-        background-color: brown;
+        width: 90%;
+        height: 60%;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 2%;
+    }
+
+    .content-form-item-radioWrapper{
+        position: relative;
+        width:70%;
+        height: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 2%;
+        float: left;
+    }
+    
+    .content-form-item_radioInput{
+        position: relative;
+    }
+
+    .content-form-item-domainWrapper{
+        position: relative;
+        width: 20%;
+        height: 100%;
+        background-color: aliceblue;
+        float: left;
+        margin-left: 2%;
+    }
+
+    .content-form-item-domain_text{
+        position: relative;
+        width: 100%;
+        height: auto;
+        top: 50%;
+        transform: translateY(-50%);
         text-align: center;
     }
 
-    .content-form-checkPhone_text{
-        width: 100%;
-        height: auto;
-        /* text-align: center; */
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 2%;
-    }
-
-    .content-form-checkPhone_checkbox{
-        width: 5vw;
-        height: 5vw;
+    .content-form-item-textareaWrapper{
         position: relative;
-        vertical-align: top;
+        width: 100%;
+        height: 20%;
+        background-color: indigo;
     }
 
-    .content-form-submitButton{
-        width: 40vw;
+    .content-form-item_textarea{
+        position: relative;
+        width: 90%;
+        height: 80%;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 2%;
+    }
+
+    .content-form_button{
+        position: fixed;
+        width: 20vw;
         height: 10vw;
-        position: relative;
         left: 50%;
+        bottom: 3%;
         transform: translateX(-50%);
-        margin-top: 5%;
-        margin-bottom: 5%;
     }
 
-    /* 주소 api */
-    #sample3_postcode{
-        width: 30vw;
-        height: 5vw;
+    #prev_button{
+        position: fixed;
+        width: 10vw;
+        height: 10vw;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
     }
-    #sample3_address{
-        height: 5vw;
-    }
-    #sample3_detailAddress{
-        height: 5vw;
-    }
-    #sample3_extraAddress{
-        height: 5vw;
-    }
-    #wrap{
-        display:none;
-        border:1px solid;
-        width: 100%;
-        height: 50vw;
-        margin:5px 0;
-        position:relative;
-        overflow:auto;
-        -webkit-overflow-scrolling:touch;
+
+    #next_button{
+        position: fixed;
+        width: 10vw;
+        height: 10vw;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
     }
 }
-
 @media(min-device-width : 600px){
     *{
         display: none;

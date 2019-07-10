@@ -997,3 +997,57 @@ def modify_review(request, review_id, catsitter_id, time_rate, kindness_rate, ac
         result = { "result" : "anonymous_user" }
 
     return JsonResponse(result)
+
+
+def write_form_cateeToCatsitter(request) :
+
+    return render(request, 'takmyo_app/write_form_cateeToCatsitter.html')
+
+def register_cat(request) :
+
+    user = request.user
+
+    if request.method == 'GET' :
+
+        return render(request, 'takmyo_app/register_cat.html')
+
+    elif request.method == 'POST' :
+
+        print(request.FILES.getlist('cat_profile_image'))
+        print(request.POST.getlist('cat_name'))
+        print(request.POST.getlist('cat_age'))
+        print(request.POST.getlist('cat_feature'))
+        print(request.POST.getlist('cat_warning'))
+
+        cat_names = request.POST.getlist('cat_name')
+
+        catee = Catee.objects.get(id=1)
+
+        print(catee)
+
+        for idx, cat_name in enumerate(cat_names) :
+            if(cat_name == '') :
+                break
+
+            print(request.POST['cat_gender_' + str(idx+1)], request.POST['cat_neutralization_' + str(idx+1)])
+
+            neutralization = False
+            if request.POST['cat_neutralization_' + str(idx+1)] == 'true' :
+                neutralization = True
+    
+            new_cat = Cat.objects.create(
+                cat_profile_image = request.FILES.getlist('cat_profile_image')[idx],
+                owner = catee,
+                name = cat_name,
+                age = request.POST.getlist('cat_age')[idx],
+                gender = request.POST['cat_gender_' + str(idx+1)],
+                neutralization = neutralization,
+                feature = request.POST.getlist('cat_feature')[idx],
+                warning = request.POST.getlist('cat_warning')[idx]
+            )
+
+        return render(request, 'takmyo_app/register_cat.html')
+
+def base(request) :
+
+    return render(request, 'takmyo_app/base.html')

@@ -24,7 +24,11 @@ urlpatterns = [
     path('show_catsitter/<int:catsitter_id>/register_review/<str:time_rate>/<str:kindness_rate>/<str:achievement_rate>/<str:review_comment>/', views.register_review),
     path('show_catsitter/<int:catsitter_id>/modify_review/<int:review_id>/<str:time_rate>/<str:kindness_rate>/<str:achievement_rate>/<str:review_comment>/', views.modify_review),
     path('show_catsitter/<int:catsitter_id>/delete_review/<int:review_id>/', views.delete_review),
+    path('write_form_cateeToCatsitter/', views.write_form_cateeToCatsitter),
 
+    path('register_cat/', views.register_cat),
+
+    path('base/', views.base),
     # path('test/', views.test),
     # path('test/get_user_list/', views.get_user_list),
 ]
