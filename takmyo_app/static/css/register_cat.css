@@ -9,6 +9,9 @@
         /* background-color: #FAF4C0; */
         overflow-x: hidden;
         overflow-y: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
     }
 
     a{
