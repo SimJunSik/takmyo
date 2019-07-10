@@ -49,11 +49,11 @@ const prev = () => {
         $("#prev_button").show();
     }
 
-    const left_value = 40.6 * (current_index-1);
+    const left_value = 89 * (current_index-1);
     console.log(left_value);
 
     $(".content-form-itemListWrapper").stop().animate({
-        'left' : "-" + String(left_value) + 'vh'
+        'left' : "-" + String(left_value) + 'vw'
     },100);
 
     $("#next_button").show();
@@ -69,11 +69,11 @@ const next = () => {
         $("#next_button").hide();
     }
 
-    const left_value = 40.6 * (current_index-1);
+    const left_value = 89 * (current_index-1);
     console.log(left_value);
 
     $(".content-form-itemListWrapper").stop().animate({
-        'left' : '-' + String(left_value) + 'vh'
+        'left' : '-' + String(left_value) + 'vw'
     },100);
 
     $("#prev_button").show();
@@ -110,12 +110,12 @@ const check_submit = () => {
         const age_text = $(ages[i]).val();
         console.log(name_text, age_text);
 
-        const idx_value = 40.6 * i;
+        const idx_value = 89 * i;
         if(name_text == '' || age_text == ''){
             console.log(i, idx_value);
         
             $(".content-form-itemListWrapper").stop().animate({
-                'left' : '-' + String(idx_value) + 'vh'
+                'left' : '-' + String(idx_value) + 'vw'
             },100);
 
             let current_index = $(".content-formWrapper").data('currentIndex');

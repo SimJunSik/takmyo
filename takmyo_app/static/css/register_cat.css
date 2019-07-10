@@ -273,12 +273,12 @@
 
     .content-form-itemWrapper{
         position: relative;
-        width: 35vh;
+        width: 77vw;
         height: 90%;
         background-color: indianred;
         float: left;
         top: 50%;
-        margin-left: 5.6vh;
+        margin-left: 12vw;
         transform: translateY(-50%);
     }
     
