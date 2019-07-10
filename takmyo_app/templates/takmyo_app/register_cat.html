@@ -201,13 +201,25 @@
                                     id="cat_profile_{{forloop.counter}}"
                                     />
                             </label>
-                            <input class="content-form-item-imageInput" id="content-form-item-imageInput_{{forloop.counter}}" name="cat_profile_image_{{forloop.counter}}" type="file" data-image-src=''/>
+                            <input class="content-form-item-imageInput" 
+                                    id="content-form-item-imageInput_{{forloop.counter}}" 
+                                    name="cat_profile_image_{{forloop.counter}}" 
+                                    type="file" 
+                                    data-image-src=''/>
                         </div>
                         <div class="content-form-item-inputWrapper">
-                            <input type="text" name="cat_name" class="content-form-item_input" id="cat_name_{{forloop.counter}}" placeholder="이름">
+                            <input type="text" 
+                                    name="cat_name" 
+                                    class="content-form-item_input" 
+                                    id="cat_name_{{forloop.counter}}" 
+                                    placeholder="이름">
                         </div>
                         <div class="content-form-item-inputWrapper">
-                            <input type="text" name="cat_age" class="content-form-item_input" id="cat_age_{{forloop.counter}}" placeholder="나이">
+                            <input type="text" 
+                                    name="cat_age" 
+                                    class="content-form-item_input" 
+                                    id="cat_age_{{forloop.counter}}" 
+                                    placeholder="나이">
                         </div>
                         <div class="content-form-item-inputWrapper">
                             <div class="content-form-item-domainWrapper">
@@ -216,8 +228,16 @@
                                 </div>
                             </div>
                             <div class="content-form-item-radioWrapper">
-                                <input class="content-form-item_radioInput" type="radio" name="cat_gender_{{forloop.counter}}" value="men" checked>남
-                                <input class="content-form-item_radioInput" type="radio" name="cat_gender_{{forloop.counter}}" value="women" >여
+                                <input class="content-form-item_radioInput" 
+                                        type="radio" 
+                                        name="cat_gender_{{forloop.counter}}" 
+                                        value="men" 
+                                        checked>남
+
+                                <input class="content-form-item_radioInput" 
+                                        type="radio" 
+                                        name="cat_gender_{{forloop.counter}}" 
+                                        value="women" >여
                             </div>
                         </div>
                         <div class="content-form-item-inputWrapper">
@@ -227,31 +247,36 @@
                                 </div>
                             </div>
                             <div class="content-form-item-radioWrapper">
-                                <input class="content-form-item_radioInput" type="radio" name="cat_neutralization_{{forloop.counter}}" value="true">유
-                                <input class="content-form-item_radioInput" type="radio" name="cat_neutralization_{{forloop.counter}}" value="false" checked>무
+                                <input class="content-form-item_radioInput" 
+                                        type="radio" 
+                                        name="cat_neutralization_{{forloop.counter}}" 
+                                        value="true">유
+
+                                <input class="content-form-item_radioInput" 
+                                        type="radio" 
+                                        name="cat_neutralization_{{forloop.counter}}" 
+                                        value="false" 
+                                        checked>무
                             </div>    
                         </div>
                         <div class="content-form-item-textareaWrapper">
-                            <textarea class="content-form-item_textarea" id="cat_feature_{{forloop.counter}}" cols="50" rows="30" name="cat_feature" placeholder="성격 및 특징"></textarea>
+                            <textarea class="content-form-item_textarea" 
+                                        id="cat_feature_{{forloop.counter}}" 
+                                        cols="50" 
+                                        rows="30" 
+                                        name="cat_feature" 
+                                        placeholder="성격 및 특징"></textarea>
                         </div>
                         <div class="content-form-item-textareaWrapper">
-                            <textarea class="content-form-item_textarea" id="cat_warning_{{forloop.counter}}" cols="50" rows="30" name="cat_warning" placeholder="주의사항"></textarea>
+                            <textarea class="content-form-item_textarea" 
+                                        id="cat_warning_{{forloop.counter}}" 
+                                        cols="50" 
+                                        rows="30" 
+                                        name="cat_warning" 
+                                        placeholder="주의사항"></textarea>
                         </div>
                     </div>
                 {% endfor %}
-
-                <!-- <div class="content-form-itemWrapper">
-                    
-                </div>
-                <div class="content-form-itemWrapper">
-                    
-                </div>
-                <div class="content-form-itemWrapper">
-                    
-                </div>
-                <div class="content-form-itemWrapper">
-                    
-                </div> -->
 
                 <button type="button" id="prev_button" onclick="prev()">이전</button>
                 <button type="button" id="next_button" onclick="next()">다음</button>
