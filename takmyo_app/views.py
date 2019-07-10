@@ -1013,7 +1013,9 @@ def register_cat(request) :
 
     elif request.method == 'POST' :
 
-        print(request.FILES.getlist('cat_profile_image'))
+        # print(request.FILES.getlist('cat_profile_image'))
+        # print(request.FILES.getlist('cat_profile_image_1'))
+        # print(request.FILES['cat_profile_image_1'])
         print(request.POST.getlist('cat_name'))
         print(request.POST.getlist('cat_age'))
         print(request.POST.getlist('cat_feature'))
@@ -1036,7 +1038,6 @@ def register_cat(request) :
                 neutralization = True
     
             new_cat = Cat.objects.create(
-                cat_profile_image = request.FILES.getlist('cat_profile_image')[idx],
                 owner = catee,
                 name = cat_name,
                 age = request.POST.getlist('cat_age')[idx],
@@ -1045,6 +1046,12 @@ def register_cat(request) :
                 feature = request.POST.getlist('cat_feature')[idx],
                 warning = request.POST.getlist('cat_warning')[idx]
             )
+
+            try :
+                new_cat.cat_profile_image = request.FILES['cat_profile_image_' + str(idx+1)]
+                new_cat.save()
+            except :
+                pass
 
         return render(request, 'takmyo_app/register_cat.html')
 
