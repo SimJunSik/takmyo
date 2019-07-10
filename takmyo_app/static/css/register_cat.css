@@ -367,7 +367,7 @@
     }
 
     .content-form_button{
-        position: fixed;
+        position: absolute;
         width: 20vw;
         height: 10vw;
         left: 50%;
