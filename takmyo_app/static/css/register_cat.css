@@ -366,13 +366,21 @@
         margin-left: 2%;
     }
 
-    .content-form_button{
+    .cotent-form-buttonWrapper{
         position: absolute;
+        width: 45vw;
+        height: 10vw;
+        bottom: 3%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: violet;
+    }
+
+    .content-form_button{
+        position: relative;
         width: 20vw;
         height: 10vw;
-        left: 50%;
-        bottom: 3%;
-        transform: translateX(-50%);
+        float: right;
     }
 
     #prev_button{
@@ -391,6 +399,13 @@
         top: 50%;
         right: 0;
         transform: translateY(-50%);
+    }
+
+    #add_button{
+        position: relative;
+        width: 20vw;
+        height: 10vw;
+        float: left;
     }
 }
 @media(min-device-width : 600px){
